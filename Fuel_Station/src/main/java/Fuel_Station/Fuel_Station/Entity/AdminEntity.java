@@ -8,7 +8,7 @@ public class AdminEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int adminId;
+    private long adminId;
 
     @Column(nullable = false)
     private String adminUsername;
@@ -22,7 +22,7 @@ public class AdminEntity {
     @Column
     private String contactNumber;
 
-    public AdminEntity(int adminId, String adminUsername, String adminPassword, String adminEmail, String contactNumber) {
+    public AdminEntity(long adminId, String adminUsername, String adminPassword, String adminEmail, String contactNumber) {
         this.adminId = adminId;
         this.adminUsername = adminUsername;
         this.adminPassword = adminPassword;
@@ -33,11 +33,11 @@ public class AdminEntity {
     public AdminEntity() {
     }
 
-    public int getAdminId() {
+    public long getAdminId() {
         return adminId;
     }
 
-    public void setAdminId(int adminId) {
+    public void setAdminId(long adminId) {
         this.adminId = adminId;
     }
 
