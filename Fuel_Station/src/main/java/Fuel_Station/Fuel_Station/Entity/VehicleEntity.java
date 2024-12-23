@@ -8,7 +8,9 @@ public class VehicleEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long VehicleId;
+
+    private Long VehicleId;
+
     @Column(name="Vehicle_Number")
     private String VehicleNumber;
     @Column(name="Vehicle_Type")
@@ -19,18 +21,22 @@ public class VehicleEntity {
     public VehicleEntity() {
     }
 
-    public VehicleEntity(long vehicleId, String vehicleNumber, String vehicleType, String fuelType) {
+
+    public VehicleEntity(Long vehicleId, String vehicleNumber, String vehicleType, String fuelType) {
+
         VehicleId = vehicleId;
         VehicleNumber = vehicleNumber;
         VehicleType = vehicleType;
         FuelType = fuelType;
     }
 
-    public long getVehicleId() {
+
+    public Long getVehicleId() {
         return VehicleId;
     }
 
-    public void setVehicleId(long vehicleId) {
+    public void setVehicleId(Long vehicleId) {
+
         VehicleId = vehicleId;
     }
 

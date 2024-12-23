@@ -13,9 +13,9 @@ public class TransactionEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long transactionId;
 
-    private String fuelType;
 
-    private Long employeeId;
+
+
 
     private Double quantity;
 
@@ -24,10 +24,10 @@ public class TransactionEntity {
     public TransactionEntity(){
 
     }
-    public TransactionEntity(Long transactionId,String fuelType,Long employeeId,Double quantity,LocalDateTime dateTime){
+    public TransactionEntity(Long transactionId,Double quantity,LocalDateTime dateTime){
         this.transactionId=transactionId;
-        this.fuelType=fuelType;
-        this.employeeId=employeeId;
+
+
         this.quantity= quantity;
         this.dateTime=dateTime;
     }
@@ -36,24 +36,11 @@ public class TransactionEntity {
     }
 
     public void setTransactionId(Long transactionId) {
-        this.transactionId = transactionId;
-    }
+        this.transactionId = transactionId;}
 
-    public String getFuelType() {
-        return fuelType;
-    }
 
-    public void setFuelType(String fuelType) {
-        this.fuelType = fuelType;
-    }
 
-    public Long getEmployeeId() {
-        return employeeId;
-    }
 
-    public void setEmployeeId(Long employeeId) {
-        this.employeeId = employeeId;
-    }
 
     public Double getQuantity() {
         return quantity;
@@ -75,8 +62,7 @@ public class TransactionEntity {
     public String toString() {
         return "TransactionEntity{" +
                 "transactionId=" + transactionId +
-                ", fuelType='" + fuelType + '\'' +
-                ", employeeId=" + employeeId +
+
                 ", quantity=" + quantity +
                 ", dateTime=" + dateTime +
                 '}';
