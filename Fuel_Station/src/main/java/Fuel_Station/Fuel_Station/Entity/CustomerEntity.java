@@ -9,7 +9,7 @@ import jakarta.persistence.*;
 public class CustomerEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int customerId;
     @Column
     private String customerNIC;
