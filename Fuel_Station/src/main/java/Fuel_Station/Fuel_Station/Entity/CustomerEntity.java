@@ -1,15 +1,25 @@
 package Fuel_Station.Fuel_Station.Entity;
 
 
+import jakarta.persistence.*;
 
+@Entity
+@Table(name = "Customer")
 
 public class CustomerEntity {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int customerId;
+    @Column
     private String customerNIC;
+    @Column
     private String customerName;
+    @Column
     private  String customerEmail;
+    @Column
     private String customerUsername;
+    @Column
     private String customerPassword;
 
     public CustomerEntity() {

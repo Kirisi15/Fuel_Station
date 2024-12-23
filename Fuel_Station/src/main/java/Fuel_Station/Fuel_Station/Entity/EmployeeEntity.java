@@ -6,102 +6,103 @@ import jakarta.persistence.*;
 @Table(name = "Employee")
 public class EmployeeEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private String EmpId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long Employee_Id;
     @Column
-    private Long NIC;
+    private Long Employee_NIC;
     @Column
-    private String Jobrole;
+    private String Employee_Jobrole;
     @Column
 
-    private Long Contactnumber;
+    private Long Employee_Contactnumber;
     @Column
-    private String Stationlicense;
+    private String Employee_Stationlicense;
     @Column
-    private String Username;
+    private String Employee_Username;
     @Column
-    private String Password;
+    private String Employee_Password;
 
     public EmployeeEntity() {
 
     }
 
-    public EmployeeEntity(String empId, Long NIC, String jobrole, Long contactnumber, String stationlicense, String username, String password) {
-        EmpId = empId;
-        this.NIC = NIC;
-        Jobrole = jobrole;
-        Contactnumber = contactnumber;
-        Stationlicense = stationlicense;
-        Username = username;
-        Password = password;
+    public EmployeeEntity(String employee_Id, Long employee_NIC, String employee_Jobrole, Long employee_Contactnumber, String employee_Stationlicense, String employee_Username, String employee_Password) {
+        Employee_Id = Long.valueOf(employee_Id);
+        Employee_NIC = employee_NIC;
+        Employee_Jobrole = employee_Jobrole;
+        Employee_Contactnumber = employee_Contactnumber;
+        Employee_Stationlicense = employee_Stationlicense;
+        Employee_Username = employee_Username;
+        Employee_Password = employee_Password;
     }
 
-    public String getEmpId() {
-        return EmpId;
+    public Long getEmployee_Id() {
+        return Employee_Id;
     }
 
-    public void setEmpId(String empId) {
-        EmpId = empId;
+    public void setEmployee_Id(String employee_Id) {
+        Employee_Id = Long.valueOf(employee_Id);
     }
 
-    public Long getNIC() {
-        return NIC;
+    public Long getEmployee_NIC() {
+        return Employee_NIC;
     }
 
-    public void setNIC(Long NIC) {
-        this.NIC = NIC;
+    public void setEmployee_NIC(Long employee_NIC) {
+        Employee_NIC = employee_NIC;
     }
 
-    public String getJobrole() {
-        return Jobrole;
+    public String getEmployee_Jobrole() {
+        return Employee_Jobrole;
     }
 
-    public void setJobrole(String jobrole) {
-        Jobrole = jobrole;
+    public void setEmployee_Jobrole(String employee_Jobrole) {
+        Employee_Jobrole = employee_Jobrole;
     }
 
-    public Long getContactnumber() {
-        return Contactnumber;
+    public Long getEmployee_Contactnumber() {
+        return Employee_Contactnumber;
     }
 
-    public void setContactnumber(Long contactnumber) {
-        Contactnumber = contactnumber;
+    public void setEmployee_Contactnumber(Long employee_Contactnumber) {
+        Employee_Contactnumber = employee_Contactnumber;
     }
 
-    public String getStationlicense() {
-        return Stationlicense;
+    public String getEmployee_Stationlicense() {
+        return Employee_Stationlicense;
     }
 
-    public void setStationlicense(String stationlicense) {
-        Stationlicense = stationlicense;
+    public void setEmployee_Stationlicense(String employee_Stationlicense) {
+        Employee_Stationlicense = employee_Stationlicense;
     }
 
-    public String getUsername() {
-        return Username;
+    public String getEmployee_Username() {
+        return Employee_Username;
     }
 
-    public void setUsername(String username) {
-        Username = username;
+    public void setEmployee_Username(String employee_Username) {
+        Employee_Username = employee_Username;
     }
 
-    public String getPassword() {
-        return Password;
+    public String getEmployee_Password() {
+        return Employee_Password;
     }
 
-    public void setPassword(String password) {
-        Password = password;
+    public void setEmployee_Password(String employee_Password) {
+        Employee_Password = employee_Password;
     }
 
     @Override
     public String toString() {
         return "EmployeeEntity{" +
-                "EmpId='" + EmpId + '\'' +
-                ", NIC=" + NIC +
-                ", Jobrole='" + Jobrole + '\'' +
-                ", Contactnumber=" + Contactnumber +
-                ", Stationlicense='" + Stationlicense + '\'' +
-                ", Username='" + Username + '\'' +
-                ", Password='" + Password + '\'' +
+                "Employee_Id='" + Employee_Id + '\'' +
+                ", Employee_NIC=" + Employee_NIC +
+                ", Employee_Jobrole='" + Employee_Jobrole + '\'' +
+                ", Employee_Contactnumber=" + Employee_Contactnumber +
+                ", Employee_Stationlicense='" + Employee_Stationlicense + '\'' +
+                ", Employee_Username='" + Employee_Username + '\'' +
+                ", Employee_Password='" + Employee_Password + '\'' +
                 '}';
     }
 }
+
