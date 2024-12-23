@@ -7,7 +7,7 @@ import jakarta.persistence.*;
 public class EmployeeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String Employee_Id;
+    private Long Employee_Id;
     @Column
     private Long Employee_NIC;
     @Column
@@ -27,7 +27,7 @@ public class EmployeeEntity {
     }
 
     public EmployeeEntity(String employee_Id, Long employee_NIC, String employee_Jobrole, Long employee_Contactnumber, String employee_Stationlicense, String employee_Username, String employee_Password) {
-        Employee_Id = employee_Id;
+        Employee_Id = Long.valueOf(employee_Id);
         Employee_NIC = employee_NIC;
         Employee_Jobrole = employee_Jobrole;
         Employee_Contactnumber = employee_Contactnumber;
@@ -36,12 +36,12 @@ public class EmployeeEntity {
         Employee_Password = employee_Password;
     }
 
-    public String getEmployee_Id() {
+    public Long getEmployee_Id() {
         return Employee_Id;
     }
 
     public void setEmployee_Id(String employee_Id) {
-        Employee_Id = employee_Id;
+        Employee_Id = Long.valueOf(employee_Id);
     }
 
     public Long getEmployee_NIC() {
