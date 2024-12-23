@@ -9,11 +9,11 @@ public class VehicleEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String VehicleId;
-    @Column
+    @Column(name="Vehicle_Number")
     private String VehicleNumber;
-    @Column
+    @Column(name="Vehicle_Type")
     private String VehicleType;
-    @Column
+    @Column(name="Fuel_Type")
     private String FuelType;
 
     public VehicleEntity() {
