@@ -2,6 +2,9 @@ package Fuel_Station.Fuel_Station.Entity;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name = "Employee")
 public class EmployeeEntity {
@@ -15,23 +18,27 @@ public class EmployeeEntity {
     @Column
 
     private Long Employee_Contactnumber;
-    @Column
-    private String Employee_Stationlicense;
+
     @Column
     private String Employee_Username;
     @Column
     private String Employee_Password;
+    @ManyToOne
+    @JoinColumn(name = "stationId", nullable = false)
+    private FuelStationEntity station;
+
+    @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL)
+    private List<TransactionEntity> transactions = new ArrayList<>();
 
     public EmployeeEntity() {
 
     }
 
-    public EmployeeEntity(String employee_Id, Long employee_NIC, String employee_Jobrole, Long employee_Contactnumber, String employee_Stationlicense, String employee_Username, String employee_Password) {
+    public EmployeeEntity(String employee_Id, Long employee_NIC, String employee_Jobrole, Long employee_Contactnumber, String employee_Username, String employee_Password) {
         Employee_Id = Long.valueOf(employee_Id);
         Employee_NIC = employee_NIC;
         Employee_Jobrole = employee_Jobrole;
         Employee_Contactnumber = employee_Contactnumber;
-        Employee_Stationlicense = employee_Stationlicense;
         Employee_Username = employee_Username;
         Employee_Password = employee_Password;
     }
@@ -68,13 +75,7 @@ public class EmployeeEntity {
         Employee_Contactnumber = employee_Contactnumber;
     }
 
-    public String getEmployee_Stationlicense() {
-        return Employee_Stationlicense;
-    }
 
-    public void setEmployee_Stationlicense(String employee_Stationlicense) {
-        Employee_Stationlicense = employee_Stationlicense;
-    }
 
     public String getEmployee_Username() {
         return Employee_Username;
@@ -99,7 +100,6 @@ public class EmployeeEntity {
                 ", Employee_NIC=" + Employee_NIC +
                 ", Employee_Jobrole='" + Employee_Jobrole + '\'' +
                 ", Employee_Contactnumber=" + Employee_Contactnumber +
-                ", Employee_Stationlicense='" + Employee_Stationlicense + '\'' +
                 ", Employee_Username='" + Employee_Username + '\'' +
                 ", Employee_Password='" + Employee_Password + '\'' +
                 '}';
