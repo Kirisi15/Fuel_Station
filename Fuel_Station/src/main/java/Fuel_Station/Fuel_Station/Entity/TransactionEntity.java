@@ -13,9 +13,18 @@ public class TransactionEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long transactionId;
 
-
-
-
+@ManyToOne
+@JoinColumn(name = "stationId",referencedColumnName = "stationId",nullable = false)
+private FuelStationEntity Fuelstation;
+    @ManyToOne
+    @JoinColumn(name = "fuelId", referencedColumnName = "fuelId", nullable = false)
+    private FuelEntity fuel;
+    @ManyToOne
+    @JoinColumn(name = "vehicleId",referencedColumnName = "vehicleId",nullable = false)
+    private VehicleEntity vehicle;
+    @ManyToOne
+    @JoinColumn(name = "empId",referencedColumnName = "empId",nullable = false)
+    private EmployeeEntity employee;
 
     private Double quantity;
 
