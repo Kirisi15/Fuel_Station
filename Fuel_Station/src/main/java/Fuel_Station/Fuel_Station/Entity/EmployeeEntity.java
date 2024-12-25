@@ -27,8 +27,7 @@ public class EmployeeEntity {
     @JoinColumn(name = "stationId", nullable = false)
     private FuelStationEntity station;
 
-    @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL)
-    private List<TransactionEntity> transactions = new ArrayList<>();
+
 
     public EmployeeEntity() {
 
