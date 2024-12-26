@@ -2,6 +2,11 @@ package Fuel_Station.Fuel_Station.Entity;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 @Entity
 @Table(name="Vehicle")
 public class VehicleEntity {
@@ -17,6 +22,22 @@ public class VehicleEntity {
     private String VehicleType;
     @Column(name="Fuel_Type")
     private String FuelType;
+
+    @ManyToOne
+    @JoinColumn(name = "customerId", nullable = false)
+    private CustomerEntity customer;
+
+    @OneToMany(mappedBy = "vehicle", cascade = CascadeType.ALL)
+    private List<TransactionEntity> transactions = new ArrayList<>();
+
+    @ManyToMany
+    @JoinTable(
+            name = "Vehicle_FuelStation",
+            joinColumns = @JoinColumn(name = "VehicleId"),
+            inverseJoinColumns = @JoinColumn(name = "StationId")
+    )
+    private Set<FuelStationEntity> fuelStations = new HashSet<>();
+
 
     public VehicleEntity() {
     }
