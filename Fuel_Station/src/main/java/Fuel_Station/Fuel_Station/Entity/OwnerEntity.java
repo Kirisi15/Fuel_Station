@@ -2,12 +2,18 @@ package Fuel_Station.Fuel_Station.Entity;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name="owner")
 public class OwnerEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int ownerId;
+    @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL)
+    private List<FuelStationEntity> fuelStations = new ArrayList<>();
+
 
     @Column(name="name")
     private String name;
