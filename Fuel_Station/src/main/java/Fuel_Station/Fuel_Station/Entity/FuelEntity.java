@@ -13,7 +13,7 @@ public class FuelEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 
-    private int pumpId;
+    private int fuelId;
     @OneToMany(mappedBy = "fuel", cascade = CascadeType.ALL)
     private List<TransactionEntity> transactions = new ArrayList<>();
 
@@ -28,8 +28,8 @@ public class FuelEntity {
     @Column(name="remain_fuel")
     private String remailFuel;
 
-    public FuelEntity(int pumpId, String fuelType, String remailFuel) {
-        this.fuelId= pumpId;
+    public FuelEntity(int fuelId, String fuelType, String remailFuel) {
+        this.fuelId= fuelId;
         this.fuelType = fuelType;
         this.remailFuel = remailFuel;
     }
