@@ -2,12 +2,25 @@ package Fuel_Station.Fuel_Station.Entity;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 @Entity
 @Table(name="fuel")
 public class FuelEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int fuelId;
+
+    private int pumpId;
+    @OneToMany(mappedBy = "fuel", cascade = CascadeType.ALL)
+    private List<TransactionEntity> transactions = new ArrayList<>();
+
+    @ManyToMany(mappedBy = "fuels")
+    private Set<FuelStationEntity> fuelStations = new HashSet<>();
+
+ 
 
     @Column(name="fuel_type")
     private String fuelType;
