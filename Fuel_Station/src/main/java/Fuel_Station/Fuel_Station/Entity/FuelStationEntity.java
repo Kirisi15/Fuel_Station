@@ -17,16 +17,12 @@ public class FuelStationEntity {
 @ManyToOne
 @JoinColumn(name = "ownerId",referencedColumnName = "ownerId",nullable = false)
 private OwnerEntity owner;
-@OneToMany(mappedBy = "Employee",cascade =CascadeType.ALL )
+@OneToMany(mappedBy = "FuelStation",cascade =CascadeType.ALL )
 private List<EmployeeEntity> employee=new ArrayList<>();
-@OneToMany(mappedBy = "Transaction",cascade = CascadeType.ALL)
+@OneToMany(mappedBy = "FuelStation",cascade = CascadeType.ALL)
 private List<TransactionEntity> transaction =new ArrayList<>();
-@ManyToMany
-@JoinTable(
-        name = "FuelStation_Vehicle",
-        joinColumns = @JoinColumn(name = "stationId")
-       ,inverseJoinColumns =  @JoinColumn(name = "vehicleId")
-)
+@ManyToMany(mappedBy = "FuelStation")
+
 private Set<VehicleEntity> vehicle = new HashSet<>();
 
 

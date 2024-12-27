@@ -12,12 +12,15 @@ import java.util.Set;
 public class FuelEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     private int pumpId;
     @OneToMany(mappedBy = "fuel", cascade = CascadeType.ALL)
     private List<TransactionEntity> transactions = new ArrayList<>();
 
     @ManyToMany(mappedBy = "fuels")
     private Set<FuelStationEntity> fuelStations = new HashSet<>();
+
+ 
 
     @Column(name="fuel_type")
     private String fuelType;
@@ -26,17 +29,17 @@ public class FuelEntity {
     private String remailFuel;
 
     public FuelEntity(int pumpId, String fuelType, String remailFuel) {
-        this.pumpId = pumpId;
+        this.fuelId= pumpId;
         this.fuelType = fuelType;
         this.remailFuel = remailFuel;
     }
 
     public int getPumpId() {
-        return pumpId;
+        return fuelId;
     }
 
     public void setPumpId(int pumpId) {
-        this.pumpId = pumpId;
+        this.fuelId = pumpId;
     }
 
     public String getFuelType() {
