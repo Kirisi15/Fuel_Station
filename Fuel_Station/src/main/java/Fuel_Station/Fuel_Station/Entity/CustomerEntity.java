@@ -8,21 +8,20 @@ import java.util.List;
 
 @Entity
 @Table(name = "Customer")
-
 public class CustomerEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY                                                        )
     private int customerId;
-    @Column
+    @Column(name = "Customer_NIC")
     private String customerNIC;
-    @Column
+    @Column(name = "Customer_Name")
     private String customerName;
-    @Column
+    @Column(name = "Customer_Email")
     private  String customerEmail;
-    @Column
+    @Column(name = "Customer_UserName")
     private String customerUsername;
-    @Column
+    @Column(name = "Customer_Password")
     private String customerPassword;
 
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)

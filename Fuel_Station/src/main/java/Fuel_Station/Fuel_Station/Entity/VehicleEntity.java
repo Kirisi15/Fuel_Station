@@ -3,9 +3,7 @@ package Fuel_Station.Fuel_Station.Entity;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Table(name="Vehicle")
@@ -36,7 +34,7 @@ public class VehicleEntity {
             joinColumns = @JoinColumn(name = "VehicleId"),
             inverseJoinColumns = @JoinColumn(name = "StationId")
     )
-    private Set<FuelStationEntity> fuelStations = new HashSet<>();
+    private List<FuelStationEntity> fuelStations = new ArrayList<>();
 
 
     public VehicleEntity() {

@@ -1,6 +1,7 @@
 package Fuel_Station.Fuel_Station.Entity;
 
 import jakarta.persistence.*;
+
 @Entity
 @Table(name = "admin")
 

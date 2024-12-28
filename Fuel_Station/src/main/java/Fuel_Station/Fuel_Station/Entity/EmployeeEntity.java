@@ -10,6 +10,7 @@ import java.util.List;
 public class EmployeeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "empId")
     private Long Employee_Id;
     @Column
     private Long Employee_NIC;
@@ -23,9 +24,13 @@ public class EmployeeEntity {
     private String Employee_Username;
     @Column
     private String Employee_Password;
+
     @ManyToOne
     @JoinColumn(name = "stationId", nullable = false)
-    private FuelStationEntity station;
+    private FuelStationEntity fuelStation;
+
+    @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL)
+    private List<TransactionEntity> transactions = new ArrayList<>();
 
 
 
