@@ -15,7 +15,7 @@ public class TransactionEntity {
 
 @ManyToOne
 @JoinColumn(name = "stationId",referencedColumnName = "stationId",nullable = false)
-private FuelStationEntity Fuelstation;
+private FuelStationEntity FuelStation;
     @ManyToOne
     @JoinColumn(name = "fuelId", referencedColumnName = "fuelId", nullable = false)
     private FuelEntity fuel;

@@ -43,6 +43,9 @@ public class OwnerEntity {
         this.password = password;
     }
 
+    public OwnerEntity() {
+    }
+
     public int getOwnerId() {
         return ownerId;
     }

@@ -3,22 +3,24 @@ package Fuel_Station.Fuel_Station.Entity;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
+
 
 @Entity
 @Table(name="fuel")
 public class FuelEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int fuelId;
+
 
     private int fuelId;
+  
     @OneToMany(mappedBy = "fuel", cascade = CascadeType.ALL)
     private List<TransactionEntity> transactions = new ArrayList<>();
 
-    @ManyToMany(mappedBy = "fuels")
-    private Set<FuelStationEntity> fuelStations = new HashSet<>();
+    @ManyToMany(mappedBy = "fuel")
+    private List<FuelStationEntity> fuelStations = new ArrayList<>();
 
  
 
@@ -34,11 +36,14 @@ public class FuelEntity {
         this.remailFuel = remailFuel;
     }
 
-    public int getPumpId() {
+    public FuelEntity() {
+    }
+
+    public int getFuelId() {
         return fuelId;
     }
 
-    public void setPumpId(int pumpId) {
+    public void setFuelId(int pumpId) {
         this.fuelId = pumpId;
     }
 
