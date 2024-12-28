@@ -11,9 +11,9 @@ import java.util.Optional;
 @Service
 public class AdminServiceImpl implements AdminService{
 
+    @Autowired
     private final AdminRepository adminRepository;
 
-    @Autowired
     public AdminServiceImpl(AdminRepository adminRepository) {
         this.adminRepository = adminRepository;
     }
