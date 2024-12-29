@@ -14,13 +14,14 @@ public class TransactionController {
     private TransactionService transactionService;
 
     @GetMapping
+
     public List<TransactionEntity> getAllTransactions() {
         return transactionService.getAllTransactions();
     }
 
     @GetMapping("/{id}")
-    public TransactionEntity getTransactionById(@PathVariable Long id) {
-        return transactionService.getTransactionById(id);
+    public TransactionEntity getTransactionById(@PathVariable Long transactionId) {
+        return transactionService.getTransactionById(transactionId);
     }
 
     @PostMapping
@@ -29,13 +30,13 @@ public class TransactionController {
     }
 
     @PutMapping("/{id}")
-    public TransactionEntity updateTransaction(@PathVariable Long id, @RequestBody TransactionEntity transaction) {
-        return transactionService.updateTransaction(id, transaction);
+    public TransactionEntity updateTransaction(@PathVariable Long transactionId, @RequestBody TransactionEntity transaction) {
+        return transactionService.updateTransaction(transactionId, transaction);
     }
 
     @DeleteMapping("/{id}")
-    public void deleteTransaction(@PathVariable Long id) {
-        transactionService.deleteTransaction(id);
+    public void deleteTransaction(@PathVariable Long transactionId) {
+        transactionService.deleteTransaction(transactionId);
     }
 }
 
