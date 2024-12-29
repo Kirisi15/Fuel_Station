@@ -14,7 +14,7 @@ public class FuelEntity {
     private int fuelId;
 
 
-    private int fuelId;
+
   
     @OneToMany(mappedBy = "fuel", cascade = CascadeType.ALL)
     private List<TransactionEntity> transactions = new ArrayList<>();
