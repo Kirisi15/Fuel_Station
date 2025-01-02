@@ -13,9 +13,6 @@ public class FuelEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long fuelId;
 
-
-
-  
     @OneToMany(mappedBy = "fuel", cascade = CascadeType.ALL)
     private List<TransactionEntity> transactions = new ArrayList<>();
 
