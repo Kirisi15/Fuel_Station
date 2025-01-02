@@ -27,9 +27,9 @@ public class EmployeeServiceImpl implements EmployeeService{
    {
        return employeeRepository.findAll();
    }
-    public EmployeeEntity updateEmployee( EmployeeEntity EmployeeEntity)
+    public EmployeeEntity updateEmployee( Long Employee_Id,EmployeeEntity EmployeeEntity)
     {
-        EmployeeEntity existingEmployee = employeeRepository.findById(EmployeeEntity.getEmployee_Id()).orElse(null);
+        EmployeeEntity existingEmployee = getEmployeeById(Employee_Id);
         existingEmployee.setEmployee_Contactnumber(EmployeeEntity.getEmployee_Contactnumber());
         existingEmployee.setEmployee_Jobrole(EmployeeEntity.getEmployee_Jobrole());
         existingEmployee.setEmployee_NIC(EmployeeEntity.getEmployee_NIC());

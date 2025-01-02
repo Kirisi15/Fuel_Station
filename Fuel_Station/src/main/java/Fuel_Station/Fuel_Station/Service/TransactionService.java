@@ -1,9 +1,9 @@
 package Fuel_Station.Fuel_Station.Service;
 
 import Fuel_Station.Fuel_Station.Entity.TransactionEntity;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
-
 public interface TransactionService {
     List<TransactionEntity> getAllTransactions();
     TransactionEntity getTransactionById(Long transactionId);
