@@ -4,6 +4,9 @@ import Fuel_Station.Fuel_Station.Entity.FuelEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
-public interface FuelRepository extends JpaRepository<FuelEntity, Integer> {
+public abstract interface FuelRepository extends JpaRepository<FuelEntity, Integer> {
+    Optional<FuelEntity> findById(int intExact);
 }

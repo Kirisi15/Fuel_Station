@@ -11,7 +11,8 @@ import java.util.List;
 public class FuelEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int fuelId;
+    private long fuelId;
+
     @OneToMany(mappedBy = "fuel", cascade = CascadeType.ALL)
     private List<TransactionEntity> transactions = new ArrayList<>();
 
@@ -26,7 +27,7 @@ public class FuelEntity {
     @Column(name="remain_fuel")
     private String remailFuel;
 
-    public FuelEntity(int fuelId, String fuelType, String remailFuel) {
+    public FuelEntity(long fuelId, String fuelType, String remailFuel) {
         this.fuelId= fuelId;
         this.fuelType = fuelType;
         this.remailFuel = remailFuel;
@@ -35,12 +36,12 @@ public class FuelEntity {
     public FuelEntity() {
     }
 
-    public int getFuelId() {
+    public long getFuelId() {
         return fuelId;
     }
 
-    public void setFuelId(int pumpId) {
-        this.fuelId = pumpId;
+    public void setFuelId(int fuelId) {
+        this.fuelId = fuelId;
     }
 
     public String getFuelType() {
@@ -61,6 +62,12 @@ public class FuelEntity {
 
     @Override
     public String toString() {
-        return "FuelEntity{}";
+        return "FuelEntity{" +
+                "fuelId=" + fuelId +
+                ", transactions=" + transactions +
+                ", fuelStations=" + fuelStations +
+                ", fuelType='" + fuelType + '\'' +
+                ", remailFuel='" + remailFuel + '\'' +
+                '}';
     }
 }

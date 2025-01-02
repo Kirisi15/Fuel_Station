@@ -46,7 +46,7 @@ public class OwnerEntity {
     public OwnerEntity() {
     }
 
-    public int getOwnerId() {
+    public long getOwnerId() {
         return ownerId;
     }
 
@@ -104,7 +104,19 @@ public class OwnerEntity {
 
     @Override
     public String toString() {
-        return "OwnerEntity{}";
+        return "OwnerEntity{" +
+                "ownerId=" + ownerId +
+                ", fuelStations=" + fuelStations +
+                ", name='" + name + '\'' +
+                ", nic='" + nic + '\'' +
+                ", contact_number='" + contact_number + '\'' +
+                ", email='" + email + '\'' +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                '}';
     }
+
+
+
 }
 
