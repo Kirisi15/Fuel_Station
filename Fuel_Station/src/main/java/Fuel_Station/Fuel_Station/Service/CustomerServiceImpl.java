@@ -11,10 +11,10 @@ import java.util.Optional;
 @Service
 public class CustomerServiceImpl implements CustomerService{
 
+
+     private final CustomerReposiory customerReposiory;
+
     @Autowired
-     private CustomerReposiory customerReposiory;
-
-
    public CustomerServiceImpl(CustomerReposiory customerReposiory) {
         this.customerReposiory = customerReposiory;
     }
