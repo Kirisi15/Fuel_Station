@@ -16,4 +16,8 @@ public interface CustomerService {
     CustomerEntity updateCustomer(CustomerEntity customerEntity);
 
     void deleteCustomer(Integer customerId);
+
+    CustomerEntity updateCustomer(Long customerId, CustomerEntity customerEntity);
+
+    void deleteCustomer(Long customerId);
 }

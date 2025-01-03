@@ -57,4 +57,14 @@ public class CustomerServiceImpl implements CustomerService{
     public void deleteCustomer(Integer customerId) {
         customerReposiory.deleteById(customerId);
     }
+
+    @Override
+    public CustomerEntity updateCustomer(Long customerId, CustomerEntity customerEntity) {
+        return null;
+    }
+
+    @Override
+    public void deleteCustomer(Long customerId) {
+
+    }
 }
