@@ -1,17 +1,28 @@
 package Fuel_Station.Fuel_Station.Service;
 
 import Fuel_Station.Fuel_Station.Entity.FuelEntity;
+import Fuel_Station.Fuel_Station.Entity.FuelStationEntity;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+@Service
 public interface FuelService {
     FuelEntity getFuelById(Long fuelId);
 
     FuelEntity createFuel(FuelEntity fuelEntity);
     FuelEntity getFuelById(long Fuel_Id);
     List< FuelEntity> getAllFuels();
-    FuelEntity updatefuel(FuelEntity FuelEntity);
+    FuelEntity updatefuel(Long fuelId, FuelEntity FuelEntity);
     void deletefuel(Integer fuel_Id);
 
+    FuelEntity addfuel(FuelEntity fuelStation);
+
+    FuelEntity updateStation(Long stationId, FuelStationEntity fuelStation);
+
+    void deleteFuel(Long fuelId);
+
+    FuelEntity updateFuel(FuelEntity fuelEntity);
+
+    List<FuelEntity> getAllFuel();
 }
 
