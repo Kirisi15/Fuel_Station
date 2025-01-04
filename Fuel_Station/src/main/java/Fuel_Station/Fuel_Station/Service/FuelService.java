@@ -5,7 +5,7 @@ import Fuel_Station.Fuel_Station.Entity.FuelStationEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-@Service
+
 public interface FuelService {
     FuelEntity getFuelById(Long fuelId);
 
