@@ -14,6 +14,7 @@ public class FuelStationController {
 
     @GetMapping
     public List<FuelStationEntity> getAllStations() {
+
         return fuelStationService.getAllStations();
     }
 
