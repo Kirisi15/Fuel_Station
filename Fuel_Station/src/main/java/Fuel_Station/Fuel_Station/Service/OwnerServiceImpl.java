@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public abstract class OwnerServiceImpl implements OwnerService {
+public class OwnerServiceImpl implements OwnerService {
 
     @Autowired
     private OwnerRepository ownerRepository;

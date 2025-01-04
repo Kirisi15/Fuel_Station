@@ -14,16 +14,16 @@ public class TransactionEntity {
     private Long transactionId;
 
 @ManyToOne
-@JoinColumn(name = "stationId",referencedColumnName = "stationId",nullable = false)
+@JoinColumn(name = "stationId")
 private FuelStationEntity FuelStation;
     @ManyToOne
-    @JoinColumn(name = "fuelId", referencedColumnName = "fuelId", nullable = false)
+    @JoinColumn(name = "fuelId")
     private FuelEntity fuel;
     @ManyToOne
-    @JoinColumn(name = "vehicleId",referencedColumnName = "vehicleId",nullable = false)
+    @JoinColumn(name = "vehicleId")
     private VehicleEntity vehicle;
     @ManyToOne
-    @JoinColumn(name = "empId",referencedColumnName = "empId",nullable = false)
+    @JoinColumn(name = "empId")
     private EmployeeEntity employee;
 
     private Double quantity;

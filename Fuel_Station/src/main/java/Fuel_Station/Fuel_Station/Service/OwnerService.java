@@ -4,7 +4,7 @@ import Fuel_Station.Fuel_Station.Entity.OwnerEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-@Service
+
 public interface OwnerService {
     OwnerEntity getOwnerById(Long ownerId);
 

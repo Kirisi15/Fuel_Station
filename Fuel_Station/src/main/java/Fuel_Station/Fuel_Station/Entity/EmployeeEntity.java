@@ -26,7 +26,7 @@ public class EmployeeEntity {
     private String Employee_Password;
 
     @ManyToOne
-    @JoinColumn(name = "stationId", nullable = false)
+    @JoinColumn(name = "stationId")
     private FuelStationEntity fuelStation;
 
     @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL)
