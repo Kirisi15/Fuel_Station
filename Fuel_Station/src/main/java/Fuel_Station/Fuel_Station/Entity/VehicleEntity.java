@@ -2,6 +2,7 @@ package Fuel_Station.Fuel_Station.Entity;
 
 import jakarta.persistence.*;
 
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,7 +12,6 @@ public class VehicleEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
     private Long VehicleId;
 
     @Column(name="Vehicle_Number")
@@ -22,7 +22,7 @@ public class VehicleEntity {
     private String FuelType;
 
     @ManyToOne
-    @JoinColumn(name = "customerId", nullable = false)
+    @JoinColumn(name = "customerId")
     private CustomerEntity customer;
 
     @OneToMany(mappedBy = "vehicle", cascade = CascadeType.ALL)

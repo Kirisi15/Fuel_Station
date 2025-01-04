@@ -1,18 +1,21 @@
 package Fuel_Station.Fuel_Station.Service;
 
-import Fuel_Station.Fuel_Station.Entity.AdminEntity;
 import Fuel_Station.Fuel_Station.Entity.VehicleEntity;
 import Fuel_Station.Fuel_Station.Repository.VehicleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
+
+@Service
 public class VehicleServiceImpl implements VehicleService {
+    @Autowired
     private final VehicleRepository vehicleRepository;
 
 
-    @Autowired
+
     public VehicleServiceImpl(VehicleRepository vehicleRepository) {
         this.vehicleRepository = vehicleRepository;
     }
