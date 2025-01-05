@@ -19,7 +19,7 @@ public class FuelStationController {
     }
 
     @GetMapping("/{id}")
-    public FuelStationEntity getStationById(@PathVariable Long stationId) {
+    public FuelStationEntity getStationById(@PathVariable("id") Long stationId) {
         return fuelStationService.getStationById(stationId);
     }
 
@@ -29,12 +29,12 @@ public class FuelStationController {
     }
 
     @PutMapping("/{id}")
-    public FuelStationEntity updateStation(@PathVariable Long stationId, @RequestBody FuelStationEntity fuelStation) {
+    public FuelStationEntity updateStation(@PathVariable("id") Long stationId, @RequestBody FuelStationEntity fuelStation) {
         return fuelStationService.updateStation(stationId, fuelStation);
     }
 
     @DeleteMapping("/{id}")
-    public void deleteStation(@PathVariable Long stationId) {
+    public void deleteStation(@PathVariable("id") Long stationId) {
         fuelStationService.deleteStation(stationId);
     }
 }
