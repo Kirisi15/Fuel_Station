@@ -19,9 +19,9 @@ public class EmployeeController {
         return employeeService.getAllEmployees();
     }
     @GetMapping("/{id}")
-    public EmployeeEntity getEmployeeById(@PathVariable("id") Long Employee_Id)
+    public EmployeeEntity getEmployeeById(@PathVariable("id") Long employee_Id)
     {
-        return employeeService.getEmployeeById(Employee_Id);
+        return employeeService.getEmployeeById(employee_Id);
     }
 
     @PostMapping
@@ -31,14 +31,14 @@ public class EmployeeController {
     }
 
     @PutMapping("/{id}")
-    public EmployeeEntity updateEmployee(@PathVariable("id") Long Employee_Id, @RequestBody EmployeeEntity employeeEntity)
+    public EmployeeEntity updateEmployee(@PathVariable("id") Long employee_Id, @RequestBody EmployeeEntity employeeEntity)
     {
-        return employeeService.updateEmployee(Employee_Id,employeeEntity);
+        return employeeService.updateEmployee(employee_Id,employeeEntity);
     }
 
     @DeleteMapping("/{id}")
-    public void deleteEmployee(@PathVariable("id") Long Employee_Id)
+    public void deleteEmployee(@PathVariable("id") Long employee_Id)
     {
-        employeeService.deleteEmployee(Employee_Id);
+        employeeService.deleteEmployee(employee_Id);
     }
 }
