@@ -12,7 +12,7 @@ public class FuelStationEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long stationId;
 @ManyToOne
-@JoinColumn(name = "ownerId",referencedColumnName = "ownerId",nullable = false)
+@JoinColumn(name = "owner_id")
 private OwnerEntity owner;
 @OneToMany(mappedBy = "fuelStation",cascade =CascadeType.ALL )
 private List<EmployeeEntity> employee=new ArrayList<>();

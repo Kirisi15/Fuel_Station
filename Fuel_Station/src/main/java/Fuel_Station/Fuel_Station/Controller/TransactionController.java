@@ -20,7 +20,7 @@ public class TransactionController {
     }
 
     @GetMapping("/{id}")
-    public TransactionEntity getTransactionById(@PathVariable Long transactionId) {
+    public TransactionEntity getTransactionById(@PathVariable("id") Long transactionId) {
         return transactionService.getTransactionById(transactionId);
     }
 
@@ -30,12 +30,12 @@ public class TransactionController {
     }
 
     @PutMapping("/{id}")
-    public TransactionEntity updateTransaction(@PathVariable Long transactionId, @RequestBody TransactionEntity transaction) {
+    public TransactionEntity updateTransaction(@PathVariable ("id")Long transactionId, @RequestBody TransactionEntity transaction) {
         return transactionService.updateTransaction(transactionId, transaction);
     }
 
     @DeleteMapping("/{id}")
-    public void deleteTransaction(@PathVariable Long transactionId) {
+    public void deleteTransaction(@PathVariable("id") Long transactionId) {
         transactionService.deleteTransaction(transactionId);
     }
 }
