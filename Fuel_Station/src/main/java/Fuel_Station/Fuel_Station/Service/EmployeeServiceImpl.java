@@ -18,9 +18,9 @@ public class EmployeeServiceImpl implements EmployeeService{
    {
        return employeeRepository.save(employeeEntity);
    }
-  public  EmployeeEntity getEmployeeById(Long employee_Id)
+  public  EmployeeEntity getEmployeeById(Long employeeId)
     {
-        Optional<EmployeeEntity> optionalEmployee = employeeRepository.findById(employee_Id);
+        Optional<EmployeeEntity> optionalEmployee = employeeRepository.findById(employeeId);
         return optionalEmployee.get();
     }
    public List< EmployeeEntity> getAllEmployees()
@@ -30,17 +30,17 @@ public class EmployeeServiceImpl implements EmployeeService{
     public EmployeeEntity updateEmployee( Long employee_Id,EmployeeEntity EmployeeEntity)
     {
         EmployeeEntity existingEmployee = getEmployeeById(employee_Id);
-        existingEmployee.setEmployee_Contactnumber(EmployeeEntity.getEmployee_Contactnumber());
-        existingEmployee.setEmployee_Jobrole(EmployeeEntity.getEmployee_Jobrole());
-        existingEmployee.setEmployee_NIC(EmployeeEntity.getEmployee_NIC());
-        existingEmployee.setEmployee_Password(EmployeeEntity.getEmployee_Password());
-        existingEmployee.setEmployee_Username(EmployeeEntity.getEmployee_Username());
+        existingEmployee.setEmployeeContactnumber(EmployeeEntity.getEmployeeContactnumber());
+        existingEmployee.setEmployeeJobrole(EmployeeEntity.getEmployeeJobrole());
+        existingEmployee.setEmployeeNic(EmployeeEntity.getEmployeeNic());
+        existingEmployee.setEmployeePassword(EmployeeEntity.getEmployeePassword());
+        existingEmployee.setEmployeeUsername(EmployeeEntity.getEmployeeUsername());
 
         return employeeRepository.save(existingEmployee);
     }
-  public  void deleteEmployee(Long employee_Id)
+  public  void deleteEmployee(Long employeeId)
   {
-     employeeRepository.deleteById(employee_Id);
+     employeeRepository.deleteById(employeeId);
   }
 
 }

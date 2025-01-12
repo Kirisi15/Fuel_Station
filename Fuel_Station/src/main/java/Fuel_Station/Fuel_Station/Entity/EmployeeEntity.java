@@ -11,19 +11,19 @@ public class EmployeeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "empId")
-    private Long employee_Id;
+    private Long employeeId;
     @Column
-    private Long employee_NIC;
+    private Long employeeNic;
     @Column
-    private String employee_Jobrole;
+    private String employeeJobrole;
     @Column
 
-    private Long employee_Contactnumber;
+    private Long employeeContactnumber;
 
     @Column
-    private String employee_Username;
+    private String employeeUsername;
     @Column
-    private String employee_Password;
+    private String employeePassword;
 
     @ManyToOne
     @JoinColumn(name = "stationId")
@@ -38,74 +38,74 @@ public class EmployeeEntity {
 
     }
 
-    public EmployeeEntity(Long employee_Id, Long employee_NIC, String employee_Jobrole, Long employee_Contactnumber, String employee_Username, String employee_Password) {
-        employee_Id = employee_Id;
-        employee_NIC = employee_NIC;
-        employee_Jobrole = employee_Jobrole;
-        employee_Contactnumber = employee_Contactnumber;
-        employee_Username = employee_Username;
-        employee_Password = employee_Password;
+    public EmployeeEntity(Long employeeId, Long employeeNic, String employeeJobrole, Long employeeContactnumber, String employeeUsername, String employeePassword) {
+      this.employeeId = employeeId;
+        this.employeeNic = employeeNic;
+        this.employeeJobrole = employeeJobrole;
+       this.employeeContactnumber = employeeContactnumber;
+        this.employeeUsername = employeeUsername;
+        this.employeePassword = employeePassword;
     }
 
-    public Long getEmployee_Id() {
-        return employee_Id;
+    public Long getEmployeeId() {
+        return employeeId;
     }
 
-    public void setEmployee_Id(Long employee_Id) {
-        employee_Id = employee_Id;
+    public void setEmployeeId(Long employeeId) {
+        this.employeeId = employeeId;
     }
 
-    public Long getEmployee_NIC() {
-        return employee_NIC;
+    public Long getEmployeeNic() {
+        return employeeNic;
     }
 
-    public void setEmployee_NIC(Long employee_NIC) {
-        employee_NIC = employee_NIC;
+    public void setEmployeeNic(Long employeeNic) {
+        this.employeeNic = employeeNic;
     }
 
-    public String getEmployee_Jobrole() {
-        return employee_Jobrole;
+    public String getEmployeeJobrole() {
+        return employeeJobrole;
     }
 
-    public void setEmployee_Jobrole(String employee_Jobrole) {
-        employee_Jobrole = employee_Jobrole;
+    public void setEmployeeJobrole(String employeeJobrole) {
+       this. employeeJobrole = employeeJobrole;
     }
 
-    public Long getEmployee_Contactnumber() {
-        return employee_Contactnumber;
+    public Long getEmployeeContactnumber() {
+        return employeeContactnumber;
     }
 
-    public void setEmployee_Contactnumber(Long employee_Contactnumber) {
-        employee_Contactnumber = employee_Contactnumber;
+    public void setEmployeeContactnumber(Long employeeContactnumber) {
+        this.employeeContactnumber = employeeContactnumber;
     }
 
 
 
-    public String getEmployee_Username() {
-        return employee_Username;
+    public String getEmployeeUsername() {
+        return employeeUsername;
     }
 
-    public void setEmployee_Username(String employee_Username) {
-        employee_Username = employee_Username;
+    public void setEmployeeUsername(String employeeUsername) {
+        this.employeeUsername = employeeUsername;
     }
 
-    public String getEmployee_Password() {
-        return employee_Password;
+    public String getEmployeePassword() {
+        return employeePassword;
     }
 
-    public void setEmployee_Password(String employee_Password) {
-        employee_Password = employee_Password;
+    public void setEmployeePassword(String employeePassword) {
+       this. employeePassword = employeePassword;
     }
 
     @Override
     public String toString() {
         return "EmployeeEntity{" +
-                "Employee_Id='" + employee_Id + '\'' +
-                ", Employee_NIC=" + employee_NIC +
-                ", Employee_Jobrole='" + employee_Jobrole + '\'' +
-                ", Employee_Contactnumber=" + employee_Contactnumber +
-                ", Employee_Username='" + employee_Username + '\'' +
-                ", Employee_Password='" + employee_Password + '\'' +
+                "employeeId=" + employeeId + '\'' +
+                ", employeeNic=" + employeeNic +
+                ", employeeJobrole='" + employeeJobrole + '\'' +
+                ", employeeContactnumber=" + employeeContactnumber +
+                ", employeeUsername='" + employeeUsername + '\'' +
+                ", employeePassword='" + employeePassword + '\'' +
                 '}';
     }
 }

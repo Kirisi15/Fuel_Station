@@ -6,7 +6,8 @@ const Navbar = () => {
 
     const routes = {
         Reg: "/",
-        ownerReg: "/ownerReg"
+        ownerReg: "/ownerReg",
+      
       };
 
       const handleSelect = (event) => {
@@ -20,6 +21,7 @@ const Navbar = () => {
       <select onChange={handleSelect}>
         <option value="home">Signup</option>
         <option value="ownerReg">Owner Registration</option>
+    
       </select>
     </nav>
       

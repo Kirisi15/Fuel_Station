@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 
+
 const CustomerRegistration = () => {
   const [formData, setFormData] = useState({
     customerNIC: "",
@@ -135,3 +136,5 @@ const CustomerRegistration = () => {
 };
 
 export default CustomerRegistration;
+
+
