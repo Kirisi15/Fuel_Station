@@ -33,8 +33,8 @@ public class OwnerServiceImpl implements OwnerService {
     @Override
     public OwnerEntity updateOwner(OwnerEntity ownerEntity) {
         OwnerEntity existingOwner = getOwnerById(ownerEntity.getOwnerId());
-        existingOwner.setUsername(ownerEntity.getName());  // Example field
-        existingOwner.setContact_number(ownerEntity.getContact_number());  // Example field
+        existingOwner.setUsername(ownerEntity.getName());
+        existingOwner.setContactNumber(ownerEntity.getContactNumber());
         return ownerRepository.save(existingOwner);
     }
 
