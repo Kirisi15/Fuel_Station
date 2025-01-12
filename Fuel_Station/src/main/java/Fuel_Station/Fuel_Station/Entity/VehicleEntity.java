@@ -12,6 +12,7 @@ public class VehicleEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     private Long VehicleId;
 
     @Column(name="Vehicle_Number")
@@ -36,10 +37,8 @@ public class VehicleEntity {
     )
     private List<FuelStationEntity> fuelStations = new ArrayList<>();
 
-
     public VehicleEntity() {
     }
-
 
     public VehicleEntity(Long vehicleId, String vehicleNumber, String vehicleType, String fuelType) {
 
@@ -48,7 +47,6 @@ public class VehicleEntity {
         VehicleType = vehicleType;
         FuelType = fuelType;
     }
-
 
     public Long getVehicleId() {
         return VehicleId;
@@ -93,3 +91,6 @@ public class VehicleEntity {
                 '}';
     }
 }
+
+
+
