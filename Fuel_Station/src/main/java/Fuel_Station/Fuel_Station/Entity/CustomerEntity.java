@@ -30,6 +30,8 @@ public class CustomerEntity {
     public CustomerEntity() {
     }
 
+
+
     public int getCustomerId() {
         return customerId;
     }
