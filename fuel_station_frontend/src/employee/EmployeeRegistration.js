@@ -7,7 +7,8 @@ function EmployeeRegistration(){
        employeeNic : '',
        employeeUsername : '',
        employeeContactnumber : '',
-       employeePassword : ''
+       employeePassword : '',
+       confirmPassword : ''
     })
 
     const handleChanges = (e) => {
@@ -25,7 +26,8 @@ function EmployeeRegistration(){
         employeeNic : '',
         employeeUsername : '',
         employeeContactnumber : '',
-        employeePassword : ''
+        employeePassword : '',
+        confirmPassword : ''
        });
        alert("Employee successfully added");
        console.log(values);
@@ -86,6 +88,15 @@ function EmployeeRegistration(){
                  onChange={(e) =>handleChanges(e)} 
                  required 
                  value = {values.employeePassword}/>
+                <br/><br/>
+
+                <label htmlFor ="confirmPassword">Confirm Password : </label>
+                <input type = "password"
+                 placeholder="Rewrite password" 
+                 name = "confirmPassword" 
+                 onChange={(e) =>handleChanges(e)} 
+                 required 
+                 value = {values.confirmPassword}/>
                 <br/><br/>
                 
                 

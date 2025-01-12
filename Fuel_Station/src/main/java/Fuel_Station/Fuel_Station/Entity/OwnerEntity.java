@@ -22,7 +22,7 @@ public class OwnerEntity {
     private String nic;
 
     @Column(name="contact_number")
-    private String contact_number;
+    private String contactNumber;
 
     @Column(name="email")
     private String email;
@@ -33,11 +33,11 @@ public class OwnerEntity {
     @Column(name="password")
     private String password;
 
-    public OwnerEntity(int ownerId, String name, String nic, String contact_number, String email, String username, String password) {
+    public OwnerEntity(int ownerId, String name, String nic, String contactNumber, String email, String username, String password) {
         this.ownerId = ownerId;
         this.name = name;
         this.nic = nic;
-        this.contact_number = contact_number;
+        this.contactNumber = contactNumber;
         this.email = email;
         this.username = username;
         this.password = password;
@@ -70,12 +70,12 @@ public class OwnerEntity {
         this.nic = nic;
     }
 
-    public String getContact_number() {
-        return contact_number;
+    public String getContactNumber() {
+        return contactNumber;
     }
 
-    public void setContact_number(String contact_number) {
-        this.contact_number = contact_number;
+    public void setContactNumber(String contactNumber) {
+        this.contactNumber = contactNumber;
     }
 
     public String getEmail() {
@@ -109,7 +109,7 @@ public class OwnerEntity {
                 ", fuelStations=" + fuelStations +
                 ", name='" + name + '\'' +
                 ", nic='" + nic + '\'' +
-                ", contact_number='" + contact_number + '\'' +
+                ", contact_number='" + contactNumber + '\'' +
                 ", email='" + email + '\'' +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +

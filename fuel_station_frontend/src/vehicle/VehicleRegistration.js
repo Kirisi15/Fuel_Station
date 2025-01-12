@@ -1,5 +1,6 @@
-import {useState} from "react";
-import axios from "axios";
+import {useState} from 'react';
+import React from 'react'
+import axios from 'axios';
 function VehicleRegistration(){
 
     const [values,setVehicles] = useState({
@@ -34,7 +35,7 @@ function VehicleRegistration(){
 }
     return(
         <div className = "container">
-            <h1>Registration Form</h1>
+            <h1>Vehicle Registration </h1>
             <form onSubmit = {handleSubmit} >
                 
                  <label htmlFor ="vehicleType">Vehicle Type : </label>  
