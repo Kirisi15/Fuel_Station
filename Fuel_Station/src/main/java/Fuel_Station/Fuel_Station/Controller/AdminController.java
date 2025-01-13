@@ -8,9 +8,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("api/admin")
+@CrossOrigin(origins = "http://localhost:3000")
 public class AdminController {
 
     private final AdminService adminService;
@@ -51,6 +53,17 @@ public class AdminController {
     public ResponseEntity<String> deleteAdmin(@PathVariable("id") Long adminId) {
         adminService.deleteAdmin(adminId);
         return new ResponseEntity<>("Admin successfully deleted", HttpStatus.OK);
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<?> loginAdmin(@RequestBody AdminEntity loginDetails) {
+        Optional<AdminEntity> admin = adminService.findByUsername(loginDetails.getAdminUsername());
+
+        if (admin.isPresent() && admin.get().getAdminPassword().equals(loginDetails.getAdminPassword())) {
+            return new ResponseEntity<>(admin.get(), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>("Invalid username or password", HttpStatus.UNAUTHORIZED);
+        }
     }
 
 }
