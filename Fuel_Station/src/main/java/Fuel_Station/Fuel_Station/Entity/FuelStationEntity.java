@@ -28,7 +28,8 @@ private List<VehicleEntity> vehicle = new ArrayList<>();
 private List<FuelEntity> fuel = new ArrayList<>();
 
     private String stationName;
-    private String fuelType;
+    @ElementCollection
+    private List<String> fuelType=new ArrayList<>();
     private String address;
     private String licenseNumber;
     private String contactNumber;
@@ -40,7 +41,7 @@ private List<FuelEntity> fuel = new ArrayList<>();
     }
 
 
-    public FuelStationEntity(String stationName, String fuelType, String address, String licenseNumber, String contactNumber) {
+    public FuelStationEntity(String stationName,List <String> fuelType, String address, String licenseNumber, String contactNumber) {
         this.stationName = stationName;
         this.fuelType = fuelType;
         this.address = address;
@@ -65,11 +66,11 @@ private List<FuelEntity> fuel = new ArrayList<>();
         this.stationName = stationName;
     }
 
-    public String getFuelType() {
+    public List<String> getFuelType() {
         return fuelType;
     }
 
-    public void setFuelType(String fuelType) {
+    public void setFuelType(List<String> fuelType) {
         this.fuelType = fuelType;
     }
 
