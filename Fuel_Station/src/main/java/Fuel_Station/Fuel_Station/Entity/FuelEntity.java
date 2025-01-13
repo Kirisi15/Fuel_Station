@@ -27,7 +27,7 @@ public class FuelEntity {
     @Column(name="remain_fuel")
     private String remailFuel;
 
-    public FuelEntity(long fuelId, String fuelType, String remailFuel) {
+    public FuelEntity(long fuelId, String fuelType,String remailFuel) {
         this.fuelId= fuelId;
         this.fuelType = fuelType;
         this.remailFuel = remailFuel;
