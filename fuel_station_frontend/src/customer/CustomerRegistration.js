@@ -1,141 +1,203 @@
-import React, { useState } from "react";
-import axios from "axios";
+import {useState,useEffect} from 'react';
+import axios from 'axios';
+import { ValidateEmail } from '../formValidation/ValidateEmail';
+import { ValidatePassword } from '../formValidation/ValidatePassword';
+import { useNavigate } from 'react-router-dom';
+import { ValidateNIC } from '../formValidation/ValidateNIC';
 
+function CustomerRegistration(){
 
+    const [values,setCustomers] = useState({
+      customerName :'',
+      customerNIC  : '',
+      customerEmail  : '',
+      customerUserName : '',
+      customerPassword  : '',
+      confirmPassword : ""
+    });
+    const [existingUsers, setExistingUsers] = useState([]);
+      const [emailError, setEmailError] = useState("");
+      const [passwordError, setPasswordError] = useState("");
+      const [nicError, setNicError] = useState("");
+      const [valPasswordError, setValPasswordError] = useState("");
+      const [uniqueError, setUniqueError] = useState("");
+      const navigate = useNavigate();
+      const [isRegistered, setIsRegistered] = useState(false);
+      useEffect(() => {
+        const fetchUsers = async () => {
+          try {
+            const response = await axios.get("http://localhost:8080/api/customer");
+            setExistingUsers(response.data); 
+          } catch (error) {
+            console.error("Error fetching existing users:", error);
+          }
+        };
+    
+        fetchUsers();
+      }, []);
 
-const CustomerRegistration = () => {
-  const [formData, setFormData] = useState({
-    customerNIC: "",
-    customerName: "",
-    customerEmail: "",
-    customerUsername: "",
-    customerPassword: "",
-    confirmPassword: "",
-  });
-
-  const [successMessage, setSuccessMessage] = useState("");
-  const [errorMessage, setErrorMessage] = useState("");
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    if (formData.customerPassword !== formData.confirmPassword) {
-      setErrorMessage("Passwords do not match.");
-      setSuccessMessage("");
-      return;
+    
+    const handleChanges = (e) => {
+        setCustomers({...values,[e.target.name]:e.target.value})
     }
+ 
+    const handleSubmit =   (e) => {
+        e.preventDefault();
+         if (!ValidateEmail(values.customerEmail)) {
+              setEmailError("Invalid email");
+              return;
+            }
+            setEmailError("");
+        
+            if (!ValidateNIC(values.customerNIC)) {
+              setNicError("Invalid NIC");
+              return;
+            }
+            setNicError("");
+        
+            if (!ValidatePassword(values.customerPassword)) {
+              setValPasswordError("Password must be at least 8 characters long, contain at least one uppercase letter, one number, and one special character (e.g., @$!%*?&).");
+              return;
+            }
+            setValPasswordError("");
+        
+            if (values.customerPassword !== values.confirmPassword) {
+              setPasswordError("The passwords entered do not match");
+              return;
+            }
+            setPasswordError("");
+        
+            const duplicateUser = existingUsers.find(
+              (user) =>
+                user.email === values.customerEmail ||
+                user.nic === values.customerNIC ||
+                user.username === values.customerUserName 
+              
+            );
+        
+            if (duplicateUser) {
+              setUniqueError(
+                `Duplicate entry detected! ${
+                  duplicateUser.email === values.customerEmail
+                    ? "Email"
+                    : duplicateUser.nic === values.customerNIC
+                    ? "NIC"
+                    : duplicateUser.username === values.customerUserName
+                    ? "Username"
+                    :""
+                    
+                } already exists.`
+              );
+              return;
+            }
+            setUniqueError("");
 
-    try {
-      const response = await axios.post(
-        "http://localhost:8080/api/customers/register",
-        {
-          customerNIC: formData.customerNIC,
-          customerName: formData.customerName,
-          customerEmail: formData.customerEmail,
-          customerUsername: formData.customerUsername,
-          customerPassword: formData.customerPassword,
-        }
-      );
-
-      setSuccessMessage("Registration successful!");
-      setErrorMessage("");
-      setFormData({
-        customerNIC: "",
-        customerName: "",
-        customerEmail: "",
-        customerUsername: "",
-        customerPassword: "",
-        confirmPassword: "",
-      });
-    } catch (error) {
-      setErrorMessage("Registration failed. Please try again.");
-      setSuccessMessage("");
-    }
-  };
-
-  return (
-    <div>
-      <h2>Customer Registration</h2>
-      {successMessage && <p style={{ color: "green" }}>{successMessage}</p>}
-      {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="customerNIC">Customer NIC:</label>
-          <input
-            type="text"
-            id="customerNIC"
-            name="customerNIC"
-            value={formData.customerNIC}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div>
-          <label htmlFor="customerName">Customer Name:</label>
-          <input
-            type="text"
-            id="customerName"
-            name="customerName"
-            value={formData.customerName}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div>
-          <label htmlFor="customerEmail">Customer Email:</label>
-          <input
-            type="email"
-            id="customerEmail"
-            name="customerEmail"
-            value={formData.customerEmail}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div>
-          <label htmlFor="customerUsername">Customer Username:</label>
-          <input
-            type="text"
-            id="customerUsername"
-            name="customerUsername"
-            value={formData.customerUsername}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div>
-          <label htmlFor="customerPassword">Customer Password:</label>
-          <input
-            type="password"
-            id="customerPassword"
-            name="customerPassword"
-            value={formData.customerPassword}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div>
-          <label htmlFor="confirmPassword">Confirm Password:</label>
-          <input
-            type="password"
-            id="confirmPassword"
-            name="confirmPassword"
-            value={formData.confirmPassword}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <button type="submit">Register</button>
-      </form>
-    </div>
-  );
+        axios
+        .post('http://localhost:8080/api/customer',values, {
+        headers: {"Content-Type": "application/json"},
+    })
+    .then((response) => {
+        console.log("Response:", response.data);
+       setCustomers({
+        customerName :'',
+      customerNIC  : '',
+      customerEmail  : '',
+      customerUserName : '',
+      customerPassword  : '',
+      confirmPassword : ""
+       });
+       setIsRegistered(true);
+       alert("Customer successfully added");
+      
+    }).catch( (error) => {
+        console.error("Registration error:", error);
+        alert("Network error occured .plz try again");
+    });
 };
+         const handleAddVehicle = () => {
+            navigate("/vehicleReg");
+         }
+    return(
+        <div className = "container">
+            <h1>Customer Registration Form</h1>
+            {isRegistered ? (
+                <div>
+                    <button onClick = {handleAddVehicle}>Add Vehicle</button>
+                    </div>
+            ):(
+                <form onSubmit = {handleSubmit} >
+                
+                <label htmlFor ="customerName">Name : </label>  
+               <input
+                type = "text" 
+                placeholder="Enter the customername" 
+                name = "customerName" 
+                onChange={(e) =>handleChanges(e)} 
+                required 
+                value = {values.customerName}/>
+               <br/><br/> 
+              
+               <label htmlFor ="customerNIC">NIC : </label>
+               <input type = "text" 
+               placeholder="Enter the NIC No" 
+               name = "customerNIC" 
+               onChange={(e) =>handleChanges(e)}  
+               value = {values.customerNIC} 
+               required/>
+               {nicError && <p style = {{ color:"red", fontSize: "12px"}}>{nicError}</p>}
+               <br/><br/>
+               
+               
+               <label htmlFor ="customerEmail">Email : </label>
+               <input type = "email"
+                placeholder="Enter the email" 
+                name = "customerEmail" 
+                onChange={(e) =>handleChanges(e)} 
+                required 
+                value = {values.customerEmail}/>
+            {emailError && <p style={{ color :"red", fontSize :"12px"}}>{emailError}</p>}       
+               <br/><br/>
+               
+               <label htmlFor ="customerUserName">User Name : </label>
+               <input type = "text" 
+               placeholder="Enter the username" 
+               name = "customerUserName" 
+               onChange={(e) =>handleChanges(e)} 
+               required 
+               value = {values.customerUserName}/>
+               <br/><br/>
+              
+               
+              
+               <label htmlFor ="customerPassword">Password : </label>
+               <input type = "password"
+                placeholder="Enter the Password" 
+                name = "customerPassword" 
+                onChange={(e) =>handleChanges(e)} 
+                required 
+                value = {values.customerPassword }/>
+                {passwordError && <p style = {{ color :"red", fontSize:"12px"}}>{passwordError}</p>}
+                {valPasswordError && <p style ={{ color :"red",fontSize : "12px"}}>{valPasswordError}</p>}
+               <br/><br/>
 
+               <label htmlFor ="confirmPassword">Confirm Password : </label>
+               <input type = "password"
+                placeholder="Rewrite password" 
+                name = "confirmPassword" 
+                onChange={(e) =>handleChanges(e)} 
+                required 
+                value = {values.confirmPassword}/>
+               <br/><br/>
+
+               {uniqueError && (
+                <p style = {{ color:"red", fontSize :"12px"}}>{uniqueError}</p>
+               )}
+
+               <button type = "submit" >Submit</button>
+               </form>
+            )}
+           
+            </div>
+            );
+};
 export default CustomerRegistration;
-
-
