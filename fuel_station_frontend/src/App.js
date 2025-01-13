@@ -10,6 +10,7 @@ import FuelStationRegistration from "./fuelStation/FuelStationRegistration";
 import CustomerRegistration from "./customer/CustomerRegistration";
 import CustomerDashboard from "./customer/CustomerDashboard";
 import AdminLogin from "./admin/AdminLogin";
+import CustomerLogin from "./customer/CustomerLogin";
 
 function App() {
   return (
@@ -21,8 +22,10 @@ function App() {
           <Route path="/stationReg" element={<FuelStationRegistration />} />
           <Route path="/cusReg" element={<CustomerRegistration/>}/>
           <Route path="/vehicleReg" element={<VehicleRegistration />} />
-          <Route path="/customerDash" element={<CustomerDashboard />} />
+          <Route path="/dashboard/:customerId" element={<CustomerDashboard />} />
           <Route path="/adminLog" element={<AdminLogin />} />
+          <Route path="/cusLogin" element={<CustomerLogin />} />
+          
           
 
         </Routes>
