@@ -1,9 +1,14 @@
 import {useState} from "react";
 import axios from "axios";
+//import { ValidateEmail } from '../formValidation/ValidateEmail';
+import { ValidatePassword } from '../formValidation/ValidatePassword';
+import { useNavigate } from 'react-router-dom';
+import { ValidateNIC } from '../formValidation/ValidateNIC';
+
 function EmployeeRegistration(){
 
     const [values,setEmployees] = useState({
-       employeeJobrole :'',
+       employeeName :'',
        employeeNic : '',
        employeeUsername : '',
        employeeContactnumber : '',
@@ -11,44 +16,118 @@ function EmployeeRegistration(){
        confirmPassword : ''
     })
 
+    const [existingUsers, setExistingUsers] = useState([]);
+   // const [emailError, setEmailError] = useState("");
+    const [passwordError, setPasswordError] = useState("");
+    const [nicError, setNicError] = useState("");
+    const [valPasswordError, setValPasswordError] = useState("");
+    const [uniqueError, setUniqueError] = useState("");
+    const navigate = useNavigate();
+    const [isRegistered, setIsRegistered] = useState(false);
+    useEffect(() => {
+      const fetchUsers = async () => {
+        try {
+          const response = await axios.get("http://localhost:8080/employees");
+          setExistingUsers(response.data); 
+        } catch (error) {
+          console.error("Error fetching existing users:", error);
+        }
+      };
+  
+      fetchUsers();
+    }, []);
+
+
+
     const handleChanges = (e) => {
         setEmployees({...values,[e.target.name]:e.target.value})
     }
  
     const handleSubmit =  async (e) => {
-        e.preventDefault()
-        try{
-       await axios.post('http://localhost:8080/api/customer',values, {
+        e.preventDefault();
+
+        
+
+        if(!ValidateNIC(values.employeeNic)){
+            setNicError("Invalid nic");
+            return;
+        }
+        setNicError("");
+
+        if(!ValidatePassword(values.employeePassword)){
+          setValPasswordError("Password must be atleast 8 characters long,contain at least one uppercase letter, one number, and one special character (e.g., @$!%*?&).");
+          return;  
+        }
+        setValPasswordError("");
+        if (values.employeePassword !== values.confirmPassword) {
+            setPasswordError("The passwords entered do not match");
+            return;
+        }
+        setPasswordError("");
+        const duplicateUser = existingUsers.find(
+            (user) =>
+             
+              user.nic === values.employeeNic ||
+              user.username === values.employeeUsername ||
+              user.contactNumber === values.employeeContactnumber
+            
+          );
+      
+          if (duplicateUser) {
+            setUniqueError(
+              `Duplicate entry detected! ${
+              
+                  duplicateUser.nic === values.employeeNic
+                  ? "NIC"
+                  : duplicateUser.username === values.employeeUsername
+                  ? "Username"
+                  :"ContactNumber"
+                  
+              } already exists.`
+            );
+            return;
+          }
+          setUniqueError("");
+
+
+        
+       axios.post('http://localhost:8080/employee',values, {
         headers: {"Content-Type": "application/json"},
-    });
+    })
+
+    .then((response) => {
+        console.log("Response:",response.data);
+    
        setEmployees({
-       employeeJobrole  :'',
+        employeeName  :'',
         employeeNic : '',
         employeeUsername : '',
         employeeContactnumber : '',
         employeePassword : '',
         confirmPassword : ''
        });
+       setIsRegistered(true);
        alert("Employee successfully added");
-       console.log(values);
+     
     
-    }catch (error){
+    }).catch( (error) => {
+        console.error("Registration error:",error);
         alert("Network error occured .plz try again");
-    }
-}
+    });
+};
     return(
         <div className = "container">
             <h1>Registration Form</h1>
             <form onSubmit = {handleSubmit} >
                 
-                 <label htmlFor ="employeeJobrole">Jobrole : </label>  
+                 <label htmlFor ="employeeName">Employee Name : </label>  
                 <input
                  type = "text" 
                  placeholder="Enter the employeename" 
-                 name = "employeeJobrole" 
+                 name = "employeeName" 
                  onChange={(e) =>handleChanges(e)} 
                  required 
-                 value = {values.employeeJobrole }/>
+                 value = {values.employeeName }/>
                 <br/><br/> 
                
                 <label htmlFor ="employeeNic">NIC : </label>
@@ -58,6 +137,7 @@ function EmployeeRegistration(){
                 onChange={(e) =>handleChanges(e)}  
                 value = {values.employeeNic} 
                 required/>
+                    {nicError && <p style = {{ color:"red", fontSize: "12px"}}>{nicError}</p>}
                 <br/><br/>
                 
                 
@@ -88,6 +168,9 @@ function EmployeeRegistration(){
                  onChange={(e) =>handleChanges(e)} 
                  required 
                  value = {values.employeePassword}/>
+                {passwordError && <p style = {{ color :"red", fontSize:"12px"}}>{passwordError}</p>}
+                {valPasswordError && <p style ={{ color :"red",fontSize : "12px"}}>{valPasswordError}</p>}
+
                 <br/><br/>
 
                 <label htmlFor ="confirmPassword">Confirm Password : </label>
@@ -98,6 +181,11 @@ function EmployeeRegistration(){
                  required 
                  value = {values.confirmPassword}/>
                 <br/><br/>
+                
+               {uniqueError && (
+                <p style = {{ color:"red", fontSize :"12px"}}>{uniqueError}</p>
+               )}
+
                 
                 
                 <button type = "submit" >Submit</button>
