@@ -117,6 +117,10 @@ const OwnerRegistration = () => {
     navigate("/stationReg");
   };
 
+  const handleAddEmployees = () => {
+    navigate("/empReg");
+  }
+
   return (
     <div>
       <h1>Fuel Station Owner Registration</h1>
@@ -124,6 +128,7 @@ const OwnerRegistration = () => {
       {isRegistered ? (
         <div>
           <button onClick={handleAddFuelStation}>Add Fuel Station</button>
+          <button onClick={handleAddEmployees}>Add Employees</button>
         </div>
       ) : (
         <form onSubmit={handleSubmit}>

@@ -50,5 +50,9 @@ public class AdminServiceImpl implements AdminService{
     public void deleteAdmin(Long adminId) {
         adminRepository.deleteById(adminId);
     }
+
+    public Optional<AdminEntity> findByUsername(String adminUsername) {
+        return adminRepository.findByAdminUsername(adminUsername);
+    }
 }
 
