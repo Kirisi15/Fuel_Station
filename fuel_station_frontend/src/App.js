@@ -12,6 +12,7 @@ import CustomerDashboard from "./customer/CustomerDashboard";
 import AdminLogin from "./admin/AdminLogin";
 import CustomerLogin from "./customer/CustomerLogin";
 import EmployeeRegistration from "./employee/EmployeeRegistration";
+import Login from "./owner/Login";
 
 function App() {
   return (
@@ -26,7 +27,8 @@ function App() {
           <Route path="/dashboard/:customerId" element={<CustomerDashboard />} />
           <Route path="/adminLog" element={<AdminLogin />} />
           <Route path="/cusLogin" element={<CustomerLogin />} />
-          <Route path="/empReg" element={<EmployeeRegistration />} />        
+          <Route path="/empReg" element={<EmployeeRegistration />} />  
+          <Route  path="/OwnerLogin" element={<Login/>}/>      
           
 
         </Routes>
