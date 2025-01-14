@@ -1,8 +1,6 @@
-import {useState} from "react";
+import {useState, useEffect} from "react";
 import axios from "axios";
-//import { ValidateEmail } from '../formValidation/ValidateEmail';
 import { ValidatePassword } from '../formValidation/ValidatePassword';
-import { useNavigate } from 'react-router-dom';
 import { ValidateNIC } from '../formValidation/ValidateNIC';
 
 function EmployeeRegistration(){
@@ -16,14 +14,10 @@ function EmployeeRegistration(){
        confirmPassword : ''
     })
 
-    const [existingUsers, setExistingUsers] = useState([]);
-   // const [emailError, setEmailError] = useState("");
-    const [passwordError, setPasswordError] = useState("");
+    const [existingUsers, setExistingUsers] = useState([]);    const [passwordError, setPasswordError] = useState("");
     const [nicError, setNicError] = useState("");
     const [valPasswordError, setValPasswordError] = useState("");
     const [uniqueError, setUniqueError] = useState("");
-    const navigate = useNavigate();
-    const [isRegistered, setIsRegistered] = useState(false);
     useEffect(() => {
       const fetchUsers = async () => {
         try {
@@ -106,7 +100,6 @@ function EmployeeRegistration(){
         employeePassword : '',
         confirmPassword : ''
        });
-       setIsRegistered(true);
        alert("Employee successfully added");
      
     
