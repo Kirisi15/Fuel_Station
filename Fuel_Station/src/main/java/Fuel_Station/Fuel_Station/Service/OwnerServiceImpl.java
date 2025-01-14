@@ -1,5 +1,6 @@
 package Fuel_Station.Fuel_Station.Service;
 
+import Fuel_Station.Fuel_Station.Entity.AdminEntity;
 import Fuel_Station.Fuel_Station.Entity.OwnerEntity;
 import Fuel_Station.Fuel_Station.Repository.OwnerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,4 +44,8 @@ public class OwnerServiceImpl implements OwnerService {
         getOwnerById(ownerId); // Ensures owner exists before attempting to delete.
         ownerRepository.deleteById(Math.toIntExact(ownerId));
     }
+    public Optional<OwnerEntity> findByUsername(String username) {
+        return ownerRepository.findByUsername(username);
+    }
+
 }

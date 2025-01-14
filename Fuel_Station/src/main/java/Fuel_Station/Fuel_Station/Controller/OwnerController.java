@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("api/owners")
@@ -52,5 +53,15 @@ public class OwnerController {
     public ResponseEntity<String> deleteOwner(@PathVariable("id") int ownerId) {
         ownerService.deleteOwner((long) ownerId);
         return new ResponseEntity<>("Owner successfully deleted", HttpStatus.OK);
+    }
+    @PostMapping("/login")
+    public ResponseEntity<?> login(@RequestBody OwnerEntity loginDetails) {
+        Optional<OwnerEntity> owner = ownerService.findByUsername(loginDetails.getUsername());
+
+        if (owner.isPresent() && owner.get().getPassword().equals(loginDetails.getPassword())) {
+            return new ResponseEntity<>(owner.get(), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>("Invalid username or password", HttpStatus.UNAUTHORIZED);
+        }
     }
 }
