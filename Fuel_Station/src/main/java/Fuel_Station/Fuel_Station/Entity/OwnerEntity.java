@@ -10,7 +10,7 @@ import java.util.List;
 public class OwnerEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int ownerId;
+    private Long ownerId;
     @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL)
     private List<FuelStationEntity> fuelStations = new ArrayList<>();
 
@@ -33,7 +33,7 @@ public class OwnerEntity {
     @Column(name="password")
     private String password;
 
-    public OwnerEntity(int ownerId, String name, String nic, String contactNumber, String email, String username, String password) {
+    public OwnerEntity(Long ownerId, String name, String nic, String contactNumber, String email, String username, String password) {
         this.ownerId = ownerId;
         this.name = name;
         this.nic = nic;
@@ -50,7 +50,7 @@ public class OwnerEntity {
         return ownerId;
     }
 
-    public void setOwnerId(int ownerId) {
+    public void setOwnerId(Long ownerId) {
         this.ownerId = ownerId;
     }
 
@@ -100,6 +100,13 @@ public class OwnerEntity {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+    public List<FuelStationEntity> getFuelStations() {
+        return fuelStations;
+    }
+
+    public void setFuelStations(List<FuelStationEntity> fuelStations) {
+        this.fuelStations = fuelStations;
     }
 
     @Override

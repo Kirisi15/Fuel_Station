@@ -1,5 +1,6 @@
 package Fuel_Station.Fuel_Station.Controller;
 
+import Fuel_Station.Fuel_Station.Entity.FuelStationEntity;
 import Fuel_Station.Fuel_Station.Entity.OwnerEntity;
 import Fuel_Station.Fuel_Station.Service.OwnerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +30,7 @@ public class OwnerController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<OwnerEntity> getOwnerById(@PathVariable("id") int ownerId) {
+    public ResponseEntity<OwnerEntity> getOwnerById(@PathVariable("id") Long ownerId) {
         OwnerEntity owner = ownerService.getOwnerById((long) ownerId);
         return new ResponseEntity<>(owner, HttpStatus.OK);
     }
@@ -42,7 +43,7 @@ public class OwnerController {
 
     @PutMapping("/{id}")
     public ResponseEntity<OwnerEntity> updateOwner(
-            @PathVariable("id") int ownerId,
+            @PathVariable("id") Long ownerId,
             @RequestBody OwnerEntity ownerEntity) {
         ownerEntity.setOwnerId(ownerId);
         OwnerEntity updatedOwner = ownerService.updateOwner(ownerEntity);
@@ -50,7 +51,7 @@ public class OwnerController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteOwner(@PathVariable("id") int ownerId) {
+    public ResponseEntity<String> deleteOwner(@PathVariable("id") Long ownerId) {
         ownerService.deleteOwner((long) ownerId);
         return new ResponseEntity<>("Owner successfully deleted", HttpStatus.OK);
     }
@@ -64,4 +65,5 @@ public class OwnerController {
             return new ResponseEntity<>("Invalid username or password", HttpStatus.UNAUTHORIZED);
         }
     }
+
 }
