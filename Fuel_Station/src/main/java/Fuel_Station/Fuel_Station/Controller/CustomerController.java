@@ -44,7 +44,7 @@ public class CustomerController {
 
     @PostMapping("/login")
     public ResponseEntity<?> loginCustomer(@RequestBody CustomerEntity loginDetails) {
-        Optional<CustomerEntity> customer = customerService.findByEmail(loginDetails.getCustomerEmail());
+        Optional<CustomerEntity> customer = customerService.findByUsername(loginDetails.getCustomerEmail());
 
         if (customer.isPresent() && customer.get().getCustomerPassword().equals(loginDetails.getCustomerPassword())) {
             // Return a successful response (optionally a token or user details)
