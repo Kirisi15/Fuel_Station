@@ -14,7 +14,7 @@ import CustomerLogin from "./customer/CustomerLogin";
 import EmployeeRegistration from "./employee/EmployeeRegistration";
 import Login from "./owner/Login";
 import OwnerDashboard from "./owner/OwnerDashboard";
-
+import AddFuel from "./fuelStation/AddFuel";
 function App() {
   return (
     <Router>
@@ -31,7 +31,8 @@ function App() {
           <Route path="/empReg" element={<EmployeeRegistration />} />  
           <Route  path="/OwnerLogin" element={<Login/>}/> 
           <Route path="/OwnerDashboard" element={<OwnerDashboard/>}/>     
-          
+          <Route  path="/addFuel" element={<AddFuel/>}/>         
+         
 
         </Routes>
     </Router>

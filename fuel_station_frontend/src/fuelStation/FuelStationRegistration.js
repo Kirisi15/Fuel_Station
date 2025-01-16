@@ -1,9 +1,13 @@
 import React from 'react'
 import axios from 'axios';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 
 const FuelStationRegistration = () => {
     const [formData, setFormData] = useState({stationName: "", fuelType: "",address: "", licenseNumber: "", contactNumber: ""});
+    const [isRegistered, setIsRegistered] = useState(false);
+      const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -18,16 +22,27 @@ const FuelStationRegistration = () => {
             address: "", 
             licenseNumber: "", 
             contactNumber: ""});
+            setIsRegistered(true);
           alert("Fuel Station registered successfully!");
         } catch (error) {
     
           alert("Network error occurred. Please try again later.");
         }
       };
+
+      const handleAddFuel = () => {
+        navigate("/addFuel");
+      };
+
   return (
     <div>
       <h1>Fuel Station Registration</h1>
 
+      {isRegistered ? (
+        <div>
+          <button onClick={handleAddFuel}>Add Fuel</button>
+        </div>
+      ) : (
       <form onSubmit = {handleSubmit}>
 
       <label htmlFor="stationName">Fuel Station Name : </label>
@@ -86,6 +101,7 @@ const FuelStationRegistration = () => {
       <br />
       <button name = "register" type='submit'>Register</button>
       </form>
+      )}
     </div>
   )
 }
