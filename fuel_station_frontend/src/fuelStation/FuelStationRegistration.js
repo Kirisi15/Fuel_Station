@@ -56,17 +56,6 @@ const FuelStationRegistration = () => {
       <br />
       <br />
 
-      <label htmlFor="fuelType">Fuel Type : </label>
-      <input 
-        type="text"
-        placeholder='Enter Fuel Types'
-        value = {formData.fuelType}
-        onChange={(e) => setFormData({...formData, fuelType: e.target.value})}
-        required
-      />
-      <br />
-      <br />
-
       <label htmlFor="address">Station Address : </label>
       <input 
         type="text"
