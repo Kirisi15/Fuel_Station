@@ -11,7 +11,7 @@ function CustomerRegistration(){
       customerName :'',
       customerNIC  : '',
       customerEmail  : '',
-      customerUserName : '',
+      customerUsername : '',
       customerPassword  : '',
       confirmPassword : ""
     });
@@ -71,7 +71,7 @@ function CustomerRegistration(){
               (user) =>
                 user.email === values.customerEmail ||
                 user.nic === values.customerNIC ||
-                user.username === values.customerUserName 
+                user.username === values.customerUsername 
               
             );
         
@@ -82,7 +82,7 @@ function CustomerRegistration(){
                     ? "Email"
                     : duplicateUser.nic === values.customerNIC
                     ? "NIC"
-                    : duplicateUser.username === values.customerUserName
+                    : duplicateUser.username === values.customerUsername
                     ? "Username"
                     :""
                     
@@ -158,13 +158,13 @@ function CustomerRegistration(){
             {emailError && <p style={{ color :"red", fontSize :"12px"}}>{emailError}</p>}       
                <br/><br/>
                
-               <label htmlFor ="customerUserName">User Name : </label>
+               <label htmlFor ="customerUsername">User Name : </label>
                <input type = "text" 
                placeholder="Enter the username" 
-               name = "customerUserName" 
+               name = "customerUsername" 
                onChange={(e) =>handleChanges(e)} 
                required 
-               value = {values.customerUserName}/>
+               value = {values.customerUsername}/>
                <br/><br/>
               
                
