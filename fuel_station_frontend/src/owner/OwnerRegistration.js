@@ -23,7 +23,6 @@ const OwnerRegistration = () => {
   const [valPasswordError, setValPasswordError] = useState("");
   const [uniqueError, setUniqueError] = useState("");
   const navigate = useNavigate();
-  const [isRegistered, setIsRegistered] = useState(false);
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -104,7 +103,6 @@ const OwnerRegistration = () => {
           password: "",
           confirmPassword: "",
         });
-        setIsRegistered(true);
         alert("Owner registered successfully!");
       })
       .catch((error) => {
@@ -113,24 +111,9 @@ const OwnerRegistration = () => {
       });
   };
 
-  const handleAddFuelStation = () => {
-    navigate("/stationReg");
-  };
-
-  const handleAddEmployees = () => {
-    navigate("/empReg");
-  }
-
   return (
     <div>
       <h1>Fuel Station Owner Registration</h1>
-
-      {isRegistered ? (
-        <div>
-          <button onClick={handleAddFuelStation}>Add Fuel Station</button>
-          <button onClick={handleAddEmployees}>Add Employees</button>
-        </div>
-      ) : (
         <form onSubmit={handleSubmit}>
           <label htmlFor="name">Name:</label>
           <input
@@ -223,7 +206,6 @@ const OwnerRegistration = () => {
             SignIn
           </button>
         </form>
-      )}
     </div>
   );
 };

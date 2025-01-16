@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 const FuelStationRegistration = () => {
     const [formData, setFormData] = useState({stationName: "", fuelType: "",address: "", licenseNumber: "", contactNumber: ""});
     const [isRegistered, setIsRegistered] = useState(false);
-      const navigate = useNavigate();
+    const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
