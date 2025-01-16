@@ -6,6 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
 
-public interface OwnerRepository extends JpaRepository<OwnerEntity,Integer> {
+public interface OwnerRepository extends JpaRepository<OwnerEntity,Long> {
     Optional<OwnerEntity> findByUsername(String username);
 }

@@ -12,7 +12,7 @@ public class FuelStationEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long stationId;
 @ManyToOne
-@JoinColumn(name = "owner_id")
+@JoinColumn(name = "ownerId")
 private OwnerEntity owner;
 @OneToMany(mappedBy = "fuelStation",cascade =CascadeType.ALL )
 private List<EmployeeEntity> employee=new ArrayList<>();
@@ -96,6 +96,13 @@ private List<FuelEntity> fuel = new ArrayList<>();
 
     public void setContactNumber(String contactNumber) {
         this.contactNumber = contactNumber;
+    }
+    public OwnerEntity getOwner() {
+        return owner;
+    }
+
+    public void setOwner(OwnerEntity owner) {
+        this.owner = owner;
     }
 
     @Override
