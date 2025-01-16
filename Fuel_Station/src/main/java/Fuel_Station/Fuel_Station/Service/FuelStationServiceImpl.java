@@ -35,7 +35,6 @@ public class FuelStationServiceImpl implements FuelStationService {
     public FuelStationEntity updateStation(Long stationId, FuelStationEntity fuelStation) {
         FuelStationEntity existingStation = getStationById(stationId);
         existingStation.setStationName(fuelStation.getStationName());
-        existingStation.setFuelType(fuelStation.getFuelType());
         existingStation.setAddress(fuelStation.getAddress());
         existingStation.setLicenseNumber(fuelStation.getLicenseNumber());
         existingStation.setContactNumber(fuelStation.getContactNumber());
