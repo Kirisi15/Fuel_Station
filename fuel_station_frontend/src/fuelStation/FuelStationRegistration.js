@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 const FuelStationRegistration = () => {
     const [formData, setFormData] = useState({stationName: "", fuelType: "",address: "", licenseNumber: "", contactNumber: ""});
     const [isRegistered, setIsRegistered] = useState(false);
-      const navigate = useNavigate();
+    const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -51,17 +51,6 @@ const FuelStationRegistration = () => {
         placeholder='Enter Fuel Station Name'
         value = {formData.Station}
         onChange={(e) => setFormData({...formData, stationName: e.target.value})}
-        required
-      />
-      <br />
-      <br />
-
-      <label htmlFor="fuelType">Fuel Type : </label>
-      <input 
-        type="text"
-        placeholder='Enter Fuel Types'
-        value = {formData.fuelType}
-        onChange={(e) => setFormData({...formData, fuelType: e.target.value})}
         required
       />
       <br />

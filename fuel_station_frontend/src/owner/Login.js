@@ -55,9 +55,6 @@ const Login = () => {
       <button onClick={() => handleLoginTypeChange("owner")}>
         Owner Login
       </button>
-      <button onClick={() => handleLoginTypeChange("station")}>
-        Station Login
-      </button>
 
       <form onSubmit={handleLogin}>
         <label htmlFor="ownerUsername">Username:</label>
