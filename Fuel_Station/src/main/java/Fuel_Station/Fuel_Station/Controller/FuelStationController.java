@@ -42,8 +42,5 @@ public class FuelStationController {
     public void deleteStation(@PathVariable("id") Long stationId) {
         fuelStationService.deleteStation(stationId);
     }
-    @GetMapping("/{ownerId}/stations")
-    public List<FuelStationEntity> getOwnerStations(@PathVariable("ownerId") Long ownerId) {
-        return fuelStationService.getStationsByOwnerId(ownerId);
-    }
+
 }

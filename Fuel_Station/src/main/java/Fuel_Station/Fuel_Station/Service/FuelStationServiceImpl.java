@@ -46,9 +46,5 @@ public class FuelStationServiceImpl implements FuelStationService {
     public void deleteStation(Long stationId) {
         fuelStationRepository.deleteById(stationId);
     }
-    @Override
-    public List<FuelStationEntity> getStationsByOwnerId(Long  ownerId) {
-        return fuelStationRepository.findByOwnerId(ownerId);
 
-    }
 }
