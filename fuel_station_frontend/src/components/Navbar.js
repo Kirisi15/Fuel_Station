@@ -30,6 +30,7 @@ const Navbar = () => {
         <option value="home">Sign In</option>
         <option value="adminLog">Admin Login</option>
         <option value="cusLogin">CustomerLogin</option>
+        <option value="OwnerLogin">OwnerLogin</option>
       </select>
     </nav>
       
