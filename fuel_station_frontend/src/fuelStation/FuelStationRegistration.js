@@ -11,8 +11,9 @@ const FuelStationRegistration = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        const ownerId=  localStorage.getItem("ownerId")
         try {
-          const response = await axios.post("http://localhost:8080/fuel-stations", formData, {
+          const response = await axios.post(`http://localhost:8080/fuel-stations/${ownerId}`, formData, {
             headers: { "Content-Type": "application/json" },
           });
           console.log("Response:", response.data);
