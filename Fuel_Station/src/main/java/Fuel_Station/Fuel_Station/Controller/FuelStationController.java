@@ -28,9 +28,9 @@ public class FuelStationController {
         return fuelStationService.getStationById(stationId);
     }
 
-    @PostMapping
-    public FuelStationEntity addStation(@RequestBody FuelStationEntity fuelStation) {
-        return fuelStationService.addStation(fuelStation);
+    @PostMapping("/{id}")
+    public FuelStationEntity addStation(@RequestBody FuelStationEntity fuelStation,@PathVariable Long id) {
+        return fuelStationService.addStation(fuelStation,id);
     }
 
     @PutMapping("/{id}")
