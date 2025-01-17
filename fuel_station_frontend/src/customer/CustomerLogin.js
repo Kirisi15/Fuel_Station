@@ -9,6 +9,7 @@ const CustomerLogin = () => {
   });
 
   const [isLogin,setIsLogin] = useState(false);
+ const navigate = useNavigate();
 
   
 
@@ -39,16 +40,22 @@ const CustomerLogin = () => {
     }
   
 };
+ const handleAddVehicle = () => {
+   navigate("/vehicleReg");
+ }
 
 return(
   <div>
-    {/* {
+  {
     isLogin ? (
-      <div>
-        </div>
-    ):} */
-
-    (<form onSubmit={handleLogin}>
+       <div>
+       <button onClick = {handleAddVehicle}>Add Vehicle</button>
+         </div>
+     ):
+    
+    (
+    <form onSubmit={handleLogin}>
+         <h2>Login</h2> 
       <h2>Login</h2>
       <label htmlFor="customerUsername">Username : </label>
       <input
