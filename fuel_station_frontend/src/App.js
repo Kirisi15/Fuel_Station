@@ -12,7 +12,7 @@ import CustomerDashboard from "./customer/CustomerDashboard";
 import AdminLogin from "./admin/AdminLogin";
 import CustomerLogin from "./customer/CustomerLogin";
 import EmployeeRegistration from "./employee/EmployeeRegistration";
-import Login from "./owner/Login";
+import OwnerLogin from "./owner/OwnerLogin";
 import OwnerDashboard from "./owner/OwnerDashboard";
 import AddFuel from "./fuelStation/AddFuel";
 function App() {
@@ -29,7 +29,7 @@ function App() {
           <Route path="/adminLog" element={<AdminLogin />} />
           <Route path="/cusLogin" element={<CustomerLogin />} />
           <Route path="/empReg" element={<EmployeeRegistration />} />  
-          <Route  path="/OwnerLogin" element={<Login/>}/> 
+          <Route  path="/OwnerLogin" element={<OwnerLogin/>}/> 
           <Route path="/OwnerDashboard" element={<OwnerDashboard/>}/>     
           <Route  path="/addFuel" element={<AddFuel/>}/>         
          
