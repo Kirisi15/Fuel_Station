@@ -30,7 +30,26 @@ public class CustomerEntity {
     public CustomerEntity() {
     }
 
+    public CustomerEntity(int customerId, String customerNIC, String customerName, String customerEmail, String customerUsername, String customerPassword, List<VehicleEntity> vehicles) {
 
+        this.customerId = customerId;
+        this.customerNIC = customerNIC;
+        this.customerName = customerName;
+        this.customerEmail = customerEmail;
+        this.customerUsername = customerUsername;
+        this.customerPassword = customerPassword;
+        this.vehicles = vehicles;
+    }
+
+    public CustomerEntity(String customerNIC, String customerName, String customerEmail, String customerUsername, String customerPassword, List<VehicleEntity> vehicles) {
+
+        this.customerNIC = customerNIC;
+        this.customerName = customerName;
+        this.customerEmail = customerEmail;
+        this.customerUsername = customerUsername;
+        this.customerPassword = customerPassword;
+        this.vehicles = vehicles;
+    }
 
     public int getCustomerId() {
         return customerId;
