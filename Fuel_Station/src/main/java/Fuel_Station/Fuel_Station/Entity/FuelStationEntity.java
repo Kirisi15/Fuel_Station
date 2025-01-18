@@ -21,7 +21,8 @@ private List<TransactionEntity> transaction =new ArrayList<>();
 @ManyToMany(mappedBy = "fuelStations")
 private List<VehicleEntity> vehicle = new ArrayList<>();
 
-
+    @OneToMany(mappedBy = "fuelStation", cascade = CascadeType.ALL)
+    private List<FuelStationFuel> stationFuels = new ArrayList<>();
 
 @ManyToMany
 @JoinTable(name = "FuelStation_Fuel",joinColumns =@JoinColumn(name = "stationId") ,inverseJoinColumns = @JoinColumn(name = "fuelId"))
