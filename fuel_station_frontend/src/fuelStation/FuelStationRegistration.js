@@ -24,6 +24,8 @@ const FuelStationRegistration = () => {
             licenseNumber: "", 
             contactNumber: ""});
             setIsRegistered(true);
+            localStorage.setItem("stationId",response.data.stationId);
+            localStorage.setItem("ownerId",response.data.ownerId);
           alert("Fuel Station registered successfully!");
         } catch (error) {
           console.error("Error:", error);
@@ -50,7 +52,7 @@ const FuelStationRegistration = () => {
       <input 
         type="text"
         placeholder='Enter Fuel Station Name'
-        value = {formData.Station}
+        value = {formData.stationName}
         onChange={(e) => setFormData({...formData, stationName: e.target.value})}
         required
       />

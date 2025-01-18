@@ -3,7 +3,6 @@ import axios from 'axios';
 
 const AddFuel = () => {
   const [fuels, setFuels] = useState(['']);
-  const [stationId, setStationId] = useState('');
 
   const handleFuelTypeChange = (index, value) => {
     const updatedFuelTypes = [...fuels];
@@ -22,15 +21,15 @@ const AddFuel = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const ownerId=  localStorage.getItem("ownerId")
+    const stationId=  localStorage.getItem("stationId")
 
-    // Loop through the fuels and add each one to the station
     for (const fuelType of fuels) {
       try {
-        const fuelEntity = { fuelType }; // You can expand this object based on your FuelEntity structure
+        const fuelEntity = { fuelType }; 
         const response = await axios.post(
-          "http://localhost:8080/api/fuel", 
-          fuelEntity, 
-          { params: { stationId } } // pass stationId as a query parameter
+          `http://localhost:8080/api/fuel/${ownerId}/${stationId}`, 
+          fuelEntity,  
         );
         console.log('Response:', response.data);
         alert('Fuel types added to the station successfully!');
@@ -45,15 +44,6 @@ const AddFuel = () => {
     <div>
       <h1>Add Fuel</h1>
       <form onSubmit={handleSubmit}>
-        <label>Station ID:</label>
-        <input
-          type="text"
-          placeholder="Enter Station ID"
-          value={stationId}
-          onChange={(e) => setStationId(e.target.value)}
-          required
-        />
-        <br />
         <label>Fuel Types:</label>
         {fuels.map((fuel, index) => (
           <div key={index}>
