@@ -226,7 +226,7 @@ const OwnerRegistration = () => {
         <button name="register" type="submit">
           SignUp
         </button>
-        <button type="button" onClick={() => navigate("/login")}>
+        <button type="button" onClick={() => navigate("/OwnerLogin")}>
           SignIn
         </button>
       </form>

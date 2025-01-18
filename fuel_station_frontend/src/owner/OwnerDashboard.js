@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 
 const OwnerDashboard = () => {
-    const navigate = useNavigate(); 
+  const navigate = useNavigate(); 
   const [owner, setOwner] = useState({ name: "",nic:"",contactNumber:"" ,email: "" });
   const [stations, setStations] = useState([]);
   const [error, setError] = useState("");
