@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import CustomerDashboard from "./CustomerDashboard";
 
 const CustomerLogin = () => {
   const [formData, setFormData] = useState({
@@ -9,6 +10,7 @@ const CustomerLogin = () => {
   });
 
   const [isLogin,setIsLogin] = useState(false);
+ const navigate = useNavigate();
 
   
 
@@ -25,6 +27,7 @@ const CustomerLogin = () => {
   
        if(response.data.customerUsername === formData.customerUsername){
     setIsLogin(true);
+
     alert("Login successful "+response.data.customerUsername);
 }else{
   alert("Invalid username  or password");
@@ -42,13 +45,16 @@ const CustomerLogin = () => {
 
 return(
   <div>
-    {/* {
+  {
     isLogin ? (
-      <div>
-        </div>
-    ):} */
-
-    (<form onSubmit={handleLogin}>
+       <div>
+        <CustomerDashboard />
+       </div>
+     ):
+    
+    (
+    <form onSubmit={handleLogin}>
+         <h2>Login</h2> 
       <h2>Login</h2>
       <label htmlFor="customerUsername">Username : </label>
       <input

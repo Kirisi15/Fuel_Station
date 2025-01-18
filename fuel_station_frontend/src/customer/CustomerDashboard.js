@@ -1,27 +1,26 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const API_BASE = "http://localhost:8080";
 
-// API service functions
 const getCustomerById = (id) => axios.get(`${API_BASE}/api/customer/${id}`);
 const getTransactions = () => axios.get(`${API_BASE}/transactions`);
 
 const CustomerDashboard = ({ customerId }) => {
   const [customer, setCustomer] = useState(null);
   const [transactions, setTransactions] = useState([]);
-  const [fuelQuota, setFuelQuota] = useState(100); // Example: Default fuel quota
+  const [fuelQuota, setFuelQuota] = useState(100);
+  const navigate = useNavigate(); 
+
 
   useEffect(() => {
-    // Fetch customer details
     getCustomerById(customerId)
       .then((res) => setCustomer(res.data))
       .catch((err) => console.error("Error fetching customer details:", err));
 
-    // Fetch transactions
     getTransactions()
       .then((res) => {
-        // Filter transactions for the customer's vehicles
         const customerTransactions = res.data.filter(
           (transaction) => transaction.vehicle.customerId === customerId
         );
@@ -30,9 +29,12 @@ const CustomerDashboard = ({ customerId }) => {
       .catch((err) => console.error("Error fetching transactions:", err));
   }, [customerId]);
 
-  // Calculate pumped fuel and remaining fuel
   const pumpedFuel = transactions.reduce((sum, tx) => sum + tx.quantity, 0);
   const remainingFuel = fuelQuota - pumpedFuel;
+
+  const handleAddVehicle = () => {
+    navigate("/vehicleReg");
+  }
 
   return (
     <div style={{ padding: "20px" }}>
@@ -48,6 +50,9 @@ const CustomerDashboard = ({ customerId }) => {
           </p>
         </div>
       )}
+      <div>
+        <button onClick = {handleAddVehicle}>Add Vehicle</button>
+      </div>
       <div>
         <h3>Fuel Quota Summary</h3>
         <p>

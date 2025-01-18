@@ -31,9 +31,10 @@ public class FuelStationServiceImpl implements FuelStationService {
     }
 
     @Override
-    public FuelStationEntity addStation(FuelStationEntity fuelStation,Long stationId) {
-        OwnerEntity ownerEntity=ownerRepository.findById(stationId).get();
+    public FuelStationEntity addStation(FuelStationEntity fuelStation,Long ownerId) {
+        OwnerEntity ownerEntity=ownerRepository.findById(ownerId).get();
         fuelStation.setOwner(ownerEntity);
+
         return fuelStationRepository.save(fuelStation);
     }
 

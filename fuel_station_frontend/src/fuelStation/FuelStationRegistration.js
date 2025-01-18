@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 
 
 const FuelStationRegistration = () => {
-    const [formData, setFormData] = useState({stationName: "", fuelType: "",address: "", licenseNumber: "", contactNumber: ""});
+    const [formData, setFormData] = useState({stationName: "",address: "", licenseNumber: "", contactNumber: ""});
     const [isRegistered, setIsRegistered] = useState(false);
     const navigate = useNavigate();
 
@@ -26,7 +26,7 @@ const FuelStationRegistration = () => {
             setIsRegistered(true);
           alert("Fuel Station registered successfully!");
         } catch (error) {
-    
+          console.error("Error:", error);
           alert("Network error occurred. Please try again later.");
         }
       };
