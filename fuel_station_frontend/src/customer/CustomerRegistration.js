@@ -15,14 +15,13 @@ function CustomerRegistration(){
       customerPassword  : '',
       confirmPassword : ""
     });
-    const [existingUsers, setExistingUsers] = useState([]);
+      const [existingUsers, setExistingUsers] = useState([]);
       const [emailError, setEmailError] = useState("");
       const [passwordError, setPasswordError] = useState("");
       const [nicError, setNicError] = useState("");
       const [valPasswordError, setValPasswordError] = useState("");
       const [uniqueError, setUniqueError] = useState("");
-     
-      const [isRegistered, setIsRegistered] = useState(false);
+      
       useEffect(() => {
         const fetchUsers = async () => {
           try {
@@ -78,25 +77,21 @@ function CustomerRegistration(){
         
             const duplicateUser = existingUsers.find(
               (user) =>
-                user.email === values.customerEmail ||
-                user.nic === values.customerNIC ||
-                user.username === values.customerUsername 
+                user.customerEmail === values.customerEmail ||
+                user.customerNIC === values.customerNIC ||
+                user.customerUsername === values.customerUsername 
               
             );
         
             if (duplicateUser) {
               setUniqueError(
                ` Duplicate entry detected! ${
-                  duplicateUser.email === values.customerEmail
+                  duplicateUser.customerEmail === values.customerEmail
                     ? "CustomerEmail"
-                    : duplicateUser.nic === values.customerNIC
+                    : duplicateUser.customerNIC === values.customerNIC
                     ? "CustomerNIC"
-                    :"CustomerUsername"
-                    // : duplicateUser.username === values.customerUsername
-                    // ? "CustomerUsername"
-                    
-                    
-                } already exists.`
+                    : "CustomerUsername"
+                  } already exists.`
               );
               return;
             }
@@ -116,7 +111,6 @@ function CustomerRegistration(){
       customerPassword  : '',
       confirmPassword : ""
        });
-       setIsRegistered(true);
        alert("Customer successfully added");
       
     }).catch( (error) => {

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import CustomerDashboard from "./CustomerDashboard";
 
 const CustomerLogin = () => {
   const [formData, setFormData] = useState({
@@ -40,17 +41,14 @@ const CustomerLogin = () => {
     }
   
 };
- const handleAddVehicle = () => {
-   navigate("/vehicleReg");
- }
 
 return(
   <div>
   {
     isLogin ? (
        <div>
-       <button onClick = {handleAddVehicle}>Add Vehicle</button>
-         </div>
+        <CustomerDashboard />
+       </div>
      ):
     
     (
