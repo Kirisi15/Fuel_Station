@@ -1,8 +1,8 @@
-import {useState,useEffect} from 'react';
+import React,{useState,useEffect} from 'react';
 import axios from 'axios';
 import { ValidateEmail } from '../formValidation/ValidateEmail';
 import { ValidatePassword } from '../formValidation/ValidatePassword';
-import { useNavigate } from 'react-router-dom';
+
 import { ValidateNIC } from '../formValidation/ValidateNIC';
 
 function CustomerRegistration(){
@@ -21,13 +21,17 @@ function CustomerRegistration(){
       const [nicError, setNicError] = useState("");
       const [valPasswordError, setValPasswordError] = useState("");
       const [uniqueError, setUniqueError] = useState("");
-      const navigate = useNavigate();
+     
       const [isRegistered, setIsRegistered] = useState(false);
       useEffect(() => {
         const fetchUsers = async () => {
           try {
             const response = await axios.get("http://localhost:8080/api/customer");
-            setExistingUsers(response.data); 
+            if (Array.isArray(response.data)) {
+              setExistingUsers(response.data);
+            } else {
+              console.error("API response is not an array:", response.data);
+            } 
           } catch (error) {
             console.error("Error fetching existing users:", error);
           }
@@ -66,6 +70,11 @@ function CustomerRegistration(){
               return;
             }
             setPasswordError("");
+           
+            if (!Array.isArray(existingUsers)) {
+              alert("An error occurred while validating user data. Please try again later.");
+              return;
+            }
         
             const duplicateUser = existingUsers.find(
               (user) =>
@@ -77,14 +86,15 @@ function CustomerRegistration(){
         
             if (duplicateUser) {
               setUniqueError(
-                `Duplicate entry detected! ${
+               ` Duplicate entry detected! ${
                   duplicateUser.email === values.customerEmail
-                    ? "Email"
+                    ? "CustomerEmail"
                     : duplicateUser.nic === values.customerNIC
-                    ? "NIC"
-                    : duplicateUser.username === values.customerUsername
-                    ? "Username"
-                    :""
+                    ? "CustomerNIC"
+                    :"CustomerUsername"
+                    // : duplicateUser.username === values.customerUsername
+                    // ? "CustomerUsername"
+                    
                     
                 } already exists.`
               );
@@ -96,8 +106,8 @@ function CustomerRegistration(){
         .post('http://localhost:8080/api/customer',values, {
         headers: {"Content-Type": "application/json"},
     })
-    .then((response) => {
-        console.log("Response:", response.data);
+    .then(() => {
+       // console.log("Response:", response.data);
        setCustomers({
         customerName :'',
       customerNIC  : '',
@@ -114,17 +124,11 @@ function CustomerRegistration(){
         alert("Network error occured .plz try again");
     });
 };
-         const handleAddVehicle = () => {
-            navigate("/vehicleReg");
-         }
+        
     return(
         <div className = "container">
             <h1>Customer Registration Form</h1>
-            {isRegistered ? (
-                <div>
-                    <button onClick = {handleAddVehicle}>Add Vehicle</button>
-                    </div>
-            ):(
+             {(
                 <form onSubmit = {handleSubmit} >
                 
                 <label htmlFor ="customerName">Name : </label>  
