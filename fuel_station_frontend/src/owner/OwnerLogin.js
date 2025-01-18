@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from "axios";
+import OwnerDashboard from './OwnerDashboard';
 
 
 const OwnerLogin = () => {
@@ -15,6 +16,7 @@ try {
       const response = await axios.post("http://localhost:8080/api/owners/login",formData);
       if (response.data.username === formData.username) {
         setIsLogin(true);
+        localStorage.setItem("ownerId",response.data.ownerId);
         alert("Login successful! Welcome " + response.data.username);
     } else {
         alert("Invalid username or password. Please try again.");
@@ -30,9 +32,13 @@ try {
   };
 
   return (
-    <div>{
-    
-       ( <form onSubmit={handleLogin}>
+    <div>
+      {isLogin ? (
+        <div>
+            <OwnerDashboard />
+        </div>
+    ) : (
+   <form onSubmit={handleLogin}>
          <h2>Owner Login</h2>
         <label htmlFor="username">Username : </label>
         <input

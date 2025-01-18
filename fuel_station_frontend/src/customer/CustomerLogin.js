@@ -27,6 +27,7 @@ const CustomerLogin = () => {
   
        if(response.data.customerUsername === formData.customerUsername){
     setIsLogin(true);
+
     alert("Login successful "+response.data.customerUsername);
 }else{
   alert("Invalid username  or password");
