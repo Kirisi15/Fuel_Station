@@ -14,6 +14,8 @@ import CustomerLogin from "./customer/CustomerLogin";
 import EmployeeRegistration from "./employee/EmployeeRegistration";
 import Login from "./owner/Login";
 import OwnerDashboard from "./owner/OwnerDashboard";
+import StationDashboard from "./fuelStation/StationDashboard";
+import TransactionDetails from "./fuelStation/TransactionDetails";
 
 function App() {
   return (
@@ -30,9 +32,9 @@ function App() {
           <Route path="/cusLogin" element={<CustomerLogin />} />
           <Route path="/empReg" element={<EmployeeRegistration />} />  
           <Route  path="/OwnerLogin" element={<Login/>}/> 
-          <Route path="/OwnerDashboard" element={<OwnerDashboard/>}/>     
-          
-
+          <Route path="/OwnerDashboard" element={<OwnerDashboard/>}/> 
+          <Route path="/StationDashboard" element={<StationDashboard/>}/>    
+          <Route path="/TransactionDetails" element={<TransactionDetails/>}/>
         </Routes>
     </Router>
 

@@ -26,16 +26,16 @@ const StationDashboard = () => {
       <div className="tabs">
         <button onClick={() => setActiveTab("editStation")}>
           Edit Station
-        </button>
+        </button><br /> <br />
         <button onClick={() => setActiveTab("addEmployee")}>
           Add Employee
-        </button>
+        </button> <br /><br />
         <button onClick={() => setActiveTab("transactionDetails")}>
           Transaction Details
-        </button>
+        </button> <br /><br />
         <button onClick={() => setActiveTab("fuelManagement")}>
           Fuel Management
-        </button>
+        </button> <br /><br />
       </div>
 
       <div className="tab-content">
@@ -77,5 +77,5 @@ const StationDashboard = () => {
     </div>
   );
 };
-i
+
 export default StationDashboard;

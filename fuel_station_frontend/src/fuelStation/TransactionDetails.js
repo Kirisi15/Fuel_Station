@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { getTransactions, deleteTransaction, getTransactionById } from "../services/transactionService";
-import TransactionForm from "./TransactionForm";
+
+
 
 const Transactions = () => {
     const [transactions, setTransactions] = useState([]);
@@ -11,16 +11,11 @@ const Transactions = () => {
     }, []);
 
     const fetchTransactions = async () => {
-        const data = await getTransactions();
-        setTransactions(data);
+      
     };
 
     const handleDelete = async (id) => {
-        const success = await deleteTransaction(id);
-        if (success) {
-            alert("Transaction deleted successfully!");
-            fetchTransactions();
-        }
+        
     };
 
     const handleEdit = async (id) => {
@@ -37,8 +32,7 @@ const Transactions = () => {
         <div>
             <h2>Fuel Station Transactions</h2>
 
-            {/* Render Add/Edit Transaction Form */}
-            <TransactionForm transactionToEdit={editingTransaction} onTransactionSaved={handleTransactionSaved} />
+            
 
             <table border="1">
                 <thead>
@@ -71,4 +65,4 @@ const Transactions = () => {
     );
 };
 
-export default Transactions;
+export default TransactionDetails;
