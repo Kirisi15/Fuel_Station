@@ -1,7 +1,9 @@
 package Fuel_Station.Fuel_Station.Controller;
 
 import Fuel_Station.Fuel_Station.Entity.FuelStationEntity;
+import Fuel_Station.Fuel_Station.Entity.OwnerEntity;
 import Fuel_Station.Fuel_Station.Service.FuelStationService;
+import Fuel_Station.Fuel_Station.Service.OwnerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,6 +14,8 @@ import java.util.List;
 public class FuelStationController {
     @Autowired
     private FuelStationService fuelStationService;
+    @Autowired
+    private OwnerService ownerService;
 
     @GetMapping
     public List<FuelStationEntity> getAllStations() {
@@ -24,9 +28,9 @@ public class FuelStationController {
         return fuelStationService.getStationById(stationId);
     }
 
-    @PostMapping
-    public FuelStationEntity addStation(@RequestBody FuelStationEntity fuelStation) {
-        return fuelStationService.addStation(fuelStation);
+    @PostMapping("/{ownerId}")
+    public FuelStationEntity addStation(@RequestBody FuelStationEntity fuelStation,@PathVariable Long ownerId) {
+        return fuelStationService.addStation(fuelStation, ownerId);
     }
 
     @PutMapping("/{id}")
@@ -38,4 +42,7 @@ public class FuelStationController {
     public void deleteStation(@PathVariable("id") Long stationId) {
         fuelStationService.deleteStation(stationId);
     }
+
+
+
 }

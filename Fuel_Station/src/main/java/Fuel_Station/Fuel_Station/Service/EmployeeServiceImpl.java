@@ -31,7 +31,7 @@ public class EmployeeServiceImpl implements EmployeeService{
     {
         EmployeeEntity existingEmployee = getEmployeeById(employee_Id);
         existingEmployee.setEmployeeContactnumber(EmployeeEntity.getEmployeeContactnumber());
-        existingEmployee.setEmployeeJobrole(EmployeeEntity.getEmployeeJobrole());
+        existingEmployee.setEmployeeName(EmployeeEntity.getEmployeeName());
         existingEmployee.setEmployeeNic(EmployeeEntity.getEmployeeNic());
         existingEmployee.setEmployeePassword(EmployeeEntity.getEmployeePassword());
         existingEmployee.setEmployeeUsername(EmployeeEntity.getEmployeeUsername());

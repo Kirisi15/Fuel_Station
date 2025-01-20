@@ -22,5 +22,5 @@ public interface CustomerService {
 
     void deleteCustomer(Long customerId);
 
-    Optional<CustomerEntity> findByEmail(String customerEmail);
+    Optional<CustomerEntity> findByUsername(String customerEmail);
 }

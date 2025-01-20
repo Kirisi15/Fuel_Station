@@ -1,6 +1,9 @@
 package Fuel_Station.Fuel_Station.Service;
 
+import Fuel_Station.Fuel_Station.Entity.AdminEntity;
+import Fuel_Station.Fuel_Station.Entity.FuelStationEntity;
 import Fuel_Station.Fuel_Station.Entity.OwnerEntity;
+import Fuel_Station.Fuel_Station.Repository.FuelStationRepository;
 import Fuel_Station.Fuel_Station.Repository.OwnerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,7 +12,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class OwnerServiceImpl implements OwnerService {
+public  class OwnerServiceImpl implements OwnerService {
 
     @Autowired
     private OwnerRepository ownerRepository;
@@ -21,7 +24,7 @@ public class OwnerServiceImpl implements OwnerService {
 
     @Override
     public OwnerEntity getOwnerById(Long ownerId) {
-        Optional<OwnerEntity> owner = ownerRepository.findById(Math.toIntExact(ownerId));
+        Optional<OwnerEntity> owner = ownerRepository.findById(ownerId);
         return owner.orElseThrow(() -> new RuntimeException("Owner not found with ID: " + ownerId));
     }
 
@@ -41,6 +44,11 @@ public class OwnerServiceImpl implements OwnerService {
     @Override
     public void deleteOwner(Long ownerId) {
         getOwnerById(ownerId); // Ensures owner exists before attempting to delete.
-        ownerRepository.deleteById(Math.toIntExact(ownerId));
+        ownerRepository.deleteById(ownerId);
     }
+    public Optional<OwnerEntity> findByUsername(String username) {
+        return ownerRepository.findByUsername(username);
+    }
+
 }
+

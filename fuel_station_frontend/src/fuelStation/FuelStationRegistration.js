@@ -1,14 +1,19 @@
 import React from 'react'
 import axios from 'axios';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 
 const FuelStationRegistration = () => {
-    const [formData, setFormData] = useState({stationName: "", fuelType: "",address: "", licenseNumber: "", contactNumber: ""});
+    const [formData, setFormData] = useState({stationName: "",address: "", licenseNumber: "", contactNumber: ""});
+    const [isRegistered, setIsRegistered] = useState(false);
+    const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        const ownerId=  localStorage.getItem("ownerId")
         try {
-          const response = await axios.post("http://localhost:8080/fuel-stations", formData, {
+          const response = await axios.post(`http://localhost:8080/fuel-stations/${ownerId}`, formData, {
             headers: { "Content-Type": "application/json" },
           });
           console.log("Response:", response.data);
@@ -18,35 +23,37 @@ const FuelStationRegistration = () => {
             address: "", 
             licenseNumber: "", 
             contactNumber: ""});
+            setIsRegistered(true);
+            localStorage.setItem("stationId",response.data.stationId);
+            localStorage.setItem("ownerId",response.data.ownerId);
           alert("Fuel Station registered successfully!");
         } catch (error) {
-    
+          console.error("Error:", error);
           alert("Network error occurred. Please try again later.");
         }
       };
+
+      const handleAddFuel = () => {
+        navigate("/addFuel");
+      };
+
   return (
     <div>
       <h1>Fuel Station Registration</h1>
 
+      {isRegistered ? (
+        <div>
+          <button onClick={handleAddFuel}>Add Fuel</button>
+        </div>
+      ) : (
       <form onSubmit = {handleSubmit}>
 
       <label htmlFor="stationName">Fuel Station Name : </label>
       <input 
         type="text"
         placeholder='Enter Fuel Station Name'
-        value = {formData.Station}
+        value = {formData.stationName}
         onChange={(e) => setFormData({...formData, stationName: e.target.value})}
-        required
-      />
-      <br />
-      <br />
-
-      <label htmlFor="fuelType">Fuel Type : </label>
-      <input 
-        type="text"
-        placeholder='Enter Fuel Types'
-        value = {formData.fuelType}
-        onChange={(e) => setFormData({...formData, fuelType: e.target.value})}
         required
       />
       <br />
@@ -86,6 +93,7 @@ const FuelStationRegistration = () => {
       <br />
       <button name = "register" type='submit'>Register</button>
       </form>
+      )}
     </div>
   )
 }

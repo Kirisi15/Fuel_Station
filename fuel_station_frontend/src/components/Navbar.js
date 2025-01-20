@@ -8,7 +8,9 @@ const Navbar = () => {
         Reg: "/",
         ownerReg: "/ownerReg",
         cusReg: "/cusReg",
-        adminLog: "/adminLog"
+        adminLog: "/adminLog",
+        cusLogin: "/cusLogin",
+        ownerLogin: "/OwnerLogin"
       };
 
       const handleSelect = (event) => {
@@ -28,6 +30,8 @@ const Navbar = () => {
       <select onChange={handleSelect}>
         <option value="home">Sign In</option>
         <option value="adminLog">Admin Login</option>
+        <option value="cusLogin">CustomerLogin</option>
+        <option value="ownerLogin">OwnerLogin</option>
       </select>
     </nav>
       

@@ -1,5 +1,6 @@
 package Fuel_Station.Fuel_Station.Controller;
 
+import Fuel_Station.Fuel_Station.Entity.FuelStationEntity;
 import Fuel_Station.Fuel_Station.Entity.OwnerEntity;
 import Fuel_Station.Fuel_Station.Service.OwnerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("api/owners")
@@ -28,7 +30,7 @@ public class OwnerController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<OwnerEntity> getOwnerById(@PathVariable("id") int ownerId) {
+    public ResponseEntity<OwnerEntity> getOwnerById(@PathVariable("id") Long ownerId) {
         OwnerEntity owner = ownerService.getOwnerById((long) ownerId);
         return new ResponseEntity<>(owner, HttpStatus.OK);
     }
@@ -41,7 +43,7 @@ public class OwnerController {
 
     @PutMapping("/{id}")
     public ResponseEntity<OwnerEntity> updateOwner(
-            @PathVariable("id") int ownerId,
+            @PathVariable("id") Long ownerId,
             @RequestBody OwnerEntity ownerEntity) {
         ownerEntity.setOwnerId(ownerId);
         OwnerEntity updatedOwner = ownerService.updateOwner(ownerEntity);
@@ -49,8 +51,19 @@ public class OwnerController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteOwner(@PathVariable("id") int ownerId) {
+    public ResponseEntity<String> deleteOwner(@PathVariable("id") Long ownerId) {
         ownerService.deleteOwner((long) ownerId);
         return new ResponseEntity<>("Owner successfully deleted", HttpStatus.OK);
     }
+    @PostMapping("/login")
+    public ResponseEntity<?> login(@RequestBody OwnerEntity loginDetails) {
+        Optional<OwnerEntity> owner = ownerService.findByUsername(loginDetails.getUsername());
+
+        if (owner.isPresent() && owner.get().getPassword().equals(loginDetails.getPassword())) {
+            return new ResponseEntity<>(owner.get(), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>("Invalid username or password", HttpStatus.UNAUTHORIZED);
+        }
+    }
+
 }

@@ -12,7 +12,7 @@ public class FuelStationEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long stationId;
 @ManyToOne
-@JoinColumn(name = "owner_id")
+@JoinColumn(name = "ownerId")
 private OwnerEntity owner;
 @OneToMany(mappedBy = "fuelStation",cascade =CascadeType.ALL )
 private List<EmployeeEntity> employee=new ArrayList<>();
@@ -21,14 +21,14 @@ private List<TransactionEntity> transaction =new ArrayList<>();
 @ManyToMany(mappedBy = "fuelStations")
 private List<VehicleEntity> vehicle = new ArrayList<>();
 
-
+    @OneToMany(mappedBy = "fuelStation", cascade = CascadeType.ALL)
+    private List<FuelStationFuel> stationFuels = new ArrayList<>();
 
 @ManyToMany
 @JoinTable(name = "FuelStation_Fuel",joinColumns =@JoinColumn(name = "stationId") ,inverseJoinColumns = @JoinColumn(name = "fuelId"))
 private List<FuelEntity> fuel = new ArrayList<>();
 
     private String stationName;
-    private String fuelType;
     private String address;
     private String licenseNumber;
     private String contactNumber;
@@ -40,9 +40,8 @@ private List<FuelEntity> fuel = new ArrayList<>();
     }
 
 
-    public FuelStationEntity(String stationName, String fuelType, String address, String licenseNumber, String contactNumber) {
+    public FuelStationEntity(String stationName,List <String> fuelType, String address, String licenseNumber, String contactNumber) {
         this.stationName = stationName;
-        this.fuelType = fuelType;
         this.address = address;
         this.licenseNumber = licenseNumber;
         this.contactNumber = contactNumber;
@@ -63,14 +62,6 @@ private List<FuelEntity> fuel = new ArrayList<>();
 
     public void setStationName(String stationName) {
         this.stationName = stationName;
-    }
-
-    public String getFuelType() {
-        return fuelType;
-    }
-
-    public void setFuelType(String fuelType) {
-        this.fuelType = fuelType;
     }
 
     public String getAddress() {
@@ -96,13 +87,19 @@ private List<FuelEntity> fuel = new ArrayList<>();
     public void setContactNumber(String contactNumber) {
         this.contactNumber = contactNumber;
     }
+    public OwnerEntity getOwner() {
+        return owner;
+    }
+
+    public void setOwner(OwnerEntity owner) {
+        this.owner = owner;
+    }
 
     @Override
     public String toString() {
         return "FuelStationEntity{" +
                 "stationId=" + stationId +
                 ", stationName='" + stationName + '\'' +
-                ", fuelType='" + fuelType + '\'' +
                 ", address='" + address + '\'' +
                 ", licenseNumber='" + licenseNumber + '\'' +
                 ", contactNumber='" + contactNumber + '\'' +

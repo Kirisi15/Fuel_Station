@@ -27,7 +27,7 @@ public class FuelServiceImpl implements FuelService {
     }
 
     @Override
-    public FuelEntity createFuel(FuelEntity fuelEntity) {
+    public FuelEntity createFuel(FuelEntity fuelEntity, Long ownerId, Long stationId) {
         return fuelRepository.save(fuelEntity);
     }
 
@@ -40,7 +40,6 @@ public class FuelServiceImpl implements FuelService {
     public FuelEntity updatefuel(Long fuelId, FuelEntity fuelEntity) {
         FuelEntity existingFuel = getFuelById((long) fuelEntity.getFuelId());
         existingFuel.setFuelType(fuelEntity.getFuelType());
-        existingFuel.setRemailFuel(fuelEntity.getRemailFuel());
         return fuelRepository.save(existingFuel);
     }
 

@@ -15,10 +15,10 @@ public class EmployeeEntity {
     @Column
     private Long employeeNic;
     @Column
-    private String employeeJobrole;
+    private String employeeName;
     @Column
 
-    private Long employeeContactnumber;
+    private String employeeContactnumber;
 
     @Column
     private String employeeUsername;
@@ -38,10 +38,10 @@ public class EmployeeEntity {
 
     }
 
-    public EmployeeEntity(Long employeeId, Long employeeNic, String employeeJobrole, Long employeeContactnumber, String employeeUsername, String employeePassword) {
+    public EmployeeEntity(Long employeeId, Long employeeNic, String employeeName, String employeeContactnumber, String employeeUsername, String employeePassword) {
       this.employeeId = employeeId;
         this.employeeNic = employeeNic;
-        this.employeeJobrole = employeeJobrole;
+        this.employeeName = employeeName;
        this.employeeContactnumber = employeeContactnumber;
         this.employeeUsername = employeeUsername;
         this.employeePassword = employeePassword;
@@ -63,19 +63,19 @@ public class EmployeeEntity {
         this.employeeNic = employeeNic;
     }
 
-    public String getEmployeeJobrole() {
-        return employeeJobrole;
+    public String getEmployeeName() {
+        return employeeName;
     }
 
-    public void setEmployeeJobrole(String employeeJobrole) {
-       this. employeeJobrole = employeeJobrole;
+    public void setEmployeeName(String employeeName) {
+       this.employeeName = employeeName;
     }
 
-    public Long getEmployeeContactnumber() {
+    public String getEmployeeContactnumber() {
         return employeeContactnumber;
     }
 
-    public void setEmployeeContactnumber(Long employeeContactnumber) {
+    public void setEmployeeContactnumber(String employeeContactnumber) {
         this.employeeContactnumber = employeeContactnumber;
     }
 
@@ -102,7 +102,7 @@ public class EmployeeEntity {
         return "EmployeeEntity{" +
                 "employeeId=" + employeeId + '\'' +
                 ", employeeNic=" + employeeNic +
-                ", employeeJobrole='" + employeeJobrole + '\'' +
+                ", employeeName='" + employeeName + '\'' +
                 ", employeeContactnumber=" + employeeContactnumber +
                 ", employeeUsername='" + employeeUsername + '\'' +
                 ", employeePassword='" + employeePassword + '\'' +

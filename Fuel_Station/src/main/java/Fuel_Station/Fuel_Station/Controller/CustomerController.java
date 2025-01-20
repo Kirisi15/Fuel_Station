@@ -1,5 +1,6 @@
 package Fuel_Station.Fuel_Station.Controller;
 
+import Fuel_Station.Fuel_Station.Entity.AdminEntity;
 import Fuel_Station.Fuel_Station.Entity.CustomerEntity;
 import Fuel_Station.Fuel_Station.Service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,14 +45,12 @@ public class CustomerController {
 
     @PostMapping("/login")
     public ResponseEntity<?> loginCustomer(@RequestBody CustomerEntity loginDetails) {
-        Optional<CustomerEntity> customer = customerService.findByEmail(loginDetails.getCustomerEmail());
+        Optional<CustomerEntity> customer= customerService.findByUsername(loginDetails.getCustomerUsername());
 
         if (customer.isPresent() && customer.get().getCustomerPassword().equals(loginDetails.getCustomerPassword())) {
-            // Return a successful response (optionally a token or user details)
             return new ResponseEntity<>(customer.get(), HttpStatus.OK);
         } else {
-            // Invalid login response
-            return new ResponseEntity<>("Invalid email or password", HttpStatus.UNAUTHORIZED);
+            return new ResponseEntity<>("Invalid username or password", HttpStatus.UNAUTHORIZED);
         }
     }
 }
