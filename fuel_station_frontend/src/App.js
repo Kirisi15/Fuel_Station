@@ -15,6 +15,8 @@ import EmployeeRegistration from "./employee/EmployeeRegistration";
 import OwnerLogin from "./owner/OwnerLogin";
 import OwnerDashboard from "./owner/OwnerDashboard";
 import AddFuel from "./fuelStation/AddFuel";
+import ManageEmployees from "./fuelStation/ManageEmployees";
+
 function App() {
   return (
     <Router>
@@ -31,7 +33,9 @@ function App() {
           <Route path="/empReg" element={<EmployeeRegistration />} />  
           <Route  path="/OwnerLogin" element={<OwnerLogin/>}/> 
           <Route path="/OwnerDashboard" element={<OwnerDashboard/>}/>     
-          <Route  path="/addFuel" element={<AddFuel/>}/>         
+          <Route  path="/addFuel" element={<AddFuel/>}/>  
+          <Route  path="/EmpMang" element={<ManageEmployees/>}/>  
+         <Route  path="EmpReg" element={<EmployeeRegistration/>}/>     
          
 
         </Routes>
@@ -39,5 +43,6 @@ function App() {
 
   );
 }
+
 
 export default App;
