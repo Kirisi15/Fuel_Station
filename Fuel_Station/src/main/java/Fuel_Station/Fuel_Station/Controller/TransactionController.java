@@ -12,6 +12,9 @@ import java.util.List;
 public class TransactionController {
     @Autowired
     private TransactionService transactionService;
+    public TransactionController(TransactionService transactionService) {
+        this.transactionService = transactionService;
+    }
 
     @GetMapping
 
@@ -22,6 +25,10 @@ public class TransactionController {
     @GetMapping("/{id}")
     public TransactionEntity getTransactionById(@PathVariable("id") Long transactionId) {
         return transactionService.getTransactionById(transactionId);
+    }
+    @GetMapping("/station/{stationId}")
+    public List<TransactionEntity> getTransactionsByStation(@PathVariable("stationId") Long stationId) {
+        return transactionService.getTransactionsByStationId(stationId);
     }
 
     @PostMapping

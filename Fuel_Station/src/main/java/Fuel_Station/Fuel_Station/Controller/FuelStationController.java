@@ -17,6 +17,10 @@ public class FuelStationController {
     @Autowired
     private OwnerService ownerService;
 
+    public FuelStationController(FuelStationService fuelStationService) {
+        this.fuelStationService = fuelStationService;
+    }
+
     @GetMapping
     public List<FuelStationEntity> getAllStations() {
 
