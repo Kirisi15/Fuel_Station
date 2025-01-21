@@ -1,25 +1,22 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import React from "react";
 import { QRCodeCanvas } from "qrcode.react";
 import axios from "axios";
+
+
+
 
 function VehicleRegistration() {
   const [values, setVehicles] = useState({
     vehicleType: "",
     vehicleNumber: "",
     fuelType: "",
+    customerId: "",
   });
 
   const [vehicleId, setVehicleId] = useState(null);
   const [qrCodeData, setQrCodeData] = useState(null);
-  const [error, setError] = useState(""); // State to track validation or API errors
 
-  const handleChanges = (e) => {
-    setVehicles({ ...values, [e.target.name]: e.target.value });
-  };
-
-  const validateForm = () => {
-    if (!values.vehicleType || !values.vehicleNumber || !values.fuelType) {
       setError("All fields are required.");
       return false;
     }
@@ -52,26 +49,27 @@ function VehicleRegistration() {
 
       setVehicleId(generatedVehicleId);
 
-      const qrData = `Vehicle ID: ${generatedVehicleId}, Vehicle Type: ${values.vehicleType}, Vehicle Number: ${values.vehicleNumber}, Fuel Type: ${values.fuelType}`;
+
       setQrCodeData(qrData);
 
       setVehicles({
         vehicleType: "",
         vehicleNumber: "",
         fuelType: "",
-      });
+
 
       alert("Vehicle successfully added");
     } catch (error) {
       setError("Failed to register the vehicle. Please try again.");
     }
+
   };
 
   return (
     <div className="container">
       <h1>Vehicle Registration</h1>
       <form onSubmit={handleSubmit}>
-        {error && <p style={{ color: "red" }}>{error}</p>} {/* Display validation or API error */}
+
         <label htmlFor="vehicleType">Vehicle Type:</label>
         <input
           type="text"
@@ -109,6 +107,7 @@ function VehicleRegistration() {
           <option value="CNG">CNG</option>
           <option value="Electric">Electric</option>
         </select>
+
         <br />
         <br />
 
@@ -120,8 +119,7 @@ function VehicleRegistration() {
           <h2>Vehicle Registered Successfully!</h2>
           <p>Vehicle ID: {vehicleId}</p>
           <h3>QR Code:</h3>
-          <QRCodeCanvas value={qrCodeData} />
-          <p>Scan this QR code to view vehicle details.</p>
+
         </div>
       )}
     </div>
