@@ -1,6 +1,7 @@
 package Fuel_Station.Fuel_Station.Controller;
 
 import Fuel_Station.Fuel_Station.Entity.FuelEntity;
+import Fuel_Station.Fuel_Station.Entity.FuelStationEntity;
 import Fuel_Station.Fuel_Station.Service.FuelService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -11,6 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("api/fuel")
+@CrossOrigin(origins = "http://localhost:3000")
 public class FuelController {
 
     private final FuelService fuelService;
@@ -20,9 +22,9 @@ public class FuelController {
         this.fuelService = fuelService;
     }
 
-    @PostMapping
-    public ResponseEntity<FuelEntity> createFuel(@RequestBody FuelEntity fuelEntity) {
-        FuelEntity savedFuel = fuelService.createFuel(fuelEntity);
+    @PostMapping("/{stationId}/{ownerId}")
+    public ResponseEntity<FuelEntity> createFuel(@RequestBody FuelEntity fuelEntity, @PathVariable Long ownerId, @PathVariable Long stationId) {
+        FuelEntity savedFuel = fuelService.createFuel(fuelEntity, ownerId, stationId);
         return new ResponseEntity<>(savedFuel, HttpStatus.CREATED);
     }
 

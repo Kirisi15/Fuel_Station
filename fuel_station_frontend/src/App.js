@@ -12,10 +12,12 @@ import CustomerDashboard from "./customer/CustomerDashboard";
 import AdminLogin from "./admin/AdminLogin";
 import CustomerLogin from "./customer/CustomerLogin";
 import EmployeeRegistration from "./employee/EmployeeRegistration";
-import Login from "./owner/Login";
+import OwnerLogin from "./owner/OwnerLogin";
 import OwnerDashboard from "./owner/OwnerDashboard";
+
 import StationDashboard from "./fuelStation/StationDashboard";
 import TransactionTable from "./fuelStation/TransactionTable";
+
 
 function App() {
   return (
@@ -30,15 +32,21 @@ function App() {
           <Route path="/dashboard/:customerId" element={<CustomerDashboard />} />
           <Route path="/adminLog" element={<AdminLogin />} />
           <Route path="/cusLogin" element={<CustomerLogin />} />
-          <Route path="/empReg" element={<EmployeeRegistration />} />  
-          <Route  path="/OwnerLogin" element={<Login/>}/> 
-          <Route path="/OwnerDashboard" element={<OwnerDashboard/>}/> 
-          <Route path="/StationDashboard" element={<StationDashboard/>}/>    
-          <Route path="/TransactionTable" element={<TransactionTable/>}/>
+          <Route path="/empReg" element={=<EmployeeRegistration />} />  
+
+          <Route  path="/OwnerLogin" element={<OwnerLogin/>}/> 
+          <Route path="/OwnerDashboard" element={<OwnerDashboard/>}/>     
+          <Route  path="/addFuel" element={<AddFuel/>}/>  
+          <Route  path="/EmpMang" element={<ManageEmployees/>}/>  
+         <Route  path="EmpReg" element={<EmployeeRegistration/>}/>     
+         
+
+
         </Routes>
     </Router>
 
   );
 }
+
 
 export default App;

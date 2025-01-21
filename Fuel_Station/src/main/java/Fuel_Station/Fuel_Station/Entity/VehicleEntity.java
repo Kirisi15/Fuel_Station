@@ -22,8 +22,11 @@ public class VehicleEntity {
     @Column(name="Fuel_Type")
     private String FuelType;
 
+    @Column(name="Fuel_Limit")
+    private int FuelLimit;
+
     @ManyToOne
-    @JoinColumn(name = "customerId")
+    @JoinColumn(name = "customerId",nullable = false)
     private CustomerEntity customer;
 
     @OneToMany(mappedBy = "vehicle", cascade = CascadeType.ALL)
@@ -40,12 +43,12 @@ public class VehicleEntity {
     public VehicleEntity() {
     }
 
-    public VehicleEntity(Long vehicleId, String vehicleNumber, String vehicleType, String fuelType) {
-
+    public VehicleEntity(Long vehicleId, String vehicleNumber, String vehicleType, String fuelType, int fuelLimit) {
         VehicleId = vehicleId;
         VehicleNumber = vehicleNumber;
         VehicleType = vehicleType;
         FuelType = fuelType;
+        FuelLimit = fuelLimit;
     }
 
     public Long getVehicleId() {
@@ -79,6 +82,14 @@ public class VehicleEntity {
 
     public void setFuelType(String fuelType) {
         FuelType = fuelType;
+    }
+
+    public int getFuelLimit() {
+        return FuelLimit;
+    }
+
+    public void setFuelLimit(int fuelLimit) {
+        FuelLimit = fuelLimit;
     }
 
     @Override

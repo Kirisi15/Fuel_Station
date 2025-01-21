@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 
 const OwnerDashboard = () => {
-    const navigate = useNavigate(); 
+  const navigate = useNavigate(); 
   const [owner, setOwner] = useState({ name: "",nic:"",contactNumber:"" ,email: "" });
   const [stations, setStations] = useState([]);
   const [error, setError] = useState("");
@@ -54,24 +54,24 @@ const OwnerDashboard = () => {
 }, [ownerId]);
 
 const handleStationClick = (stationId) => {
-  navigate(`/stations/${stationId}`);
+  navigate("/stations/${stationId}");
 };
 
- 
- 
- 
+const handleAddFuelStation = () => {
+  navigate("/stationReg");
+};
+
+const handleAddEmployees = () => {
+  navigate("/empReg");
+}
+
 
   return (
     <div>
       <h1>Owner Dashboard</h1>
-
-      
-      
+      <button onClick={handleAddFuelStation}>Add FuelStation</button>
+      <button onClick={handleAddEmployees}>Add Employee</button>
       <button onClick={updateOwnerDetails}>Update Details</button>
-
-      
-
-      {/* View and Edit Stations */}
       <button>Stations Management</button>
 <div className="owner-container">
   {owner && owner.length > 0 ? (

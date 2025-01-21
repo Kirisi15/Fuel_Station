@@ -20,6 +20,6 @@ public interface OwnerService {
     void deleteOwner(Long ownerId);
 
     public Optional<OwnerEntity> findByUsername(String username);
-    List <FuelStationEntity>getStationsByOwnerId(Long ownerId);
+
 
 }

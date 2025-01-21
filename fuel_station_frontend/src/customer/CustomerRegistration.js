@@ -1,8 +1,8 @@
-import {useState,useEffect} from 'react';
+import React,{useState,useEffect} from 'react';
 import axios from 'axios';
 import { ValidateEmail } from '../formValidation/ValidateEmail';
 import { ValidatePassword } from '../formValidation/ValidatePassword';
-import { useNavigate } from 'react-router-dom';
+
 import { ValidateNIC } from '../formValidation/ValidateNIC';
 
 function CustomerRegistration(){
@@ -11,23 +11,26 @@ function CustomerRegistration(){
       customerName :'',
       customerNIC  : '',
       customerEmail  : '',
-      customerUserName : '',
+      customerUsername : '',
       customerPassword  : '',
       confirmPassword : ""
     });
-    const [existingUsers, setExistingUsers] = useState([]);
+      const [existingUsers, setExistingUsers] = useState([]);
       const [emailError, setEmailError] = useState("");
       const [passwordError, setPasswordError] = useState("");
       const [nicError, setNicError] = useState("");
       const [valPasswordError, setValPasswordError] = useState("");
       const [uniqueError, setUniqueError] = useState("");
-      const navigate = useNavigate();
-      const [isRegistered, setIsRegistered] = useState(false);
+      
       useEffect(() => {
         const fetchUsers = async () => {
           try {
             const response = await axios.get("http://localhost:8080/api/customer");
-            setExistingUsers(response.data); 
+            if (Array.isArray(response.data)) {
+              setExistingUsers(response.data);
+            } else {
+              console.error("API response is not an array:", response.data);
+            } 
           } catch (error) {
             console.error("Error fetching existing users:", error);
           }
@@ -66,27 +69,29 @@ function CustomerRegistration(){
               return;
             }
             setPasswordError("");
+           
+            if (!Array.isArray(existingUsers)) {
+              alert("An error occurred while validating user data. Please try again later.");
+              return;
+            }
         
             const duplicateUser = existingUsers.find(
               (user) =>
-                user.email === values.customerEmail ||
-                user.nic === values.customerNIC ||
-                user.username === values.customerUserName 
+                user.customerEmail === values.customerEmail ||
+                user.customerNIC === values.customerNIC ||
+                user.customerUsername === values.customerUsername 
               
             );
         
             if (duplicateUser) {
               setUniqueError(
-                `Duplicate entry detected! ${
-                  duplicateUser.email === values.customerEmail
-                    ? "Email"
-                    : duplicateUser.nic === values.customerNIC
-                    ? "NIC"
-                    : duplicateUser.username === values.customerUserName
-                    ? "Username"
-                    :""
-                    
-                } already exists.`
+               ` Duplicate entry detected! ${
+                  duplicateUser.customerEmail === values.customerEmail
+                    ? "CustomerEmail"
+                    : duplicateUser.customerNIC === values.customerNIC
+                    ? "CustomerNIC"
+                    : "CustomerUsername"
+                  } already exists.`
               );
               return;
             }
@@ -96,8 +101,8 @@ function CustomerRegistration(){
         .post('http://localhost:8080/api/customer',values, {
         headers: {"Content-Type": "application/json"},
     })
-    .then((response) => {
-        console.log("Response:", response.data);
+    .then(() => {
+       // console.log("Response:", response.data);
        setCustomers({
         customerName :'',
       customerNIC  : '',
@@ -106,7 +111,6 @@ function CustomerRegistration(){
       customerPassword  : '',
       confirmPassword : ""
        });
-       setIsRegistered(true);
        alert("Customer successfully added");
       
     }).catch( (error) => {
@@ -114,17 +118,11 @@ function CustomerRegistration(){
         alert("Network error occured .plz try again");
     });
 };
-         const handleAddVehicle = () => {
-            navigate("/vehicleReg");
-         }
+        
     return(
         <div className = "container">
             <h1>Customer Registration Form</h1>
-            {isRegistered ? (
-                <div>
-                    <button onClick = {handleAddVehicle}>Add Vehicle</button>
-                    </div>
-            ):(
+             {(
                 <form onSubmit = {handleSubmit} >
                 
                 <label htmlFor ="customerName">Name : </label>  
@@ -158,13 +156,13 @@ function CustomerRegistration(){
             {emailError && <p style={{ color :"red", fontSize :"12px"}}>{emailError}</p>}       
                <br/><br/>
                
-               <label htmlFor ="customerUserName">User Name : </label>
+               <label htmlFor ="customerUsername">User Name : </label>
                <input type = "text" 
                placeholder="Enter the username" 
-               name = "customerUserName" 
+               name = "customerUsername" 
                onChange={(e) =>handleChanges(e)} 
                required 
-               value = {values.customerUserName}/>
+               value = {values.customerUsername}/>
                <br/><br/>
               
                

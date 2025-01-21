@@ -1,7 +1,9 @@
 package Fuel_Station.Fuel_Station.Service;
 
 import Fuel_Station.Fuel_Station.Entity.FuelStationEntity;
+import Fuel_Station.Fuel_Station.Entity.OwnerEntity;
 import Fuel_Station.Fuel_Station.Repository.FuelStationRepository;
+import Fuel_Station.Fuel_Station.Repository.OwnerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +14,8 @@ import java.util.Optional;
 public class FuelStationServiceImpl implements FuelStationService {
     @Autowired
     private FuelStationRepository fuelStationRepository;
+    @Autowired
+    private OwnerRepository  ownerRepository;
 
     @Override
     public List<FuelStationEntity> getAllStations() {
@@ -27,7 +31,10 @@ public class FuelStationServiceImpl implements FuelStationService {
     }
 
     @Override
-    public FuelStationEntity addStation(FuelStationEntity fuelStation) {
+    public FuelStationEntity addStation(FuelStationEntity fuelStation,Long ownerId) {
+        OwnerEntity ownerEntity=ownerRepository.findById(ownerId).get();
+        fuelStation.setOwner(ownerEntity);
+
         return fuelStationRepository.save(fuelStation);
     }
 
@@ -35,7 +42,6 @@ public class FuelStationServiceImpl implements FuelStationService {
     public FuelStationEntity updateStation(Long stationId, FuelStationEntity fuelStation) {
         FuelStationEntity existingStation = getStationById(stationId);
         existingStation.setStationName(fuelStation.getStationName());
-        existingStation.setFuelType(fuelStation.getFuelType());
         existingStation.setAddress(fuelStation.getAddress());
         existingStation.setLicenseNumber(fuelStation.getLicenseNumber());
         existingStation.setContactNumber(fuelStation.getContactNumber());
@@ -46,9 +52,5 @@ public class FuelStationServiceImpl implements FuelStationService {
     public void deleteStation(Long stationId) {
         fuelStationRepository.deleteById(stationId);
     }
-    @Override
-    public List<FuelStationEntity> getStationsByOwnerId(Long  ownerId) {
-        return fuelStationRepository.findByOwnerId(ownerId);
 
-    }
 }

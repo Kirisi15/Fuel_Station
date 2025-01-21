@@ -3,6 +3,7 @@ package Fuel_Station.Fuel_Station.Service;
 import Fuel_Station.Fuel_Station.Entity.CustomerEntity;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface CustomerService {
     CustomerEntity createCustomer(CustomerEntity customerEntity);
@@ -20,4 +21,6 @@ public interface CustomerService {
     CustomerEntity updateCustomer(Long customerId, CustomerEntity customerEntity);
 
     void deleteCustomer(Long customerId);
+
+    Optional<CustomerEntity> findByUsername(String customerEmail);
 }
