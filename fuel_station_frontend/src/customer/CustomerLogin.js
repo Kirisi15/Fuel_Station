@@ -55,7 +55,7 @@ return(
     (
     <form onSubmit={handleLogin}>
          <h2>Login</h2> 
-      <h2>Login</h2>
+     
       <label htmlFor="customerUsername">Username : </label>
       <input
           type="text"
