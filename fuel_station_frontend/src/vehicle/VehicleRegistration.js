@@ -16,29 +16,7 @@ function VehicleRegistration() {
 
   const [vehicleId, setVehicleId] = useState(null);
   const [qrCodeData, setQrCodeData] = useState(null);
-  const [error, setError] = useState("");
-  const [customers, setCustomers] = useState([]);
-  const qrCodeRef = useRef(null); // Ref for the QR code canvas
 
-  useEffect(() => {
-    const fetchCustomers = async () => {
-      try {
-        const response = await axios.get("http://localhost:8080/api/customer");
-        setCustomers(response.data);
-      } catch (error) {
-        console.error("Failed to fetch customers:", error);
-      }
-    };
-
-    fetchCustomers();
-  }, []);
-
-  const handleChanges = (e) => {
-    setVehicles({ ...values, [e.target.name]: e.target.value });
-  };
-
-  const validateForm = () => {
-    if (!values.vehicleType || !values.vehicleNumber || !values.fuelType || !values.customerId) {
       setError("All fields are required.");
       return false;
     }
@@ -71,39 +49,27 @@ function VehicleRegistration() {
 
       setVehicleId(generatedVehicleId);
 
-      const qrData = `Vehicle ID: ${generatedVehicleId}, Vehicle Type: ${values.vehicleType}, Vehicle Number: ${values.vehicleNumber}, Fuel Type: ${values.fuelType}, Customer ID: ${values.customerId}`;
+
       setQrCodeData(qrData);
 
       setVehicles({
         vehicleType: "",
         vehicleNumber: "",
         fuelType: "",
-        customerId: "",
-      });
+
 
       alert("Vehicle successfully added");
     } catch (error) {
       setError("Failed to register the vehicle. Please try again.");
     }
-  };
 
-  const downloadQRCode = () => {
-    const canvas = qrCodeRef.current.querySelector("canvas");
-    const pngUrl = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");
-
-    const downloadLink = document.createElement("a");
-    downloadLink.href = pngUrl;
-    downloadLink.download = `vehicle_qr_${vehicleId}.png`;
-    document.body.appendChild(downloadLink);
-    downloadLink.click();
-    document.body.removeChild(downloadLink);
   };
 
   return (
     <div className="container">
       <h1>Vehicle Registration</h1>
       <form onSubmit={handleSubmit}>
-        {error && <p style={{ color: "red" }}>{error}</p>}
+
         <label htmlFor="vehicleType">Vehicle Type:</label>
         <input
           type="text"
@@ -141,23 +107,7 @@ function VehicleRegistration() {
           <option value="CNG">CNG</option>
           <option value="Electric">Electric</option>
         </select>
-        <br />
-        <br />
 
-        <label htmlFor="customerId">Customer:</label>
-        <select
-          name="customerId"
-          onChange={handleChanges}
-          value={values.customerId}
-          required
-        >
-          <option value="">Select Customer</option>
-          {customers.map((customer) => (
-            <option key={customer.id} value={customer.id}>
-              {customer.customerName} ({customer.customerEmail})
-            </option>
-          ))}
-        </select>
         <br />
         <br />
 
@@ -169,10 +119,7 @@ function VehicleRegistration() {
           <h2>Vehicle Registered Successfully!</h2>
           <p>Vehicle ID: {vehicleId}</p>
           <h3>QR Code:</h3>
-          <div ref={qrCodeRef}>
-            <QRCodeCanvas value={qrCodeData} />
-          </div>
-          <button onClick={downloadQRCode}>Download QR Code</button>
+
         </div>
       )}
     </div>
