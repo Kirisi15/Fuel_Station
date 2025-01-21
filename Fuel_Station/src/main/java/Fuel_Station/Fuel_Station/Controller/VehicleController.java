@@ -20,9 +20,9 @@ public class VehicleController {
     public VehicleController(VehicleService vehicleService) {
         this.vehicleService = vehicleService;
     }
-    @PostMapping
-    public ResponseEntity<VehicleEntity> createVehicle(@RequestBody VehicleEntity vehicleEntity){
-        VehicleEntity savedVehicle= vehicleService.createVehicle(vehicleEntity);
+    @PostMapping("/{customerId}")
+    public ResponseEntity<VehicleEntity> createVehicle(@RequestBody VehicleEntity vehicleEntity,@PathVariable int customerId ){
+        VehicleEntity savedVehicle= vehicleService.createVehicle(vehicleEntity,customerId);
         return new ResponseEntity<>(savedVehicle, HttpStatus.CREATED);
     }
 

@@ -1,6 +1,9 @@
 package Fuel_Station.Fuel_Station.Service;
 
+import Fuel_Station.Fuel_Station.Entity.CustomerEntity;
+import Fuel_Station.Fuel_Station.Entity.OwnerEntity;
 import Fuel_Station.Fuel_Station.Entity.VehicleEntity;
+import Fuel_Station.Fuel_Station.Repository.CustomerRepository;
 import Fuel_Station.Fuel_Station.Repository.VehicleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,6 +16,8 @@ import java.util.Optional;
 public class VehicleServiceImpl implements VehicleService {
     @Autowired
     private final VehicleRepository vehicleRepository;
+    @Autowired
+    private CustomerRepository customerRepository;
 
 
 
@@ -21,7 +26,9 @@ public class VehicleServiceImpl implements VehicleService {
     }
 
     @Override
-    public VehicleEntity createVehicle(VehicleEntity vehicleEntity){
+    public VehicleEntity createVehicle(VehicleEntity vehicleEntity, int customerId){
+        CustomerEntity customer= customerRepository.findById(customerId).get();
+        vehicleEntity.setCustomer(customer);
         return vehicleRepository.save(vehicleEntity);
     }
 
