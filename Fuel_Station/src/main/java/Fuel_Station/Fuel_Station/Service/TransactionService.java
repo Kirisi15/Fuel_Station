@@ -10,4 +10,5 @@ public interface TransactionService {
     TransactionEntity addTransaction(TransactionEntity transaction);
     TransactionEntity updateTransaction(Long transactionId, TransactionEntity transaction);
     void deleteTransaction(Long transactionId);
+    List<TransactionEntity> getTransactionsByStationId(Long stationId);
 }

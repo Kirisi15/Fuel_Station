@@ -33,8 +33,9 @@ private FuelStationEntity FuelStation;
     public TransactionEntity(){
 
     }
-    public TransactionEntity(Long transactionId,Double quantity,LocalDateTime dateTime){
+    public TransactionEntity(FuelStationEntity FuelStation,Long transactionId,Double quantity,LocalDateTime dateTime){
         this.transactionId=transactionId;
+        this.FuelStation=FuelStation;
 
 
         this.quantity= quantity;
@@ -66,6 +67,14 @@ private FuelStationEntity FuelStation;
     public void setDateTime(LocalDateTime dateTime) {
         this.dateTime = dateTime;
     }
+    public FuelStationEntity getFuelStation() {
+        return FuelStation;
+    }
+
+    public void setFuelStation(FuelStationEntity FuelStation) {
+        this.FuelStation = FuelStation;
+    }
+
 
     @Override
     public String toString() {
