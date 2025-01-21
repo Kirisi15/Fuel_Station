@@ -15,7 +15,7 @@ import EmployeeRegistration from "./employee/EmployeeRegistration";
 import Login from "./owner/Login";
 import OwnerDashboard from "./owner/OwnerDashboard";
 import StationDashboard from "./fuelStation/StationDashboard";
-import TransactionDetails from "./fuelStation/TransactionDetails";
+import TransactionTable from "./fuelStation/TransactionTable";
 
 function App() {
   return (
@@ -34,7 +34,7 @@ function App() {
           <Route  path="/OwnerLogin" element={<Login/>}/> 
           <Route path="/OwnerDashboard" element={<OwnerDashboard/>}/> 
           <Route path="/StationDashboard" element={<StationDashboard/>}/>    
-          <Route path="/TransactionDetails" element={<TransactionDetails/>}/>
+          <Route path="/TransactionTable" element={<TransactionTable/>}/>
         </Routes>
     </Router>
 
