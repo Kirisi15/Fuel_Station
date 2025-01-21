@@ -26,7 +26,7 @@ public class VehicleEntity {
     private int FuelLimit;
 
     @ManyToOne
-    @JoinColumn(name = "customerId",nullable = false)
+    @JoinColumn(name = "customerId")
     private CustomerEntity customer;
 
     @OneToMany(mappedBy = "vehicle", cascade = CascadeType.ALL)
