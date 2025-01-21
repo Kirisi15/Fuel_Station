@@ -16,6 +16,7 @@ function VehicleRegistration() {
   const [error, setError] = useState("");
   const [customers, setCustomers] = useState([]);
   const qrCodeRef = useRef(null); // Ref for the QR code canvas
+  const [existingVehicles, setExistingVehicles] = useState([]);
 
   useEffect(() => {
     const fetchCustomers = async () => {
@@ -28,6 +29,16 @@ function VehicleRegistration() {
     };
 
     fetchCustomers();
+    const fetchExistingVehicles = async () => {
+      try {
+        const response = await axios.get("http://localhost:8080/api/vehicle");
+        setExistingVehicles(response.data); // Store in state
+      } catch (error) {
+        console.error("Failed to fetch existing vehicles:", error);
+      }
+    };
+
+    fetchExistingVehicles();
   }, []);
 
   const handleChanges = (e) => {
@@ -37,6 +48,13 @@ function VehicleRegistration() {
   const validateForm = () => {
     if (!values.vehicleType || !values.vehicleNumber || !values.fuelType || !values.customerId) {
       setError("All fields are required.");
+      return false;
+    }
+    const isDuplicate = existingVehicles.some(
+      (vehicle) => vehicle.vehicleNumber === values.vehicleNumber
+    );
+    if (isDuplicate) {
+      setError("A vehicle with this number already exists.");
       return false;
     }
     if (!/^[A-Za-z]+$/.test(values.vehicleType)) {
@@ -57,12 +75,14 @@ function VehicleRegistration() {
 
     try {
       const response = await axios.post(
-        "http://localhost:8080/api/vehicle",
+        `http://localhost:8080/api/vehicle/${values.customerId}`, 
         values,
         {
           headers: { "Content-Type": "application/json" },
         }
       );
+      
+      
 
       const generatedVehicleId = response.data.vehicleId;
 
@@ -70,6 +90,11 @@ function VehicleRegistration() {
 
       const qrData = `Vehicle ID: ${generatedVehicleId}, Vehicle Type: ${values.vehicleType}, Vehicle Number: ${values.vehicleNumber}, Fuel Type: ${values.fuelType}, Customer ID: ${values.customerId}`;
       setQrCodeData(qrData);
+
+      setExistingVehicles([...existingVehicles, { vehicleNumber: values.vehicleNumber }]);
+
+     
+
 
       setVehicles({
         vehicleType: "",
@@ -150,7 +175,7 @@ function VehicleRegistration() {
         >
           <option value="">Select Customer</option>
           {customers.map((customer) => (
-            <option key={customer.id} value={customer.id}>
+            <option key={customer.id} value={customer.customerId}>
               {customer.customerName} ({customer.customerEmail})
             </option>
           ))}
