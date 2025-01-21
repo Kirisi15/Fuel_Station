@@ -43,7 +43,8 @@ public class VehicleEntity {
     public VehicleEntity() {
     }
 
-    public VehicleEntity(Long vehicleId, String vehicleNumber, String vehicleType, String fuelType, int fuelLimit) {
+    public VehicleEntity( Long vehicleId, String vehicleNumber, String vehicleType, String fuelType, int fuelLimit) {
+
         VehicleId = vehicleId;
         VehicleNumber = vehicleNumber;
         VehicleType = vehicleType;
@@ -90,6 +91,12 @@ public class VehicleEntity {
 
     public void setFuelLimit(int fuelLimit) {
         FuelLimit = fuelLimit;
+    }
+    public  CustomerEntity getCustomer(){
+        return customer;
+    }
+    public void setCustomer(CustomerEntity customer){
+        this.customer=customer;
     }
 
     @Override

@@ -57,12 +57,14 @@ function VehicleRegistration() {
 
     try {
       const response = await axios.post(
-        "http://localhost:8080/api/vehicle",
+        `http://localhost:8080/api/vehicle/${values.customerId}`, 
         values,
         {
           headers: { "Content-Type": "application/json" },
         }
       );
+      
+      
 
       const generatedVehicleId = response.data.vehicleId;
 
@@ -150,7 +152,7 @@ function VehicleRegistration() {
         >
           <option value="">Select Customer</option>
           {customers.map((customer) => (
-            <option key={customer.id} value={customer.id}>
+            <option key={customer.id} value={customer.customerId}>
               {customer.customerName} ({customer.customerEmail})
             </option>
           ))}
