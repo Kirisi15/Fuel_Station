@@ -97,6 +97,14 @@ public class EmployeeEntity {
        this. employeePassword = employeePassword;
     }
 
+    public FuelStationEntity getFuelStation() {
+        return fuelStation;
+    }
+
+    public void setFuelStation(FuelStationEntity fuelStation) {
+        this.fuelStation = fuelStation;
+    }
+
     @Override
     public String toString() {
         return "EmployeeEntity{" +

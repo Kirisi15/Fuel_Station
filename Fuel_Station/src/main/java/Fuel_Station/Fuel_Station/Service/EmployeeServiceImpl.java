@@ -2,7 +2,10 @@ package Fuel_Station.Fuel_Station.Service;
 
 import Fuel_Station.Fuel_Station.Entity.AdminEntity;
 import Fuel_Station.Fuel_Station.Entity.EmployeeEntity;
+import Fuel_Station.Fuel_Station.Entity.FuelStationEntity;
+import Fuel_Station.Fuel_Station.Entity.OwnerEntity;
 import Fuel_Station.Fuel_Station.Repository.EmployeeRepository;
+import Fuel_Station.Fuel_Station.Repository.FuelStationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,8 +17,12 @@ public class EmployeeServiceImpl implements EmployeeService{
 
     @Autowired
   private EmployeeRepository employeeRepository;
-   public  EmployeeEntity createEmployee(EmployeeEntity employeeEntity)
+    @Autowired
+    private FuelStationRepository fuelStationRepository;
+   public  EmployeeEntity createEmployee(EmployeeEntity employeeEntity,Long stationId )
    {
+       FuelStationEntity fuelStation= fuelStationRepository.findById(stationId).get();
+       employeeEntity.setFuelStation(fuelStation);
        return employeeRepository.save(employeeEntity);
    }
   public  EmployeeEntity getEmployeeById(Long employeeId)
