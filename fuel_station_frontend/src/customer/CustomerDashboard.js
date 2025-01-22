@@ -1,93 +1,91 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
 
-const API_BASE = "http://localhost:8080";
+function CustomerDashboard() {
+  const [vehicles, setVehicles] = useState([]);
+  const [error, setError] = useState("");
 
-const getCustomerById = (id) => axios.get(`${API_BASE}/api/customer/${id}`);
-const getTransactions = () => axios.get(`${API_BASE}/transactions`);
-
-const CustomerDashboard = ({ customerId }) => {
-  const [customer, setCustomer] = useState(null);
-  const [transactions, setTransactions] = useState([]);
-  const [fuelQuota, setFuelQuota] = useState(100);
-  const navigate = useNavigate(); 
-
+  // Assuming customerId is stored in localStorage
+  const customerId = localStorage.getItem("customerId");
 
   useEffect(() => {
-    getCustomerById(customerId)
-      .then((res) => setCustomer(res.data))
-      .catch((err) => console.error("Error fetching customer details:", err));
-
-    getTransactions()
-      .then((res) => {
-        const customerTransactions = res.data.filter(
-          (transaction) => transaction.vehicle.customerId === customerId
+    const fetchVehicles = async () => {
+      try {
+        console.log("Fetching vehicles for customer ID:", customerId);
+        const response = await axios.get(
+          `http://localhost:8080/api/vehicle/customer/${customerId}`
         );
-        setTransactions(customerTransactions);
-      })
-      .catch((err) => console.error("Error fetching transactions:", err));
+        
+        console.log("API Response:", response.data);
+        setVehicles(response.data); 
+        setError(""); 
+      } catch (err) {
+        console.error("Error fetching vehicles:", err);
+        setError("Failed to fetch vehicle details. Please try again.");
+      }
+    };
+    
+
+    fetchVehicles();
   }, [customerId]);
 
-  const pumpedFuel = transactions.reduce((sum, tx) => sum + tx.quantity, 0);
-  const remainingFuel = fuelQuota - pumpedFuel;
-
-  const handleAddVehicle = () => {
-    navigate("/vehicleReg");
-  }
-
   return (
-    <div style={{ padding: "20px" }}>
-      <h1>Customer Dashboard</h1>
-      {customer && (
-        <div>
-          <h2>Welcome, {customer.customerName}</h2>
-          <p>
-            <strong>NIC:</strong> {customer.customerNIC}
-          </p>
-          <p>
-            <strong>Email:</strong> {customer.customerEmail}
-          </p>
+    <div style={styles.container}>
+      <h1 style={styles.header}>Customer Dashboard</h1>
+      {error && <p style={styles.error}>{error}</p>}
+      {vehicles.length === 0 ? (
+        <p style={styles.message}>No vehicles found for this customer.</p>
+      ) : (
+        <div style={styles.grid}>
+          {vehicles.map((vehicle) => (
+            <div key={vehicle.vehicleNumber} style={styles.card}>
+              <h3 style={styles.cardHeader}>{vehicle.vehicleType}</h3>
+              <p><strong>Fuel Type:</strong> {vehicle.fuelType}</p>
+              <p><strong>Fuel Limit:</strong> {vehicle.fuelLimit}</p>
+              <p><strong>Vehicle Number:</strong> {vehicle.vehicleNumber}</p>
+            </div>
+          ))}
         </div>
       )}
-      <div>
-        <button onClick = {handleAddVehicle}>Add Vehicle</button>
-      </div>
-      <div>
-        <h3>Fuel Quota Summary</h3>
-        <p>
-          <strong>Total Quota:</strong> {fuelQuota} Liters
-        </p>
-        <p>
-          <strong>Pumped Fuel:</strong> {pumpedFuel} Liters
-        </p>
-        <p>
-          <strong>Remaining Fuel:</strong> {remainingFuel} Liters
-        </p>
-      </div>
-      <div>
-        <h3>Recent Transactions</h3>
-        <table border="1" cellPadding="10">
-          <thead>
-            <tr>
-              <th>Date</th>
-              <th>Quantity (Liters)</th>
-              <th>Fuel Type</th>
-            </tr>
-          </thead>
-          <tbody>
-            {transactions.map((tx) => (
-              <tr key={tx.transactionId}>
-                <td>{new Date(tx.dateTime).toLocaleString()}</td>
-                <td>{tx.quantity}</td>
-                <td>{tx.fuel.fuelType}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
     </div>
   );
+}
+
+// Internal CSS styles
+const styles = {
+  container: {
+    padding: "20px",
+    fontFamily: "Arial, sans-serif",
+  },
+  header: {
+    textAlign: "center",
+    color: "#333",
+  },
+  error: {
+    color: "red",
+    textAlign: "center",
+  },
+  message: {
+    textAlign: "center",
+    color: "#666",
+  },
+  grid: {
+    display: "grid",
+    gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
+    gap: "20px",
+    marginTop: "20px",
+  },
+  card: {
+    border: "1px solid #ccc",
+    borderRadius: "8px",
+    padding: "20px",
+    boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+    backgroundColor: "#fff",
+  },
+  cardHeader: {
+    color: "#007bff",
+    marginBottom: "10px",
+  },
 };
 
 export default CustomerDashboard;
