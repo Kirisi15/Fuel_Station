@@ -25,10 +25,10 @@ public class EmployeeController {
         return employeeService.getEmployeeById(employeeId);
     }
 
-    @PostMapping
-    public EmployeeEntity createEmployee(@RequestBody EmployeeEntity employeeEntity)
+    @PostMapping("stationId")
+    public EmployeeEntity createEmployee(@RequestBody EmployeeEntity employeeEntity,Long stationId)
     {
-        return employeeService.createEmployee(employeeEntity);
+        return employeeService.createEmployee(employeeEntity,stationId);
     }
 
     @PutMapping("/{id}")
