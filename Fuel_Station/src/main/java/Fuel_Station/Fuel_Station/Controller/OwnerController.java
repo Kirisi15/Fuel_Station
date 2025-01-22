@@ -29,8 +29,8 @@ public class OwnerController {
         return new ResponseEntity<>(savedOwner, HttpStatus.CREATED);
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<OwnerEntity> getOwnerById(@PathVariable("id") Long ownerId) {
+    @GetMapping("/{ownerId}")
+    public ResponseEntity<OwnerEntity> getOwnerById(@PathVariable("ownerId") Long ownerId) {
         OwnerEntity owner = ownerService.getOwnerById((long) ownerId);
         return new ResponseEntity<>(owner, HttpStatus.OK);
     }
