@@ -12,7 +12,7 @@ const EditStation = () => {
     const fetchStationDetails = async () => {
       try {
         
-        const response = await fetch("https://api.example.com/station/details");
+        const response = await fetch("http://localhost:8080/{id}");
         if (!response.ok) {
           throw new Error("Failed to fetch station details");
         }

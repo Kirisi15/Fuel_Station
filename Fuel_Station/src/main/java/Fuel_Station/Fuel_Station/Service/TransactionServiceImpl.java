@@ -43,4 +43,7 @@ public class TransactionServiceImpl implements TransactionService{
     public void deleteTransaction(Long transactionId) {
         transactionRepository.deleteById(transactionId);
     }
+    public List<TransactionEntity> getTransactionsByStationId(Long stationId) {
+        return transactionRepository.findByStation_Id(stationId);
+    }
 }

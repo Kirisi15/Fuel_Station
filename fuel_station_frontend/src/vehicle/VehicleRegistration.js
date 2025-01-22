@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import React from "react";
 import { QRCodeCanvas } from "qrcode.react";
 import axios from "axios";
@@ -8,19 +8,53 @@ function VehicleRegistration() {
     vehicleType: "",
     vehicleNumber: "",
     fuelType: "",
+    customerId: "",
   });
 
   const [vehicleId, setVehicleId] = useState(null);
   const [qrCodeData, setQrCodeData] = useState(null);
-  const [error, setError] = useState(""); // State to track validation or API errors
+  const [error, setError] = useState("");
+  const [customers, setCustomers] = useState([]);
+  const qrCodeRef = useRef(null); // Ref for the QR code canvas
+  const [existingVehicles, setExistingVehicles] = useState([]);
+
+  useEffect(() => {
+    const fetchCustomers = async () => {
+      try {
+        const response = await axios.get("http://localhost:8080/api/customer");
+        setCustomers(response.data);
+      } catch (error) {
+        console.error("Failed to fetch customers:", error);
+      }
+    };
+
+    fetchCustomers();
+    const fetchExistingVehicles = async () => {
+      try {
+        const response = await axios.get("http://localhost:8080/api/vehicle");
+        setExistingVehicles(response.data); // Store in state
+      } catch (error) {
+        console.error("Failed to fetch existing vehicles:", error);
+      }
+    };
+
+    fetchExistingVehicles();
+  }, []);
 
   const handleChanges = (e) => {
     setVehicles({ ...values, [e.target.name]: e.target.value });
   };
 
   const validateForm = () => {
-    if (!values.vehicleType || !values.vehicleNumber || !values.fuelType) {
+    if (!values.vehicleType || !values.vehicleNumber || !values.fuelType || !values.customerId) {
       setError("All fields are required.");
+      return false;
+    }
+    const isDuplicate = existingVehicles.some(
+      (vehicle) => vehicle.vehicleNumber === values.vehicleNumber
+    );
+    if (isDuplicate) {
+      setError("A vehicle with this number already exists.");
       return false;
     }
     if (!/^[A-Za-z]+$/.test(values.vehicleType)) {
@@ -41,24 +75,32 @@ function VehicleRegistration() {
 
     try {
       const response = await axios.post(
-        "http://localhost:8080/api/vehicle",
+        `http://localhost:8080/api/vehicle/${values.customerId}`, 
         values,
         {
           headers: { "Content-Type": "application/json" },
         }
       );
+      
+      
 
       const generatedVehicleId = response.data.vehicleId;
 
       setVehicleId(generatedVehicleId);
 
-      const qrData = `Vehicle ID: ${generatedVehicleId}, Vehicle Type: ${values.vehicleType}, Vehicle Number: ${values.vehicleNumber}, Fuel Type: ${values.fuelType}`;
+      const qrData = `Vehicle ID: ${generatedVehicleId}, Vehicle Type: ${values.vehicleType}, Vehicle Number: ${values.vehicleNumber}, Fuel Type: ${values.fuelType}, Customer ID: ${values.customerId}`;
       setQrCodeData(qrData);
+
+      setExistingVehicles([...existingVehicles, { vehicleNumber: values.vehicleNumber }]);
+
+     
+
 
       setVehicles({
         vehicleType: "",
         vehicleNumber: "",
         fuelType: "",
+        customerId: "",
       });
 
       alert("Vehicle successfully added");
@@ -67,11 +109,23 @@ function VehicleRegistration() {
     }
   };
 
+  const downloadQRCode = () => {
+    const canvas = qrCodeRef.current.querySelector("canvas");
+    const pngUrl = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");
+
+    const downloadLink = document.createElement("a");
+    downloadLink.href = pngUrl;
+    downloadLink.download = `vehicle_qr_${vehicleId}.png`;
+    document.body.appendChild(downloadLink);
+    downloadLink.click();
+    document.body.removeChild(downloadLink);
+  };
+
   return (
     <div className="container">
       <h1>Vehicle Registration</h1>
       <form onSubmit={handleSubmit}>
-        {error && <p style={{ color: "red" }}>{error}</p>} {/* Display validation or API error */}
+        {error && <p style={{ color: "red" }}>{error}</p>}
         <label htmlFor="vehicleType">Vehicle Type:</label>
         <input
           type="text"
@@ -112,6 +166,23 @@ function VehicleRegistration() {
         <br />
         <br />
 
+        <label htmlFor="customerId">Customer:</label>
+        <select
+          name="customerId"
+          onChange={handleChanges}
+          value={values.customerId}
+          required
+        >
+          <option value="">Select Customer</option>
+          {customers.map((customer) => (
+            <option key={customer.id} value={customer.customerId}>
+              {customer.customerName} ({customer.customerEmail})
+            </option>
+          ))}
+        </select>
+        <br />
+        <br />
+
         <button type="submit">Submit</button>
       </form>
 
@@ -120,8 +191,10 @@ function VehicleRegistration() {
           <h2>Vehicle Registered Successfully!</h2>
           <p>Vehicle ID: {vehicleId}</p>
           <h3>QR Code:</h3>
-          <QRCodeCanvas value={qrCodeData} />
-          <p>Scan this QR code to view vehicle details.</p>
+          <div ref={qrCodeRef}>
+            <QRCodeCanvas value={qrCodeData} />
+          </div>
+          <button onClick={downloadQRCode}>Download QR Code</button>
         </div>
       )}
     </div>

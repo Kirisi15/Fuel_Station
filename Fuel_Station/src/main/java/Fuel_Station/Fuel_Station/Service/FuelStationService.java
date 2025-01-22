@@ -7,7 +7,7 @@ import java.util.List;
 public interface FuelStationService {
     List<FuelStationEntity> getAllStations();
     FuelStationEntity getStationById(Long stationId);
-    FuelStationEntity addStation(FuelStationEntity fuelStation,Long stationId);
+    FuelStationEntity addStation(FuelStationEntity fuelStation,Long ownerId);
     FuelStationEntity updateStation(Long stationId, FuelStationEntity fuelStation);
     void deleteStation(Long stationId);
 

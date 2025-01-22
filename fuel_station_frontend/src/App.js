@@ -14,8 +14,13 @@ import CustomerLogin from "./customer/CustomerLogin";
 import EmployeeRegistration from "./employee/EmployeeRegistration";
 import OwnerLogin from "./owner/OwnerLogin";
 import OwnerDashboard from "./owner/OwnerDashboard";
-import AddFuel from "./fuelStation/AddFuel";
 import ManageEmployees from "./fuelStation/ManageEmployees";
+import AddFuel from "./fuelStation/AddFuel";
+
+import StationDashboard from "./fuelStation/StationDashboard";
+import TransactionTable from "./fuelStation/TransactionTable";
+
+
 
 function App() {
   return (
@@ -30,13 +35,19 @@ function App() {
           <Route path="/dashboard/:customerId" element={<CustomerDashboard />} />
           <Route path="/adminLog" element={<AdminLogin />} />
           <Route path="/cusLogin" element={<CustomerLogin />} />
-          <Route path="/empReg" element={<EmployeeRegistration />} />  
+
+           
+
           <Route  path="/OwnerLogin" element={<OwnerLogin/>}/> 
           <Route path="/OwnerDashboard" element={<OwnerDashboard/>}/>     
           <Route  path="/addFuel" element={<AddFuel/>}/>  
           <Route  path="/EmpMang" element={<ManageEmployees/>}/>  
-         <Route  path="EmpReg" element={<EmployeeRegistration/>}/>     
+         <Route  path="EmpReg" element={<EmployeeRegistration/>}/>  
+         <Route path="TransactionTable" element={<TransactionTable/>}/> 
+         <Route path="StationDashboard" element={<StationDashboard/>}/>
          
+         
+
 
         </Routes>
     </Router>
