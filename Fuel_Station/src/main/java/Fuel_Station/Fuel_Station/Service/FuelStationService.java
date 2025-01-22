@@ -11,4 +11,5 @@ public interface FuelStationService {
     FuelStationEntity updateStation(Long stationId, FuelStationEntity fuelStation);
     void deleteStation(Long stationId);
 
+    FuelStationEntity saveFuelStation(FuelStationEntity fuelStation);
 }

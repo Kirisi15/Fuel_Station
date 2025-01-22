@@ -7,6 +7,5 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public abstract interface FuelRepository extends JpaRepository<FuelEntity, Integer> {
-    Optional<FuelEntity> findById(int intExact);
+public abstract interface FuelRepository extends JpaRepository<FuelEntity, Long> {
 }
