@@ -2,6 +2,7 @@ import React from 'react'
 import axios from 'axios';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import StationDashboard from './StationDashboard';
 
 
 const FuelStationRegistration = () => {
@@ -27,21 +28,15 @@ const FuelStationRegistration = () => {
         }
       };
 
-      const handleAddFuel = () => {
-        navigate("/addFuel");
-      };
-
   return (
     <div>
-      <h1>Fuel Station Registration</h1>
-
       {isRegistered ? (
         <div>
-          <button onClick={handleAddFuel}>Add Fuel</button>
+          <StationDashboard />
         </div>
       ) : (
       <form onSubmit = {handleSubmit}>
-
+      <h1>Fuel Station Registration</h1>
       <label htmlFor="stationName">Fuel Station Name : </label>
       <input 
         type="text"
