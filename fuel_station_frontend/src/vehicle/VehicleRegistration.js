@@ -8,6 +8,7 @@ function VehicleRegistration() {
     vehicleType: "",
     vehicleNumber: "",
     fuelType: "",
+    fuelLimit: "", // Added fuelLimit attribute
     customerId: "",
   });
 
@@ -46,7 +47,7 @@ function VehicleRegistration() {
   };
 
   const validateForm = () => {
-    if (!values.vehicleType || !values.vehicleNumber || !values.fuelType || !values.customerId) {
+    if (!values.vehicleType || !values.vehicleNumber || !values.fuelType || !values.fuelLimit || !values.customerId) {
       setError("All fields are required.");
       return false;
     }
@@ -65,6 +66,10 @@ function VehicleRegistration() {
       setError("Vehicle number should be alphanumeric (e.g., ABC-1234).");
       return false;
     }
+    if (!/^\d+(\.\d{1,2})?$/.test(values.fuelLimit)) {
+      setError("Fuel limit should be a valid number.");
+      return false;
+    }
     setError("");
     return true;
   };
@@ -81,25 +86,21 @@ function VehicleRegistration() {
           headers: { "Content-Type": "application/json" },
         }
       );
-      
-      
 
       const generatedVehicleId = response.data.vehicleId;
 
       setVehicleId(generatedVehicleId);
 
-      const qrData = `Vehicle ID: ${generatedVehicleId}, Vehicle Type: ${values.vehicleType}, Vehicle Number: ${values.vehicleNumber}, Fuel Type: ${values.fuelType}, Customer ID: ${values.customerId}`;
+      const qrData = `Vehicle ID: ${generatedVehicleId}, Vehicle Type: ${values.vehicleType}, Vehicle Number: ${values.vehicleNumber}, Fuel Type: ${values.fuelType}, Fuel Limit: ${values.fuelLimit}, Customer ID: ${values.customerId}`;
       setQrCodeData(qrData);
 
       setExistingVehicles([...existingVehicles, { vehicleNumber: values.vehicleNumber }]);
-
-     
-
 
       setVehicles({
         vehicleType: "",
         vehicleNumber: "",
         fuelType: "",
+        fuelLimit: "",
         customerId: "",
       });
 
@@ -163,6 +164,19 @@ function VehicleRegistration() {
           <option value="CNG">CNG</option>
           <option value="Electric">Electric</option>
         </select>
+        <br />
+        <br />
+
+        <label htmlFor="fuelLimit">Fuel Limit:</label>
+        <input
+          type="number"
+          step="5"
+          placeholder="Enter the fuel limit"
+          name="fuelLimit"
+          onChange={handleChanges}
+          value={values.fuelLimit}
+          required
+        />
         <br />
         <br />
 

@@ -17,15 +17,9 @@ const FuelStationRegistration = () => {
             headers: { "Content-Type": "application/json" },
           });
           console.log("Response:", response.data);
-          setFormData({
-            stationName: "", 
-            fuelType: "", 
-            address: "", 
-            licenseNumber: "", 
-            contactNumber: ""});
-            setIsRegistered(true);
+          const { stationId } = response.data;        
             localStorage.setItem("stationId",response.data.stationId);
-            localStorage.setItem("ownerId",response.data.ownerId);
+            setIsRegistered(true);
           alert("Fuel Station registered successfully!");
         } catch (error) {
           console.error("Error:", error);

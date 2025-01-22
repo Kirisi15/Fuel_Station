@@ -34,7 +34,7 @@ public class OwnerEntity {
     private String password;
 
     public OwnerEntity(Long ownerId, String name, String nic, String contactNumber, String email, String username, String password) {
-        this.ownerId = ownerId;
+        //this.ownerId = ownerId;
         this.name = name;
         this.nic = nic;
         this.contactNumber = contactNumber;

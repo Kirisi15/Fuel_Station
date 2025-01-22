@@ -1,9 +1,6 @@
 package Fuel_Station.Fuel_Station.Service;
 
-import Fuel_Station.Fuel_Station.Entity.AdminEntity;
-import Fuel_Station.Fuel_Station.Entity.FuelStationEntity;
 import Fuel_Station.Fuel_Station.Entity.OwnerEntity;
-import Fuel_Station.Fuel_Station.Repository.FuelStationRepository;
 import Fuel_Station.Fuel_Station.Repository.OwnerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -36,7 +33,7 @@ public  class OwnerServiceImpl implements OwnerService {
     @Override
     public OwnerEntity updateOwner(OwnerEntity ownerEntity) {
         OwnerEntity existingOwner = getOwnerById(ownerEntity.getOwnerId());
-        existingOwner.setUsername(ownerEntity.getName());
+        existingOwner.setName(ownerEntity.getName());
         existingOwner.setContactNumber(ownerEntity.getContactNumber());
         return ownerRepository.save(existingOwner);
     }

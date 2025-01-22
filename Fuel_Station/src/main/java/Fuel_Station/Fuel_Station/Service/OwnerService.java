@@ -1,9 +1,6 @@
 package Fuel_Station.Fuel_Station.Service;
 
-import Fuel_Station.Fuel_Station.Entity.AdminEntity;
-import Fuel_Station.Fuel_Station.Entity.FuelStationEntity;
 import Fuel_Station.Fuel_Station.Entity.OwnerEntity;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
@@ -19,7 +16,7 @@ public interface OwnerService {
 
     void deleteOwner(Long ownerId);
 
-    public Optional<OwnerEntity> findByUsername(String username);
+    Optional<OwnerEntity> findByUsername(String username);
 
 
 }

@@ -59,20 +59,17 @@ const handleStationClick = (stationId) => {
 
 const handleAddFuelStation = () => {
   navigate("/stationReg");
-};
-
-const handleAddEmployees = () => {
-  navigate("/empReg");
 }
+
 
 
   return (
     <div>
       <h1>Owner Dashboard</h1>
-      <button onClick={handleAddFuelStation}>Add FuelStation</button>
-      <button onClick={handleAddEmployees}>Add Employee</button>
-      <button onClick={updateOwnerDetails}>Update Details</button>
-      <button>Stations Management</button>
+      <button onClick={handleAddFuelStation}>Add FuelStation</button><br/><br/>
+      
+      <button onClick={updateOwnerDetails}>Update Details</button><br/><br/>
+      <button>Stations Management</button><br/><br/>
 <div className="owner-container">
   {owner && owner.length > 0 ? (
     owner.map((owner) => (
