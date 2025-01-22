@@ -13,24 +13,26 @@ public class FuelEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long fuelId;
 
+    @Column(name="fuel_type")
+    private String fuelType;
+
+    @Column(name = "addedFuel")
+    private double addedFuel;
+
+    @Column(name = "pumpedFuel")
+    private double pumpedFuel;
+
     @OneToMany(mappedBy = "fuel", cascade = CascadeType.ALL)
     private List<TransactionEntity> transactions = new ArrayList<>();
 
     @ManyToMany(mappedBy = "fuel")
     private List<FuelStationEntity> fuelStations = new ArrayList<>();
 
- 
-
-    @Column(name="fuel_type")
-    private String fuelType;
-
-    @Column(name="remain_fuel")
-    private String remailFuel;
-
-    public FuelEntity(long fuelId, String fuelType,String remailFuel) {
-        this.fuelId= fuelId;
+    public FuelEntity(long fuelId, String fuelType, double addedFuel, double pumpedFuel) {
+        this.fuelId = fuelId;
         this.fuelType = fuelType;
-        this.remailFuel = remailFuel;
+        this.addedFuel = addedFuel;
+        this.pumpedFuel = pumpedFuel;
     }
 
     public FuelEntity() {
@@ -40,7 +42,7 @@ public class FuelEntity {
         return fuelId;
     }
 
-    public void setFuelId(int fuelId) {
+    public void setFuelId(long fuelId) {
         this.fuelId = fuelId;
     }
 
@@ -52,22 +54,19 @@ public class FuelEntity {
         this.fuelType = fuelType;
     }
 
-    public String getRemailFuel() {
-        return remailFuel;
+    public double getAddedFuel() {
+        return addedFuel;
     }
 
-    public void setRemailFuel(String remailFuel) {
-        this.remailFuel = remailFuel;
+    public void setAddedFuel(double addedFuel) {
+        this.addedFuel = addedFuel;
     }
 
-    @Override
-    public String toString() {
-        return "FuelEntity{" +
-                "fuelId=" + fuelId +
-                ", transactions=" + transactions +
-                ", fuelStations=" + fuelStations +
-                ", fuelType='" + fuelType + '\'' +
-                ", remailFuel='" + remailFuel + '\'' +
-                '}';
+    public double getPumpedFuel() {
+        return pumpedFuel;
+    }
+
+    public void setPumpedFuel(double pumpedFuel) {
+        this.pumpedFuel = pumpedFuel;
     }
 }

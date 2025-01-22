@@ -53,4 +53,9 @@ public class FuelStationServiceImpl implements FuelStationService {
         fuelStationRepository.deleteById(stationId);
     }
 
+    @Override
+    public FuelStationEntity saveFuelStation(FuelStationEntity fuelStation) {
+        return fuelStationRepository.save(fuelStation);
+    }
+
 }
