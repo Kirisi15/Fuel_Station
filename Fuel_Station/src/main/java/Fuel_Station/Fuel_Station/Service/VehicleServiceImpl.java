@@ -26,7 +26,7 @@ public class VehicleServiceImpl implements VehicleService {
     }
 
     @Override
-    public VehicleEntity createVehicle(VehicleEntity vehicleEntity, int customerId){
+    public VehicleEntity createVehicle(VehicleEntity vehicleEntity, Long customerId){
         CustomerEntity customer= customerRepository.findById(customerId).get();
         vehicleEntity.setCustomer(customer);
         return vehicleRepository.save(vehicleEntity);

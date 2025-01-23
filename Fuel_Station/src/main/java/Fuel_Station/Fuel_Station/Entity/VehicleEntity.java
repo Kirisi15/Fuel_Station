@@ -26,7 +26,7 @@ public class VehicleEntity {
     private int FuelLimit;
 
     @ManyToOne
-    @JoinColumn(name = "customerId")
+    @JoinColumn(name = "customer_id")
     private CustomerEntity customer;
 
     @OneToMany(mappedBy = "vehicle", cascade = CascadeType.ALL)
@@ -43,13 +43,24 @@ public class VehicleEntity {
     public VehicleEntity() {
     }
 
-    public VehicleEntity( Long vehicleId, String vehicleNumber, String vehicleType, String fuelType, int fuelLimit) {
+//    public VehicleEntity( Long vehicleId, String vehicleNumber, String vehicleType, String fuelType, int fuelLimit,CustomerEntity customer) {
+//
+//        VehicleId = vehicleId;
+//        VehicleNumber = vehicleNumber;
+//        VehicleType = vehicleType;
+//        FuelType = fuelType;
+//        FuelLimit = fuelLimit;
+//        CustomerEntity Customer = customer;
+//    }
 
+
+    public VehicleEntity(Long vehicleId, String vehicleNumber, String vehicleType, String fuelType, int fuelLimit, CustomerEntity customer) {
         VehicleId = vehicleId;
         VehicleNumber = vehicleNumber;
         VehicleType = vehicleType;
         FuelType = fuelType;
         FuelLimit = fuelLimit;
+        this.customer = customer;
     }
 
     public Long getVehicleId() {

@@ -26,7 +26,7 @@ public class CustomerServiceImpl implements CustomerService{
 
 
     @Override
-    public CustomerEntity getCustomerById(Integer customerId) {
+    public CustomerEntity getCustomerById(Long customerId) {
         Optional<CustomerEntity> customer = customerRepository.findById(customerId);
         return customer.orElseThrow(() -> new RuntimeException("Customer not found with ID: " + customerId));
     }
@@ -54,7 +54,7 @@ public class CustomerServiceImpl implements CustomerService{
     }
 
     @Override
-    public void deleteCustomer(Integer customerId) {
+    public void deleteCustomer(Long customerId) {
         customerRepository.deleteById(customerId);
     }
 
@@ -64,9 +64,9 @@ public class CustomerServiceImpl implements CustomerService{
     }
 
     @Override
-   public void deleteCustomer(Long customerId) {
-
-   }
+//   public void deleteCustomer(Long customerId) {
+//
+//   }
     public Optional<CustomerEntity> findByUsername(String customerUsername) {
         return customerRepository.findByCustomerUsername(customerUsername);
     }
