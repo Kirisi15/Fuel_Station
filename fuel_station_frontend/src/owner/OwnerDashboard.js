@@ -22,6 +22,7 @@ const OwnerDashboard = () => {
   
   const fetchOwnerDetails = async () => {
     try {
+     
       const response = await axios.get(`http://localhost:8080/api/owners/${ownerId}`);
       setOwner(response.data);
     } catch (error) {
@@ -29,15 +30,7 @@ const OwnerDashboard = () => {
     }
   };
 
-  // Update owner details
-  const updateOwnerDetails = async () => {
-    try {
-      await axios.put(`http://localhost:8080/api/owners/${ownerId}`, owner);
-      alert("Owner details updated successfully!");
-    } catch (error) {
-      console.error("Error updating owner details", error);
-    }
-  };
+
 
   // Fetch stations
   useEffect(() => {
@@ -68,7 +61,7 @@ const handleAddFuelStation = () => {
       <h1>Owner Dashboard</h1>
       <button onClick={handleAddFuelStation}>Add FuelStation</button><br/><br/>
       
-      <button onClick={updateOwnerDetails}>Update Details</button><br/><br/>
+      <button onClick={()=> navigate("/UpdateOwnerDetails") }>Update Details</button><br/><br/>
       <button>Stations Management</button><br/><br/>
 <div className="owner-container">
   {owner && owner.length > 0 ? (
