@@ -57,9 +57,9 @@ const FuelStationRegistration = () => {
           const response = await axios.post(`http://localhost:8080/fuel-stations/${ownerId}`, formData, {
             headers: { "Content-Type": "application/json" },
           });
-          //console.log("Response:", response.data);
-          const { stationId } = response.data;        
-            localStorage.setItem("stationId",stationId);
+          
+                 
+           localStorage.setItem("stationId",response.data.stationId);
             setIsRegistered(true);
 
             setExistingStations([...existingStations, { stationName: formData.stationName , licenseNumber : formData.licenseNumber ,contactNumber: formData.contactNumber, address: formData.address },]);

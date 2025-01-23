@@ -2,11 +2,12 @@ import React, { useState } from "react";
 
 import { useNavigate } from "react-router-dom";
 
-const StationDashboard = () => {
+const StationDashboard = (stationId) => {
     const [activeTab, setActiveTab] = useState("");
     const navigate = useNavigate();
 
     const handleNavigation = (path) => {
+        
         setActiveTab(path);
         navigate(path);
     };

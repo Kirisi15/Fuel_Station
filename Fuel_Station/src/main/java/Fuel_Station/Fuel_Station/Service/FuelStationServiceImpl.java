@@ -11,11 +11,12 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class FuelStationServiceImpl implements FuelStationService {
+public   class FuelStationServiceImpl implements FuelStationService {
+
     @Autowired
     private FuelStationRepository fuelStationRepository;
     @Autowired
-    private OwnerRepository  ownerRepository;
+    private OwnerRepository ownerRepository;
 
     @Override
     public List<FuelStationEntity> getAllStations() {
@@ -25,16 +26,16 @@ public class FuelStationServiceImpl implements FuelStationService {
     @Override
     public FuelStationEntity getStationById(Long stationId) {
         Optional<FuelStationEntity> station = fuelStationRepository.findById(stationId);
-
-            return station.get();
-
+        return station.get();
     }
 
-    @Override
-    public FuelStationEntity addStation(FuelStationEntity fuelStation,Long ownerId) {
-        OwnerEntity ownerEntity=ownerRepository.findById(ownerId).get();
-        fuelStation.setOwner(ownerEntity);
 
+    public FuelStationEntity addStation(FuelStationEntity fuelStation, Long ownerId) {
+        // Fetch owner and associate with the fuel station
+        OwnerEntity ownerEntity = ownerRepository.findById(ownerId)
+                .orElseThrow(() -> new RuntimeException("Owner not found for ID: " + ownerId));
+
+        fuelStation.setOwner(ownerEntity);
         return fuelStationRepository.save(fuelStation);
     }
 
@@ -52,10 +53,16 @@ public class FuelStationServiceImpl implements FuelStationService {
     public void deleteStation(Long stationId) {
         fuelStationRepository.deleteById(stationId);
     }
-
     @Override
-    public FuelStationEntity saveFuelStation(FuelStationEntity fuelStation) {
-        return fuelStationRepository.save(fuelStation);
+    public FuelStationEntity getStationByOwnerId(Long ownerId) {
+        Optional<FuelStationEntity> station = fuelStationRepository.findById(ownerId);
+        return station.get();
     }
+
+  @Override
+ public FuelStationEntity saveFuelStation(FuelStationEntity fuelStation) {
+       return fuelStationRepository.save(fuelStation);
+    }
+
 
 }
