@@ -21,6 +21,7 @@ const AdminLogin = () => {
     } catch (error) {
         console.error("Error: ", error);
         if (error.response && error.response.status === 401) {
+            setIsLogin(true);
             alert("Invalid username or password. Please try again.");
         } else {
             alert("Login failed: " + error.message);
