@@ -2,6 +2,7 @@ package Fuel_Station.Fuel_Station.Controller;
 
 import Fuel_Station.Fuel_Station.Entity.EmployeeEntity;
 import Fuel_Station.Fuel_Station.Service.EmployeeService;
+import Fuel_Station.Fuel_Station.Service.FuelStationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,6 +14,12 @@ import java.util.List;
 public class EmployeeController {
     @Autowired
     private EmployeeService employeeService;
+    @Autowired
+    private FuelStationService fuelStationService;
+
+    public EmployeeController(EmployeeService employeeService) {
+        this.employeeService = employeeService;
+    }
 
     @GetMapping
     public List<EmployeeEntity> getEmployees()
@@ -25,10 +32,10 @@ public class EmployeeController {
         return employeeService.getEmployeeById(employeeId);
     }
 
-    @PostMapping
-    public EmployeeEntity createEmployee(@RequestBody EmployeeEntity employeeEntity)
+    @PostMapping("/{stationId}")
+    public EmployeeEntity createEmployee(@RequestBody EmployeeEntity employeeEntity,@PathVariable Long stationId)
     {
-        return employeeService.createEmployee(employeeEntity);
+        return employeeService.createEmployee(employeeEntity,stationId);
     }
 
     @PutMapping("/{id}")
