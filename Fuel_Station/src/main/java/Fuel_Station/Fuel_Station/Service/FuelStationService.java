@@ -10,6 +10,6 @@ public interface FuelStationService {
     FuelStationEntity addStation(FuelStationEntity fuelStation,Long ownerId);
     FuelStationEntity updateStation(Long stationId, FuelStationEntity fuelStation);
     void deleteStation(Long stationId);
-
+     FuelStationEntity getStationByOwnerId(Long ownerId) ;
     FuelStationEntity saveFuelStation(FuelStationEntity fuelStation);
 }
