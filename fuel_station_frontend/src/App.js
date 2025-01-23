@@ -16,6 +16,7 @@ import OwnerLogin from "./owner/OwnerLogin";
 import OwnerDashboard from "./owner/OwnerDashboard";
 import ManageEmployees from "./fuelStation/ManageEmployees";
 import AddFuel from "./fuelStation/AddFuel";
+import EditStation from "./fuelStation/EditStation";
 
 import StationDashboard from "./fuelStation/StationDashboard";
 import TransactionTable from "./fuelStation/TransactionTable";
@@ -46,7 +47,9 @@ function App() {
          <Route  path="EmpReg" element={<EmployeeRegistration/>}/>  
          <Route path="TransactionTable" element={<TransactionTable/>}/> 
          <Route path="StationDashboard" element={<StationDashboard/>}/>
+
          <Route path="UpdateOwnerDetails" element={<UpdateOwnerDetails/>}/>
+
          
          
 
