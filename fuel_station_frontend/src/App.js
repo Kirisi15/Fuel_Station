@@ -20,6 +20,7 @@ import EditStation from "./fuelStation/EditStation";
 
 import StationDashboard from "./fuelStation/StationDashboard";
 import TransactionTable from "./fuelStation/TransactionTable";
+import UpdateOwnerDetails from "./owner/UpdateOwnerDetails";
 
 
 
@@ -46,7 +47,9 @@ function App() {
          <Route  path="EmpReg" element={<EmployeeRegistration/>}/>  
          <Route path="TransactionTable" element={<TransactionTable/>}/> 
          <Route path="StationDashboard" element={<StationDashboard/>}/>
-         <Route path="EditStation" element={<EditStation/>}/>
+
+         <Route path="UpdateOwnerDetails" element={<UpdateOwnerDetails/>}/>
+
          
          
 
