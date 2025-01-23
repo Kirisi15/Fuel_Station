@@ -47,7 +47,9 @@ function App() {
          <Route  path="EmpReg" element={<EmployeeRegistration/>}/>  
          <Route path="TransactionTable" element={<TransactionTable/>}/> 
          <Route path="StationDashboard" element={<StationDashboard/>}/>
+
          <Route path="UpdateOwnerDetails" element={<UpdateOwnerDetails/>}/>
+
          
          
 
