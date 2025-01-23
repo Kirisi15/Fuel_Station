@@ -12,6 +12,7 @@ function CustomerDashboard() {
   
   useEffect(() => {
     const customerId = localStorage.getItem("customerId");
+    console.log("data1 :",customerId);
 
     
     const fetchVehicles = async (customerId) => {
@@ -20,7 +21,7 @@ function CustomerDashboard() {
         const response = await axios.get(
           `http://localhost:8080/api/vehicle/customer/${customerId}`
         );
-        console.log(response.data);
+        console.log("data :",response.data);
         if (response.data) {
           setVehicles(response.data); 
           setError("");
