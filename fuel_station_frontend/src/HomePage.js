@@ -40,6 +40,7 @@ const HomePage = () => {
           <Route path="TransactionTable" element={<TransactionTable/>}/> 
           <Route path="StationDashboard" element={<StationDashboard/>}/>
           <Route path="ViewStations" element={<ViewStations/>} />
+          <Route  path="/vehReg" element={<VehicleRegistration/>}/> 
           </Routes>
         </Router>
     </div>
