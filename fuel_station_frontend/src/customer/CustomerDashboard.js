@@ -5,29 +5,38 @@ function CustomerDashboard() {
   const [vehicles, setVehicles] = useState([]);
   const [error, setError] = useState("");
 
-  // Assuming customerId is stored in localStorage
-  const customerId = localStorage.getItem("customerId");
-
+  
+   
+  
   useEffect(() => {
-    const fetchVehicles = async () => {
+    const customerId = localStorage.getItem("customerId");
+
+    
+    const fetchVehicles = async (customerId) => {
       try {
-        console.log("Fetching vehicles for customer ID:", customerId);
+       console.log("Fetching vehicles for customer ID:", customerId);
         const response = await axios.get(
           `http://localhost:8080/api/vehicle/customer/${customerId}`
         );
-        
-        console.log("API Response:", response.data);
-        setVehicles(response.data); 
-        setError(""); 
+        console.log(response.data);
+        if (response.data) {
+          setVehicles(response.data); 
+          setError("");
+        } else {
+          setError("No vehicles found for this customer.");
+        }
       } catch (err) {
-        console.error("Error fetching vehicles:", err);
         setError("Failed to fetch vehicle details. Please try again.");
       }
     };
     
+    if(customerId)
+    {
+      fetchVehicles(customerId);
+    }
 
-    fetchVehicles();
-  }, [customerId]);
+    
+  }, []);
 
   return (
     <div style={styles.container}>
@@ -37,9 +46,10 @@ function CustomerDashboard() {
         <p style={styles.message}>No vehicles found for this customer.</p>
       ) : (
         <div style={styles.grid}>
-          {vehicles.map((vehicle) => (
-            <div key={vehicle.vehicleNumber} style={styles.card}>
+          {vehicles.map((vehicle,index) => (
+            <div key={index} style={styles.card}>
               <h3 style={styles.cardHeader}>{vehicle.vehicleType}</h3>
+       
               <p><strong>Fuel Type:</strong> {vehicle.fuelType}</p>
               <p><strong>Fuel Limit:</strong> {vehicle.fuelLimit}</p>
               <p><strong>Vehicle Number:</strong> {vehicle.vehicleNumber}</p>
