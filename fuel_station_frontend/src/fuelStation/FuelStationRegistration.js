@@ -1,5 +1,6 @@
 import React from 'react'
 import axios from 'axios';
+
 import { useState,useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import StationDashboard from './StationDashboard';
@@ -8,9 +9,11 @@ import StationDashboard from './StationDashboard';
 const FuelStationRegistration = () => {
     const [formData, setFormData] = useState({stationName: "",address: "", licenseNumber: "", contactNumber: ""});
     const [isRegistered, setIsRegistered] = useState(false);
+
     const [existingStations, setExistingStations] = useState([]);
     const [error, setError] = useState("");
     const navigate = useNavigate();
+
 
     useEffect(() => {
       const fetchExistingStations= async () => {
