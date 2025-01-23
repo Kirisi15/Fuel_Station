@@ -5,7 +5,7 @@ import Fuel_Station.Fuel_Station.Entity.VehicleEntity;
 import java.util.List;
 
 public interface VehicleService {
-    VehicleEntity createVehicle(VehicleEntity vehicleEntity,int customerId);
+    VehicleEntity createVehicle(VehicleEntity vehicleEntity,Long customerId);
 
     VehicleEntity getVehicleById(Long VehicleId);
 

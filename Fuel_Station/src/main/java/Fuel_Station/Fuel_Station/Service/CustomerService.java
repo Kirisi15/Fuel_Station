@@ -8,7 +8,7 @@ import java.util.Optional;
 public interface CustomerService {
     CustomerEntity createCustomer(CustomerEntity customerEntity);
 
-    CustomerEntity getCustomerById(Integer customerId);
+    CustomerEntity getCustomerById(Long customerId);
 
     List<CustomerEntity> getAllCustomers();
 
@@ -16,11 +16,11 @@ public interface CustomerService {
 
     CustomerEntity updateCustomer(CustomerEntity customerEntity);
 
-    void deleteCustomer(Integer customerId);
+    void deleteCustomer(Long customerId);
 
     CustomerEntity updateCustomer(Long customerId, CustomerEntity customerEntity);
 
-    void deleteCustomer(Long customerId);
+  //  void deleteCustomer(Long customerId);
 
     Optional<CustomerEntity> findByUsername(String customerEmail);
 }

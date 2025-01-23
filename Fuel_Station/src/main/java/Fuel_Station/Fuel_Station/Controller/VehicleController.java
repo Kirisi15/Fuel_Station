@@ -1,6 +1,7 @@
 package Fuel_Station.Fuel_Station.Controller;
 
 import Fuel_Station.Fuel_Station.Entity.VehicleEntity;
+import Fuel_Station.Fuel_Station.Repository.VehicleRepository;
 import Fuel_Station.Fuel_Station.Service.VehicleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,12 +17,15 @@ public class VehicleController {
     @Autowired
     private final VehicleService vehicleService;
 
+    @Autowired
+    private VehicleRepository vehicleRepository;
+
 
     public VehicleController(VehicleService vehicleService) {
         this.vehicleService = vehicleService;
     }
     @PostMapping("/{customerId}")
-    public ResponseEntity<VehicleEntity> createVehicle(@RequestBody VehicleEntity vehicleEntity,@PathVariable int customerId ){
+    public ResponseEntity<VehicleEntity> createVehicle(@RequestBody VehicleEntity vehicleEntity,@PathVariable Long customerId ){
         VehicleEntity savedVehicle= vehicleService.createVehicle(vehicleEntity,customerId);
         return new ResponseEntity<>(savedVehicle, HttpStatus.CREATED);
     }
@@ -51,5 +55,15 @@ public class VehicleController {
     public ResponseEntity<String> deleteVehicle(@PathVariable("id") Long vehicleId){
         vehicleService.deleteVehicle(vehicleId);
         return new ResponseEntity<>("Vehicle Sucessfully deleted",HttpStatus.OK);
+    }
+
+    @GetMapping("/customer/{customerId}")
+    public ResponseEntity<List<VehicleEntity>> getVehiclesByCustomerId(@PathVariable Long customerId) {
+        List<VehicleEntity> vehicles = vehicleRepository.findByCustomer_CustomerId(customerId);
+
+        if (vehicles.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);  // Return 404 if no vehicles are found
+        }
+        return ResponseEntity.ok(vehicles);  // Return 200 and the vehicles list
     }
 }

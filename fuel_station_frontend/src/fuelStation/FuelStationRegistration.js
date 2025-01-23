@@ -1,16 +1,16 @@
 import React from 'react'
 import axios from 'axios';
 import { useState,useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 import StationDashboard from './StationDashboard';
 
 
 const FuelStationRegistration = () => {
     const [formData, setFormData] = useState({stationName: "",address: "", licenseNumber: "", contactNumber: ""});
     const [isRegistered, setIsRegistered] = useState(false);
+
     const [existingStations, setExistingStations] = useState([]);
     const [error, setError] = useState("");
-    const navigate = useNavigate();
+
 
     useEffect(() => {
       const fetchExistingStations= async () => {
@@ -57,9 +57,11 @@ const FuelStationRegistration = () => {
           const response = await axios.post(`http://localhost:8080/fuel-stations/${ownerId}`, formData, {
             headers: { "Content-Type": "application/json" },
           });
+
           
                  
            localStorage.setItem("stationId",response.data.stationId);
+
             setIsRegistered(true);
 
             setExistingStations([...existingStations, { stationName: formData.stationName , licenseNumber : formData.licenseNumber ,contactNumber: formData.contactNumber, address: formData.address },]);
@@ -85,6 +87,7 @@ const FuelStationRegistration = () => {
         </div>
       ) : (
       <form onSubmit = {handleSubmit}>
+      error && <p style={{ color: "red" }}>{error}</p>
       <h1>Fuel Station Registration</h1>
       <label htmlFor="stationName">Fuel Station Name : </label>
       <input 

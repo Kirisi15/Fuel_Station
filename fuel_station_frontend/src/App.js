@@ -1,7 +1,6 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import './App.css';
-
 import React from 'react';
+
 
 import VehicleRegistration from "./vehicle/VehicleRegistration";
 import Navbar from "./components/Navbar";
@@ -24,19 +23,13 @@ import EditStation from "./fuelStation/EditStation";
 
 
 
+
 function App() {
   return (
-    <Router>
-      <Navbar />
-        <Routes>
-          <Route path="/" element={<h1>Welcome to the App</h1>} />
-          <Route path="/ownerReg" element={<OwnerRegistration />} />
-          <Route path="/stationReg" element={<FuelStationRegistration />} />
-          <Route path="/cusReg" element={<CustomerRegistration/>}/>
-          <Route path="/vehicleReg" element={<VehicleRegistration />} />
-          <Route path="/dashboard/:customerId" element={<CustomerDashboard />} />
-          <Route path="/adminLog" element={<AdminLogin />} />
-          <Route path="/cusLogin" element={<CustomerLogin />} />
+    <div>
+      <HomePage />
+    </div>
+
 
            
 
@@ -56,8 +49,8 @@ function App() {
         </Routes>
     </Router>
 
+
   );
 }
-
 
 export default App;
