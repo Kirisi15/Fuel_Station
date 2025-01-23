@@ -1,28 +1,80 @@
 import React from 'react'
 import axios from 'axios';
 import { useState } from 'react';
+import { useState,useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import StationDashboard from './StationDashboard';
 
 
 const FuelStationRegistration = () => {
     const [formData, setFormData] = useState({stationName: "",address: "", licenseNumber: "", contactNumber: ""});
     const [isRegistered, setIsRegistered] = useState(false);
+    const [existingStations, setExistingStations] = useState([]);
+    const [error, setError] = useState("");
+    const navigate = useNavigate();
+
+    useEffect(() => {
+      const fetchExistingStations= async () => {
+        try {
+          const response = await axios.get("http://localhost:8080/fuel-stations");
+          setExistingStations(response.data); // Store in state
+        } catch (error) {
+          console.error("Failed to fetch existing stations:", error);
+          setError("Failed to fetch existing stations. Please try again later.");
+        }
+      };
+  
+      fetchExistingStations();
+    }, []);
+
+    const validationForm = () =>{
+      if(!formData.stationName || !formData.address || !formData.licenseNumber || !formData.contactNumber){
+        setError("All fields are required.");
+        return false;
+      }
+
+      const isDuplicate = existingStations.some(
+        (station) =>station.stationName === formData.stationName ||
+            station.licenseNumber === formData.licenseNumber ||
+            station.contactNumber === formData.contactNumber 
+        
+      );
+
+      if(isDuplicate){
+        setError("A station already exists.");
+        return false;
+      }
+      setError(""); 
+      return true;
+    }
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        if (!validationForm()) return; 
+
         const ownerId=  localStorage.getItem("ownerId")
         try {
           const response = await axios.post(`http://localhost:8080/fuel-stations/${ownerId}`, formData, {
             headers: { "Content-Type": "application/json" },
           });
-          console.log("Response:", response.data);
+          //console.log("Response:", response.data);
           const { stationId } = response.data;        
-            localStorage.setItem("stationId",response.data.stationId);
+            localStorage.setItem("stationId",stationId);
             setIsRegistered(true);
+
+            setExistingStations([...existingStations, { stationName: formData.stationName , licenseNumber : formData.licenseNumber ,contactNumber: formData.contactNumber, address: formData.address },]);
+            setFormData({
+              stationName : "",
+              address  : "",
+               licenseNumber : "",
+               contactNumber : "",
+            });
+            setError(""); 
           alert("Fuel Station registered successfully!");
         } catch (error) {
           console.error("Error:", error);
-          alert("Network error occurred. Please try again later.");
+          setError("Network error occurred. Please try again later.");
         }
       };
 

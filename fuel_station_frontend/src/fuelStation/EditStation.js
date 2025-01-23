@@ -1,8 +1,12 @@
 
 import React, { useState ,useEffect} from "react";
+import { useParams } from "react-router-dom";
+
 
 
 const EditStation = () => {
+  const { stationId } = useParams();
+
   const [stationName, setStationName] = useState("");
   const [address, setaddress] = useState("");
   const [licenseNumber,setlicenseNumber]=useState("");
@@ -13,25 +17,29 @@ const EditStation = () => {
       try {
         
         
-      
-        const response = await fetch(`http://localhost:8080/fuel-stations/${id}`);
+    
+        const response = await fetch(`http://localhost:8080/fuel-stations/${stationId}`);
         if (!response.ok) {
           throw new Error("Failed to fetch station details");
         }
         const data = await response.json();
 
       
-        setStationName(data.stationName || "");
-        setaddress(data.address || "");
-        setlicenseNumber(data.licenseNumber || "");
-        setcontactNumber(data.contactNumber || "");
+        setStationName(data.stationName);
+        setaddress(data.address);
+        setlicenseNumber(data.licenseNumber );
+        setcontactNumber(data.contactNumber);
       } catch (error) {
         console.error("Error fetching station details:", error);
       }
     };
 
-    fetchStationDetails();
-  }, [])
+    if (stationId) {
+      fetchStationDetails();
+    } else {
+      console.error("stationId is not provided");
+    }
+  }, [stationId])
 
   const handleSubmit = (e) => {
     e.preventDefault();
