@@ -70,8 +70,7 @@ function CustomerDashboard() {
     </div>
   );
 }
-
-// Internal CSS styles
+//ghdgddkl
 const styles = {
   container: {
     padding: "20px",
