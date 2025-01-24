@@ -105,6 +105,14 @@ public class EmployeeEntity {
         this.fuelStation = fuelStation;
     }
 
+    public List<TransactionEntity> getTransactions() {
+        return transactions;
+    }
+
+    public void setTransactions(List<TransactionEntity> transactions) {
+        this.transactions = transactions;
+    }
+
     @Override
     public String toString() {
         return "EmployeeEntity{" +

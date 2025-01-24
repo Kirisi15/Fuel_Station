@@ -15,6 +15,7 @@ public interface EmployeeService {
     List< EmployeeEntity> getAllEmployees();
 
     EmployeeEntity updateEmployee(Long employeeId, EmployeeEntity EmployeeEntity);
+    EmployeeEntity getEmployeeByStationId(Long EmployeeId);
 
     void deleteEmployee(Long EmployeeId);
 
