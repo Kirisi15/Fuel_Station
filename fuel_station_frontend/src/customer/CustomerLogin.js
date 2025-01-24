@@ -24,7 +24,9 @@ const CustomerLogin = () => {
         "http://localhost:8080/api/customer/login",formData);
         
        console.log("Backend Response: ",response.data);
-  
+       localStorage.setItem('customerId', response.data.customerId);
+
+       
        if(response.data.customerUsername === formData.customerUsername){
     setIsLogin(true);
 

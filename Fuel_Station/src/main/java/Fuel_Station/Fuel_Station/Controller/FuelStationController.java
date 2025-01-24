@@ -27,8 +27,8 @@ public class FuelStationController {
         return fuelStationService.getAllStations();
     }
 
-    @GetMapping("/{id}")
-    public FuelStationEntity getStationById(@PathVariable("id") Long stationId) {
+    @GetMapping("/{stationId}")
+    public FuelStationEntity getStationById(@PathVariable("stationId") Long stationId) {
         return fuelStationService.getStationById(stationId);
     }
 
@@ -37,8 +37,8 @@ public class FuelStationController {
         return fuelStationService.addStation(fuelStation, ownerId);
     }
 
-    @PutMapping("/{id}")
-    public FuelStationEntity updateStation(@PathVariable("id") Long stationId, @RequestBody FuelStationEntity fuelStation) {
+    @PutMapping("/{stationId}")
+    public FuelStationEntity updateStation(@PathVariable("stationId") Long stationId, @RequestBody FuelStationEntity fuelStation) {
         return fuelStationService.updateStation(stationId, fuelStation);
     }
 
@@ -48,5 +48,8 @@ public class FuelStationController {
     }
 
 
-
+    @GetMapping("/owner/{ownerId}")
+    public FuelStationEntity getStationByOwnerId(@PathVariable("ownerId") Long ownerId) {
+        return fuelStationService.getStationByOwnerId(ownerId);
+    }
 }

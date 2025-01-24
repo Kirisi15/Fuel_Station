@@ -1,15 +1,18 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function CustomerDashboard() {
   const [vehicles, setVehicles] = useState([]);
   const [error, setError] = useState("");
+  const navigate = useNavigate();
 
   
    
   
   useEffect(() => {
     const customerId = localStorage.getItem("customerId");
+    console.log("data1 :",customerId);
 
     
     const fetchVehicles = async (customerId) => {
@@ -18,7 +21,7 @@ function CustomerDashboard() {
         const response = await axios.get(
           `http://localhost:8080/api/vehicle/customer/${customerId}`
         );
-        console.log(response.data);
+        console.log("data :",response.data);
         if (response.data) {
           setVehicles(response.data); 
           setError("");
@@ -38,7 +41,14 @@ function CustomerDashboard() {
     
   }, []);
 
+  const handleNavigation = (path) => {
+    navigate(path);
+};
+
   return (
+    <div>
+    <button onClick={() => handleNavigation("/vehReg")}>Add Vehicle</button><br/><br/>
+
     <div style={styles.container}>
       <h1 style={styles.header}>Customer Dashboard</h1>
       {error && <p style={styles.error}>{error}</p>}
@@ -58,10 +68,10 @@ function CustomerDashboard() {
         </div>
       )}
     </div>
+    </div>
   );
 }
-
-// Internal CSS styles
+//ghdgddkl
 const styles = {
   container: {
     padding: "20px",
