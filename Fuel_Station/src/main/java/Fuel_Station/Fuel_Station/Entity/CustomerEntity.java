@@ -12,7 +12,7 @@ public class CustomerEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY                                                        )
-    private int customerId;
+    private Long customerId;
     @Column(name = "Customer_NIC")
     private String customerNIC;
     @Column(name = "Customer_Name")
@@ -30,7 +30,7 @@ public class CustomerEntity {
     public CustomerEntity() {
     }
 
-    public CustomerEntity(int customerId, String customerNIC, String customerName, String customerEmail, String customerUsername, String customerPassword, List<VehicleEntity> vehicles) {
+    public CustomerEntity(Long customerId, String customerNIC, String customerName, String customerEmail, String customerUsername, String customerPassword, List<VehicleEntity> vehicles) {
 
         this.customerId = customerId;
         this.customerNIC = customerNIC;
@@ -51,11 +51,11 @@ public class CustomerEntity {
         this.vehicles = vehicles;
     }
 
-    public int getCustomerId() {
+    public Long getCustomerId() {
         return customerId;
     }
 
-    public void setCustomerId(int customerId) {
+    public void setCustomerId(Long customerId) {
         this.customerId = customerId;
     }
 

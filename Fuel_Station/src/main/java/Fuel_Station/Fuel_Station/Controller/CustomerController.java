@@ -25,7 +25,7 @@ public class CustomerController {
 
     @GetMapping("/{id}")
     public CustomerEntity getCustomerById(@PathVariable("id") Long customerId) {
-        return customerService.getCustomerById(Math.toIntExact(customerId));
+        return customerService.getCustomerById(customerId);
     }
 
     @PostMapping
