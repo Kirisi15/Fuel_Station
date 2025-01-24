@@ -1,6 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
+import "./Navigationbar.css";
 
 const Navigationbar = () => {
   const navigate = useNavigate();
@@ -10,9 +11,9 @@ const Navigationbar = () => {
   };
 
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-light">
+    <nav className="navbar navbar-expand-lg navbar-light bg-dark custom-navbar">
       <div className="container-fluid">
-        <a className="navbar-brand" href="/">
+        <a className="navbar-brand text-white" href="/">
           App Logo
         </a>
         <button
@@ -30,7 +31,7 @@ const Navigationbar = () => {
           <ul className="navbar-nav">
             <li className="nav-item dropdown">
               <a
-                className="nav-link dropdown-toggle"
+                className="nav-link dropdown-toggle text-white"
                 href="#"
                 id="signupDropdown"
                 role="button"
@@ -61,7 +62,7 @@ const Navigationbar = () => {
 
             <li className="nav-item dropdown">
               <a
-                className="nav-link dropdown-toggle"
+                className="nav-link dropdown-toggle text-white"
                 href="#"
                 id="signinDropdown"
                 role="button"
