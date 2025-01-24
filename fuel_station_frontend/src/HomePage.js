@@ -17,6 +17,8 @@ import StationDashboard from "./fuelStation/StationDashboard";
 import TransactionTable from "./fuelStation/TransactionTable";
 import ViewStations from "./vehicle/ViewStations";
 import EditStation from "./fuelStation/EditStation";
+import UpdateOwnerDetails from './owner/UpdateOwnerDetails';
+import StationManagement from './owner/StationManagement';
 
 const HomePage = () => {
   return (
@@ -43,6 +45,8 @@ const HomePage = () => {
           <Route path="ViewStations" element={<ViewStations/>} />
           <Route  path="/vehReg" element={<VehicleRegistration/>}/>
           <Route path="EditStation"  element={<EditStation/>}/>
+          <Route path='UpdateOwnerDetails' element={<UpdateOwnerDetails/>}/>
+          <Route path='StationManagment' element={<StationManagement/>}/>
           </Routes>
         </Router>
     </div>
