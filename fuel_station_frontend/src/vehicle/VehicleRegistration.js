@@ -180,6 +180,23 @@ function VehicleRegistration() {
         <br />
         <br />
 
+        <label htmlFor="customerId">Customer:</label>
+        <select
+          name="customerId"
+          onChange={handleChanges}
+          value={values.customerId}
+          required
+        >
+          <option value="">Select Customer</option>
+          {customers.map((customer) => (
+            <option key={customer.id} value={customer.customerId}>
+              {customer.customerName} ({customer.customerEmail})
+            </option>
+          ))}
+        </select>
+        <br />
+        <br />
+
         <button type="submit">Submit</button>
       </form>
 
