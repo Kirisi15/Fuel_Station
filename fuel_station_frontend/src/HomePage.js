@@ -16,6 +16,7 @@ import AddFuel from "./fuelStation/AddFuel";
 import StationDashboard from "./fuelStation/StationDashboard";
 import TransactionTable from "./fuelStation/TransactionTable";
 import ViewStations from "./vehicle/ViewStations";
+import EditStation from "./fuelStation/EditStation";
 
 const HomePage = () => {
   return (
@@ -40,7 +41,8 @@ const HomePage = () => {
           <Route path="TransactionTable" element={<TransactionTable/>}/> 
           <Route path="StationDashboard" element={<StationDashboard/>}/>
           <Route path="ViewStations" element={<ViewStations/>} />
-          <Route  path="/vehReg" element={<VehicleRegistration/>}/> 
+          <Route  path="/vehReg" element={<VehicleRegistration/>}/>
+          <Route path="EditStation"  element={<EditStation/>}/>
           </Routes>
         </Router>
     </div>
