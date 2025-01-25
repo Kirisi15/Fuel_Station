@@ -1,6 +1,6 @@
 package Fuel_Station.Fuel_Station.Service;
 
-import Fuel_Station.Fuel_Station.Entity.CustomerEntity;
+import Fuel_Station.Fuel_Station.Entity.Customer;
 import Fuel_Station.Fuel_Station.Repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,30 +20,30 @@ public class CustomerServiceImpl implements CustomerService{
     }
 
     @Override
-    public CustomerEntity createCustomer(CustomerEntity customerEntity) {
+    public Customer createCustomer(Customer customerEntity) {
         return customerRepository.save(customerEntity);
     }
 
 
     @Override
-    public CustomerEntity getCustomerById(Long customerId) {
-        Optional<CustomerEntity> customer = customerRepository.findById(customerId);
+    public Customer getCustomerById(Long customerId) {
+        Optional<Customer> customer = customerRepository.findById(customerId);
         return customer.orElseThrow(() -> new RuntimeException("Customer not found with ID: " + customerId));
     }
 
     @Override
-    public List<CustomerEntity> getAllCustomers() {
+    public List<Customer> getAllCustomers() {
         return customerRepository.findAll();
     }
 
     @Override
-    public CustomerEntity addCustomer(CustomerEntity customer) {
+    public Customer addCustomer(Customer customer) {
         return customerRepository.save(customer);
     }
 
     @Override
-    public CustomerEntity updateCustomer(CustomerEntity customerEntity) {
-        CustomerEntity existingCustomer = customerRepository.findById(customerEntity.getCustomerId()).orElse(null);
+    public Customer updateCustomer(Customer customerEntity) {
+        Customer existingCustomer = customerRepository.findById(customerEntity.getCustomerId()).orElse(null);
         existingCustomer.setCustomerNIC(customerEntity.getCustomerNIC());
         existingCustomer.setCustomerName(customerEntity.getCustomerName());
         existingCustomer.setCustomerEmail(customerEntity.getCustomerEmail());
@@ -59,7 +59,7 @@ public class CustomerServiceImpl implements CustomerService{
     }
 
     @Override
-    public CustomerEntity updateCustomer(Long customerId, CustomerEntity customerEntity) {
+    public Customer updateCustomer(Long customerId, Customer customerEntity) {
         return null;
     }
 
@@ -67,7 +67,7 @@ public class CustomerServiceImpl implements CustomerService{
 //   public void deleteCustomer(Long customerId) {
 //
 //   }
-    public Optional<CustomerEntity> findByUsername(String customerUsername) {
+    public Optional<Customer> findByUsername(String customerUsername) {
         return customerRepository.findByCustomerUsername(customerUsername);
     }
 }

@@ -8,7 +8,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "Customer")
-public class CustomerEntity {
+public class Customer {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY                                                        )
@@ -25,12 +25,12 @@ public class CustomerEntity {
     private String customerPassword;
 
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
-    private List<VehicleEntity> vehicles = new ArrayList<>();
+    private List<Vehicle> vehicles = new ArrayList<>();
 
-    public CustomerEntity() {
+    public Customer() {
     }
 
-    public CustomerEntity(Long customerId, String customerNIC, String customerName, String customerEmail, String customerUsername, String customerPassword, List<VehicleEntity> vehicles) {
+    public Customer(Long customerId, String customerNIC, String customerName, String customerEmail, String customerUsername, String customerPassword, List<Vehicle> vehicles) {
 
         this.customerId = customerId;
         this.customerNIC = customerNIC;
@@ -41,7 +41,7 @@ public class CustomerEntity {
         this.vehicles = vehicles;
     }
 
-    public CustomerEntity(String customerNIC, String customerName, String customerEmail, String customerUsername, String customerPassword, List<VehicleEntity> vehicles) {
+    public Customer(String customerNIC, String customerName, String customerEmail, String customerUsername, String customerPassword, List<Vehicle> vehicles) {
 
         this.customerNIC = customerNIC;
         this.customerName = customerName;
