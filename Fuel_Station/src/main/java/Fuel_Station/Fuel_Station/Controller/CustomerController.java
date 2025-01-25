@@ -1,7 +1,6 @@
 package Fuel_Station.Fuel_Station.Controller;
 
-import Fuel_Station.Fuel_Station.Entity.AdminEntity;
-import Fuel_Station.Fuel_Station.Entity.CustomerEntity;
+import Fuel_Station.Fuel_Station.Entity.Customer;
 import Fuel_Station.Fuel_Station.Service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,22 +18,22 @@ public class CustomerController {
     private CustomerService customerService;
 
     @GetMapping
-    public List<CustomerEntity> getCustomers() {
+    public List<Customer> getCustomers() {
         return customerService.getAllCustomers();
     }
 
     @GetMapping("/{id}")
-    public CustomerEntity getCustomerById(@PathVariable("id") Long customerId) {
+    public Customer getCustomerById(@PathVariable("id") Long customerId) {
         return customerService.getCustomerById(customerId);
     }
 
     @PostMapping
-    public CustomerEntity createCustomer(@RequestBody CustomerEntity customerEntity) {
+    public Customer createCustomer(@RequestBody Customer customerEntity) {
         return customerService.createCustomer(customerEntity);
     }
 
     @PutMapping("/{id}")
-    public CustomerEntity updateCustomer(@PathVariable("id") Long customerId, @RequestBody CustomerEntity customerEntity) {
+    public Customer updateCustomer(@PathVariable("id") Long customerId, @RequestBody Customer customerEntity) {
         return customerService.updateCustomer(customerId, customerEntity);
     }
 
@@ -44,8 +43,8 @@ public class CustomerController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> loginCustomer(@RequestBody CustomerEntity loginDetails) {
-        Optional<CustomerEntity> customer= customerService.findByUsername(loginDetails.getCustomerUsername());
+    public ResponseEntity<?> loginCustomer(@RequestBody Customer loginDetails) {
+        Optional<Customer> customer= customerService.findByUsername(loginDetails.getCustomerUsername());
 
         if (customer.isPresent() && customer.get().getCustomerPassword().equals(loginDetails.getCustomerPassword())) {
             return new ResponseEntity<>(customer.get(), HttpStatus.OK);

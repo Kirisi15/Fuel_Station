@@ -21,7 +21,7 @@ private List<EmployeeEntity> employee=new ArrayList<>();
 @OneToMany(mappedBy = "FuelStation",cascade = CascadeType.ALL)
 private List<TransactionEntity> transaction =new ArrayList<>();
 @ManyToMany(mappedBy = "fuelStations")
-private List<VehicleEntity> vehicle = new ArrayList<>();
+private List<Vehicle> vehicle = new ArrayList<>();
 
 @ManyToMany
 @JsonIgnore
@@ -64,11 +64,11 @@ private List<FuelEntity> fuel = new ArrayList<>();
         this.transaction = transaction;
     }
 
-    public List<VehicleEntity> getVehicle() {
+    public List<Vehicle> getVehicle() {
         return vehicle;
     }
 
-    public void setVehicle(List<VehicleEntity> vehicle) {
+    public void setVehicle(List<Vehicle> vehicle) {
         this.vehicle = vehicle;
     }
 
