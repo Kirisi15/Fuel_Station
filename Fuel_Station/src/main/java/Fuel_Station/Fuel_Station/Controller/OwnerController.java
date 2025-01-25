@@ -1,7 +1,6 @@
 package Fuel_Station.Fuel_Station.Controller;
 
-import Fuel_Station.Fuel_Station.Entity.FuelStationEntity;
-import Fuel_Station.Fuel_Station.Entity.OwnerEntity;
+import Fuel_Station.Fuel_Station.Entity.Owner;
 import Fuel_Station.Fuel_Station.Service.OwnerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,29 +23,29 @@ public class OwnerController {
     }
 
     @PostMapping
-    public ResponseEntity<OwnerEntity> createOwner(@RequestBody OwnerEntity ownerEntity) {
-        OwnerEntity savedOwner = ownerService.createOwner(ownerEntity);
+    public ResponseEntity<Owner> createOwner(@RequestBody Owner owner) {
+        Owner savedOwner = ownerService.createOwner(owner);
         return new ResponseEntity<>(savedOwner, HttpStatus.CREATED);
     }
 
     @GetMapping("/{ownerId}")
-    public ResponseEntity<OwnerEntity> getOwnerById(@PathVariable("ownerId") Long ownerId) {
-        OwnerEntity owner = ownerService.getOwnerById((long) ownerId);
+    public ResponseEntity<Owner> getOwnerById(@PathVariable("ownerId") Long ownerId) {
+        Owner owner = ownerService.getOwnerById((long) ownerId);
         return new ResponseEntity<>(owner, HttpStatus.OK);
     }
 
     @GetMapping
-    public ResponseEntity<List<OwnerEntity>> getAllOwners() {
-        List<OwnerEntity> owners = ownerService.getAllOwners();
+    public ResponseEntity<List<Owner>> getAllOwners() {
+        List<Owner> owners = ownerService.getAllOwners();
         return new ResponseEntity<>(owners, HttpStatus.OK);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<OwnerEntity> updateOwner(
+    public ResponseEntity<Owner> updateOwner(
             @PathVariable("id") Long ownerId,
-            @RequestBody OwnerEntity ownerEntity) {
-        ownerEntity.setOwnerId(ownerId);
-        OwnerEntity updatedOwner = ownerService.updateOwner(ownerEntity);
+            @RequestBody Owner owner) {
+        owner.setOwnerId(ownerId);
+        Owner updatedOwner = ownerService.updateOwner(owner);
         return new ResponseEntity<>(updatedOwner, HttpStatus.OK);
     }
 
@@ -56,8 +55,8 @@ public class OwnerController {
         return new ResponseEntity<>("Owner successfully deleted", HttpStatus.OK);
     }
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody OwnerEntity loginDetails) {
-        Optional<OwnerEntity> owner = ownerService.findByUsername(loginDetails.getUsername());
+    public ResponseEntity<?> login(@RequestBody Owner loginDetails) {
+        Optional<Owner> owner = ownerService.findByUsername(loginDetails.getUsername());
 
         if (owner.isPresent() && owner.get().getPassword().equals(loginDetails.getPassword())) {
             return new ResponseEntity<>(owner.get(), HttpStatus.OK);

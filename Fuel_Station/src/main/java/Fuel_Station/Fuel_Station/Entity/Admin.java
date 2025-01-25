@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 @Entity
 @Table(name = "admin")
 
-public class AdminEntity {
+public class Admin {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,7 +23,7 @@ public class AdminEntity {
     @Column
     private String contactNumber;
 
-    public AdminEntity(long adminId, String adminUsername, String adminPassword, String adminEmail, String contactNumber) {
+    public Admin(long adminId, String adminUsername, String adminPassword, String adminEmail, String contactNumber) {
         this.adminId = adminId;
         this.adminUsername = adminUsername;
         this.adminPassword = adminPassword;
@@ -31,7 +31,7 @@ public class AdminEntity {
         this.contactNumber = contactNumber;
     }
 
-    public AdminEntity() {
+    public Admin() {
     }
 
     public long getAdminId() {

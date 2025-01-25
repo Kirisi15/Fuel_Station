@@ -1,6 +1,6 @@
 package Fuel_Station.Fuel_Station.Service;
 
-import Fuel_Station.Fuel_Station.Entity.AdminEntity;
+import Fuel_Station.Fuel_Station.Entity.Admin;
 import Fuel_Station.Fuel_Station.Repository.AdminRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,29 +19,29 @@ public class AdminServiceImpl implements AdminService{
     }
 
     @Override
-    public AdminEntity createAdmin(AdminEntity adminEntity) {
-        return adminRepository.save(adminEntity);
+    public Admin createAdmin(Admin admin) {
+        return adminRepository.save(admin);
     }
 
     @Override
-    public AdminEntity getAdminById(Long adminId) {
-        Optional<AdminEntity> optionalAdminEntity = adminRepository.findById(adminId);
+    public Admin getAdminById(Long adminId) {
+        Optional<Admin> optionalAdminEntity = adminRepository.findById(adminId);
         return optionalAdminEntity.get();
     }
 
     @Override
-    public List<AdminEntity> getAllAdmins() {
+    public List<Admin> getAllAdmins() {
         return adminRepository.findAll();
     }
 
     @Override
-    public AdminEntity updateAdmin(AdminEntity adminEntity) {
-        AdminEntity existingAdmin = adminRepository.findById(adminEntity.getAdminId()).orElse(null);
+    public Admin updateAdmin(Admin admin) {
+        Admin existingAdmin = adminRepository.findById(admin.getAdminId()).orElse(null);
 
-        existingAdmin.setAdminUsername(adminEntity.getAdminUsername());
-        existingAdmin.setAdminPassword(adminEntity.getAdminPassword());
-        existingAdmin.setAdminEmail(adminEntity.getAdminEmail());
-        existingAdmin.setContactNumber(adminEntity.getContactNumber());
+        existingAdmin.setAdminUsername(admin.getAdminUsername());
+        existingAdmin.setAdminPassword(admin.getAdminPassword());
+        existingAdmin.setAdminEmail(admin.getAdminEmail());
+        existingAdmin.setContactNumber(admin.getContactNumber());
 
         return adminRepository.save(existingAdmin);
     }
@@ -51,7 +51,7 @@ public class AdminServiceImpl implements AdminService{
         adminRepository.deleteById(adminId);
     }
 
-    public Optional<AdminEntity> findByUsername(String adminUsername) {
+    public Optional<Admin> findByUsername(String adminUsername) {
         return adminRepository.findByAdminUsername(adminUsername);
     }
 }

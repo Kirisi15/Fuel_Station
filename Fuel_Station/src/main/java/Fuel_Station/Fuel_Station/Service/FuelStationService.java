@@ -1,15 +1,15 @@
 package Fuel_Station.Fuel_Station.Service;
 
-import Fuel_Station.Fuel_Station.Entity.FuelStationEntity;
+import Fuel_Station.Fuel_Station.Entity.FuelStation;
 
 import java.util.List;
 
 public interface FuelStationService {
-    List<FuelStationEntity> getAllStations();
-    FuelStationEntity getStationById(Long stationId);
-    FuelStationEntity addStation(FuelStationEntity fuelStation,Long ownerId);
-    FuelStationEntity updateStation(Long stationId, FuelStationEntity fuelStation);
+    List<FuelStation> getAllStations();
+    FuelStation getStationById(Long stationId);
+    FuelStation addStation(FuelStation fuelStation, Long ownerId);
+    FuelStation updateStation(Long stationId, FuelStation fuelStation);
     void deleteStation(Long stationId);
-     FuelStationEntity getStationByOwnerId(Long ownerId) ;
-    FuelStationEntity saveFuelStation(FuelStationEntity fuelStation);
+     FuelStation getStationByOwnerId(Long ownerId) ;
+    FuelStation saveFuelStation(FuelStation fuelStation);
 }

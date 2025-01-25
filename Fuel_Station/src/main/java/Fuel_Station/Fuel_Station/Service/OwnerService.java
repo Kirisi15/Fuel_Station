@@ -1,22 +1,22 @@
 package Fuel_Station.Fuel_Station.Service;
 
-import Fuel_Station.Fuel_Station.Entity.OwnerEntity;
+import Fuel_Station.Fuel_Station.Entity.Owner;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface OwnerService {
-    OwnerEntity getOwnerById(Long ownerId);
+    Owner getOwnerById(Long ownerId);
 
-    OwnerEntity createOwner(OwnerEntity ownerEntity);
+    Owner createOwner(Owner owner);
 
-    List<OwnerEntity> getAllOwners();
+    List<Owner> getAllOwners();
 
-    OwnerEntity updateOwner(OwnerEntity ownerEntity);
+    Owner updateOwner(Owner owner);
 
     void deleteOwner(Long ownerId);
 
-    Optional<OwnerEntity> findByUsername(String username);
+    Optional<Owner> findByUsername(String username);
 
 
 }
