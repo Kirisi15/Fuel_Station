@@ -15,7 +15,7 @@ public class TransactionEntity {
 
 @ManyToOne
 @JoinColumn(name = "stationId")
-private FuelStationEntity FuelStation;
+private Fuel_Station.Fuel_Station.Entity.FuelStation FuelStation;
     @ManyToOne
     @JoinColumn(name = "fuelId")
     private FuelEntity fuel;
@@ -24,7 +24,7 @@ private FuelStationEntity FuelStation;
     private Vehicle vehicle;
     @ManyToOne
     @JoinColumn(name = "empId")
-    private EmployeeEntity employee;
+    private Employee employee;
 
     private Double quantity;
 
@@ -33,7 +33,7 @@ private FuelStationEntity FuelStation;
     public TransactionEntity(){
 
     }
-    public TransactionEntity(FuelStationEntity FuelStation,Long transactionId,Double quantity,LocalDateTime dateTime){
+    public TransactionEntity(Fuel_Station.Fuel_Station.Entity.FuelStation FuelStation, Long transactionId, Double quantity, LocalDateTime dateTime){
         this.transactionId=transactionId;
         this.FuelStation=FuelStation;
 
@@ -67,11 +67,11 @@ private FuelStationEntity FuelStation;
     public void setDateTime(LocalDateTime dateTime) {
         this.dateTime = dateTime;
     }
-    public FuelStationEntity getFuelStation() {
+    public Fuel_Station.Fuel_Station.Entity.FuelStation getFuelStation() {
         return FuelStation;
     }
 
-    public void setFuelStation(FuelStationEntity FuelStation) {
+    public void setFuelStation(Fuel_Station.Fuel_Station.Entity.FuelStation FuelStation) {
         this.FuelStation = FuelStation;
     }
 

@@ -8,16 +8,16 @@ import java.util.List;
 
 @Entity
 @Table(name="FuelStation")
-public class FuelStationEntity {
+public class FuelStation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long stationId;
 @ManyToOne
 @JoinColumn(name = "ownerId")
 @JsonIgnore
-private OwnerEntity owner;
+private Owner owner;
 @OneToMany(mappedBy = "fuelStation",cascade =CascadeType.ALL )
-private List<EmployeeEntity> employee=new ArrayList<>();
+private List<Employee> employee=new ArrayList<>();
 @OneToMany(mappedBy = "FuelStation",cascade = CascadeType.ALL)
 private List<TransactionEntity> transaction =new ArrayList<>();
 @ManyToMany(mappedBy = "fuelStations")
@@ -37,22 +37,22 @@ private List<FuelEntity> fuel = new ArrayList<>();
 
 
 
-    public FuelStationEntity() {
+    public FuelStation() {
     }
 
 
-    public FuelStationEntity(String stationName, String address, String licenseNumber, String contactNumber) {
+    public FuelStation(String stationName, String address, String licenseNumber, String contactNumber) {
         this.stationName = stationName;
         this.address = address;
         this.licenseNumber = licenseNumber;
         this.contactNumber = contactNumber;
     }
 
-    public List<EmployeeEntity> getEmployee() {
+    public List<Employee> getEmployee() {
         return employee;
     }
 
-    public void setEmployee(List<EmployeeEntity> employee) {
+    public void setEmployee(List<Employee> employee) {
         this.employee = employee;
     }
 
@@ -119,11 +119,11 @@ private List<FuelEntity> fuel = new ArrayList<>();
     public void setContactNumber(String contactNumber) {
         this.contactNumber = contactNumber;
     }
-    public OwnerEntity getOwner() {
+    public Owner getOwner() {
         return owner;
     }
 
-    public void setOwner(OwnerEntity owner) {
+    public void setOwner(Owner owner) {
         this.owner = owner;
     }
 

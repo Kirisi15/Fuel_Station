@@ -45,7 +45,7 @@ public class Vehicle {
             joinColumns = @JoinColumn(name = "VehicleId"),
             inverseJoinColumns = @JoinColumn(name = "StationId")
     )
-    private List<FuelStationEntity> fuelStations = new ArrayList<>();
+    private List<FuelStation> fuelStations = new ArrayList<>();
 
 
     public Long getVehicleId() {
@@ -104,11 +104,11 @@ public class Vehicle {
         this.transactions = transactions;
     }
 
-    public List<FuelStationEntity> getFuelStations() {
+    public List<FuelStation> getFuelStations() {
         return fuelStations;
     }
 
-    public void setFuelStations(List<FuelStationEntity> fuelStations) {
+    public void setFuelStations(List<FuelStation> fuelStations) {
         this.fuelStations = fuelStations;
     }
 }

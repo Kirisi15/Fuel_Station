@@ -2,19 +2,19 @@ package Fuel_Station.Fuel_Station.Service;
 
 
 
-import Fuel_Station.Fuel_Station.Entity.EmployeeEntity;
+import Fuel_Station.Fuel_Station.Entity.Employee;
 
 import java.util.List;
 
 public interface EmployeeService {
 
-    EmployeeEntity createEmployee(EmployeeEntity employeeEntity,Long stationId);
+    Employee createEmployee(Employee employee, Long stationId);
 
-    EmployeeEntity getEmployeeById(Long EmployeeId);
+    Employee getEmployeeById(Long EmployeeId);
 
-    List< EmployeeEntity> getAllEmployees();
+    List<Employee> getAllEmployees();
 
-    EmployeeEntity updateEmployee(Long employeeId, EmployeeEntity EmployeeEntity);
+    Employee updateEmployee(Long employeeId, Employee Employee);
 
     void deleteEmployee(Long EmployeeId);
 

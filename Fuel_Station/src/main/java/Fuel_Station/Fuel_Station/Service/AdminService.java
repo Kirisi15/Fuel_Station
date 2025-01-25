@@ -1,22 +1,22 @@
 package Fuel_Station.Fuel_Station.Service;
 
-import Fuel_Station.Fuel_Station.Entity.AdminEntity;
+import Fuel_Station.Fuel_Station.Entity.Admin;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface AdminService {
 
-    AdminEntity createAdmin(AdminEntity adminEntity);
+    Admin createAdmin(Admin admin);
 
-    AdminEntity getAdminById(Long adminId);
+    Admin getAdminById(Long adminId);
 
-    List<AdminEntity> getAllAdmins();
+    List<Admin> getAllAdmins();
 
-    AdminEntity updateAdmin(AdminEntity adminEntity);
+    Admin updateAdmin(Admin admin);
 
     void deleteAdmin(Long adminId);
 
-    Optional<AdminEntity> findByUsername(String adminUsername);
+    Optional<Admin> findByUsername(String adminUsername);
 
 }
