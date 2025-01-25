@@ -17,16 +17,15 @@ import StationDashboard from "./fuelStation/StationDashboard";
 import TransactionTable from "./fuelStation/TransactionTable";
 import ViewStations from "./vehicle/ViewStations";
 import EditStation from "./fuelStation/EditStation";
-import UpdateOwnerDetails from './owner/UpdateOwnerDetails';
-import StationManagement from './owner/StationManagement';
+import HomePageDesign from '.home//HomePageDesign';
 
 const HomePage = () => {
   return (
     <div>
       <Router>
         <Navigationbar />
+        <HomePageDesign />
         <Routes>
-          <Route path="/" element={<h1>Welcome to the App</h1>} />
           <Route path="/ownerReg" element={<OwnerRegistration />} />
           <Route path="/stationReg" element={<FuelStationRegistration />} />
           <Route path="/cusReg" element={<CustomerRegistration/>}/>
@@ -45,8 +44,6 @@ const HomePage = () => {
           <Route path="ViewStations" element={<ViewStations/>} />
           <Route  path="/vehReg" element={<VehicleRegistration/>}/>
           <Route path="EditStation"  element={<EditStation/>}/>
-          <Route path='UpdateOwnerDetails' element={<UpdateOwnerDetails/>}/>
-          <Route path='StationManagment' element={<StationManagement/>}/>
           </Routes>
         </Router>
     </div>

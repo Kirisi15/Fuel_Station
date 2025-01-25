@@ -21,7 +21,7 @@ private FuelStationEntity FuelStation;
     private FuelEntity fuel;
     @ManyToOne
     @JoinColumn(name = "vehicleId")
-    private VehicleEntity vehicle;
+    private Vehicle vehicle;
     @ManyToOne
     @JoinColumn(name = "empId")
     private EmployeeEntity employee;

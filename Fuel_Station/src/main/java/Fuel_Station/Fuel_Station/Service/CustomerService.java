@@ -1,26 +1,26 @@
 package Fuel_Station.Fuel_Station.Service;
 
-import Fuel_Station.Fuel_Station.Entity.CustomerEntity;
+import Fuel_Station.Fuel_Station.Entity.Customer;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface CustomerService {
-    CustomerEntity createCustomer(CustomerEntity customerEntity);
+    Customer createCustomer(Customer customerEntity);
 
-    CustomerEntity getCustomerById(Long customerId);
+    Customer getCustomerById(Long customerId);
 
-    List<CustomerEntity> getAllCustomers();
+    List<Customer> getAllCustomers();
 
-    CustomerEntity addCustomer(CustomerEntity customer);
+    Customer addCustomer(Customer customer);
 
-    CustomerEntity updateCustomer(CustomerEntity customerEntity);
+    Customer updateCustomer(Customer customerEntity);
 
     void deleteCustomer(Long customerId);
 
-    CustomerEntity updateCustomer(Long customerId, CustomerEntity customerEntity);
+    Customer updateCustomer(Long customerId, Customer customerEntity);
 
   //  void deleteCustomer(Long customerId);
 
-    Optional<CustomerEntity> findByUsername(String customerEmail);
+    Optional<Customer> findByUsername(String customerEmail);
 }

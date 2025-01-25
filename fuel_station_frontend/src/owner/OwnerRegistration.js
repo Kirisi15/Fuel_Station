@@ -4,6 +4,8 @@ import { ValidateEmail } from "../formValidation/ValidateEmail";
 import { ValidatePassword } from "../formValidation/ValidatePassword";
 import { useNavigate } from "react-router-dom";
 import { ValidateNIC } from "../formValidation/ValidateNIC";
+import '../components/formStyles.css';
+
 
 const OwnerRegistration = () => {
   const [formData, setFormData] = useState({
@@ -114,7 +116,7 @@ const OwnerRegistration = () => {
           confirmPassword: "",
         });
         alert("Owner registered successfully!");
-        navigate("/login");
+        //navigate("/homePageDesign");
       })
       .catch((error) => {
         console.error("Registration error:", error);
@@ -124,112 +126,86 @@ const OwnerRegistration = () => {
 
   return (
     <div>
-      <h1>Fuel Station Owner Registration</h1>
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="name">Name:</label>
-        <input
-          type="text"
-          placeholder="Enter name"
-          value={formData.name}
-          onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-          required
-        />
-        <br />
-        <br />
+      <div className="custom-form">
+        <form onSubmit={handleSubmit}>
+          <h2>Owner Registration</h2>
+          <input
+            type="text"
+            placeholder="name"
+            value={formData.name}
+            onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+            required
+          />
+          <br />
+          <input
+            type="text"
+            placeholder="NIC number"
+            value={formData.nic}
+            onChange={(e) => setFormData({ ...formData, nic: e.target.value })}
+            required
+          />
+          {nicError && <p>{nicError}</p>}
+          <br />
+          <input
+            type="text"
+            placeholder="email"
+            value={formData.email}
+            onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+            required
+          />
+          {emailError && <p>{emailError}</p>}
+          <br />
+          <input
+            type="text"
+            placeholder="contact number"
+            value={formData.contactNumber}
+            onChange={(e) =>
+              setFormData({ ...formData, contactNumber: e.target.value })
+            }
+            required
+          />
+          <br />
+          <input
+            type="text"
+            placeholder="username"
+            value={formData.username}
+            onChange={(e) =>
+              setFormData({ ...formData, username: e.target.value })
+            }
+            required
+          />
+          <br />
+          <input
+            type="password"
+            placeholder="password"
+            value={formData.password}
+            onChange={(e) =>
+              setFormData({ ...formData, password: e.target.value })
+            }
+            required
+          />
+          {passwordError && <p>{passwordError}</p>}
+          {valPasswordError && <p>{valPasswordError}</p>}
+          <br />
+          <input
+            type="password"
+            placeholder="Rewrite password"
+            value={formData.confirmPassword}
+            onChange={(e) =>
+              setFormData({ ...formData, confirmPassword: e.target.value })
+            }
+            required
+          />
+          <br />
 
-        <label htmlFor="nic">NIC:</label>
-        <input
-          type="text"
-          placeholder="Enter NIC number"
-          value={formData.nic}
-          onChange={(e) => setFormData({ ...formData, nic: e.target.value })}
-          required
-        />
-        {nicError && <p style={{ color: "red", fontSize: "12px" }}>{nicError}</p>}
-        <br />
-        <br />
+          {uniqueError && <p>{uniqueError}</p>}
 
-        <label htmlFor="email">Email:</label>
-        <input
-          type="text"
-          placeholder="Enter email"
-          value={formData.email}
-          onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-          required
-        />
-        {emailError && <p style={{ color: "red", fontSize: "12px" }}>{emailError}</p>}
-        <br />
-        <br />
-
-        <label htmlFor="contactNumber">Contact Number:</label>
-        <input
-          type="text"
-          placeholder="Enter contact number"
-          value={formData.contactNumber}
-          onChange={(e) =>
-            setFormData({ ...formData, contactNumber: e.target.value })
-          }
-          required
-        />
-        <br />
-        <br />
-
-        <label htmlFor="username">Username:</label>
-        <input
-          type="text"
-          placeholder="Enter username"
-          value={formData.username}
-          onChange={(e) =>
-            setFormData({ ...formData, username: e.target.value })
-          }
-          required
-        />
-        <br />
-        <br />
-
-        <label htmlFor="password">Password:</label>
-        <input
-          type="password"
-          placeholder="Enter password"
-          value={formData.password}
-          onChange={(e) =>
-            setFormData({ ...formData, password: e.target.value })
-          }
-          required
-        />
-        {passwordError && (
-          <p style={{ color: "red", fontSize: "12px" }}>{passwordError}</p>
-        )}
-        {valPasswordError && (
-          <p style={{ color: "red", fontSize: "12px" }}>{valPasswordError}</p>
-        )}
-        <br />
-        <br />
-
-        <label htmlFor="confirmPassword">Confirm Password:</label>
-        <input
-          type="password"
-          placeholder="Rewrite password"
-          value={formData.confirmPassword}
-          onChange={(e) =>
-            setFormData({ ...formData, confirmPassword: e.target.value })
-          }
-          required
-        />
-        <br />
-        <br />
-
-        {uniqueError && (
-          <p style={{ color: "red", fontSize: "12px" }}>{uniqueError}</p>
-        )}
-
-        <button name="register" type="submit">
-          SignUp
-        </button>
-        <button type="button" onClick={() => navigate("/OwnerLogin")}>
-          SignIn
-        </button>
-      </form>
+          <button className="btn" type="submit">SignUp</button>
+          <button className="btn" type="button" onClick={() => navigate("/OwnerLogin")}>
+            SignIn
+          </button>
+        </form>
+      </div>
     </div>
   );
 };
