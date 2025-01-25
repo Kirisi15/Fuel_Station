@@ -17,24 +17,47 @@ function VehicleRegistration() {
   const [customer, setCustomer] = useState([]);
   const qrCodeRef = useRef(null);
   const [existingVehicles, setExistingVehicles] = useState([]);
+  const [fuelLimits, setFuelLimits] = useState([]); // To store the fetched fuel limits
 
   useEffect(() => {
-   
     setCustomer(localStorage.getItem("customerId"));
+
     const fetchExistingVehicles = async () => {
       try {
         const response = await axios.get("http://localhost:8080/api/vehicle");
-        setExistingVehicles(response.data); 
+        setExistingVehicles(response.data);
       } catch (error) {
         console.error("Failed to fetch existing vehicles:", error);
       }
     };
 
+    const fetchFuelLimits = async () => {
+      try {
+        const response = await axios.get("http://localhost:8080/api/fuel/limits");
+        setFuelLimits(response.data);
+      } catch (error) {
+        console.error("Failed to fetch fuel limits:", error);
+      }
+    };
+
     fetchExistingVehicles();
+    fetchFuelLimits();
   }, []);
 
   const handleChanges = (e) => {
-    setVehicles({ ...values, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+
+    if (name === "vehicleType") {
+      // Automatically set the fuel limit based on the selected vehicle type
+      const selectedFuelLimit = fuelLimits.find((limit) => limit.vehicleType === value);
+      setVehicles({
+        ...values,
+        [name]: value,
+        fuelLimit: selectedFuelLimit ? selectedFuelLimit.fuelLimit : ""
+      });
+    } else {
+      setVehicles({ ...values, [name]: value });
+    }
   };
 
   const validateForm = () => {
@@ -47,10 +70,6 @@ function VehicleRegistration() {
     );
     if (isDuplicate) {
       setError("A vehicle with this number already exists.");
-      return false;
-    }
-    if (!/^[A-Za-z]+$/.test(values.vehicleType)) {
-      setError("Vehicle type should contain only alphabets.");
       return false;
     }
     if (!/^[A-Za-z0-9-]+$/.test(values.vehicleNumber)) {
@@ -71,7 +90,7 @@ function VehicleRegistration() {
 
     try {
       const response = await axios.post(
-        `http://localhost:8080/api/vehicle/${customer}`, 
+        `http://localhost:8080/api/vehicle/${customer}`,
         values,
         {
           headers: { "Content-Type": "application/json" },
@@ -118,14 +137,19 @@ function VehicleRegistration() {
       <form onSubmit={handleSubmit}>
         {error && <p style={{ color: "red" }}>{error}</p>}
         <label htmlFor="vehicleType">Vehicle Type:</label>
-        <input
-          type="text"
-          placeholder="Enter the vehicle type"
+        <select
           name="vehicleType"
           onChange={handleChanges}
-          required
           value={values.vehicleType}
-        />
+          required
+        >
+          <option value="">Select Vehicle Type</option>
+          {fuelLimits.map((limit) => (
+            <option key={limit.id} value={limit.vehicleType}>
+              {limit.vehicleType}
+            </option>
+          ))}
+        </select>
         <br />
         <br />
 
@@ -160,12 +184,11 @@ function VehicleRegistration() {
         <label htmlFor="fuelLimit">Fuel Limit:</label>
         <input
           type="number"
-          step="5"
-          placeholder="Enter the fuel limit"
+          step="1"
+          placeholder="Fuel limit will be auto-filled"
           name="fuelLimit"
-          onChange={handleChanges}
           value={values.fuelLimit}
-          required
+          readOnly
         />
         <br />
         <br />
