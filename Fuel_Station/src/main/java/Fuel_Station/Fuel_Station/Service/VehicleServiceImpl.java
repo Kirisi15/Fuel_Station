@@ -1,8 +1,7 @@
 package Fuel_Station.Fuel_Station.Service;
 
-import Fuel_Station.Fuel_Station.Entity.CustomerEntity;
-import Fuel_Station.Fuel_Station.Entity.OwnerEntity;
-import Fuel_Station.Fuel_Station.Entity.VehicleEntity;
+import Fuel_Station.Fuel_Station.Entity.Customer;
+import Fuel_Station.Fuel_Station.Entity.Vehicle;
 import Fuel_Station.Fuel_Station.Repository.CustomerRepository;
 import Fuel_Station.Fuel_Station.Repository.VehicleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,26 +25,26 @@ public class VehicleServiceImpl implements VehicleService {
     }
 
     @Override
-    public VehicleEntity createVehicle(VehicleEntity vehicleEntity, Long customerId){
-        CustomerEntity customer= customerRepository.findById(customerId).get();
+    public Vehicle createVehicle(Vehicle vehicleEntity, Long customerId){
+        Customer customer= customerRepository.findById(customerId).get();
         vehicleEntity.setCustomer(customer);
         return vehicleRepository.save(vehicleEntity);
     }
 
     @Override
-    public VehicleEntity getVehicleById(Long vehicleId){
-        Optional<VehicleEntity> optionalVehicleEntity=vehicleRepository.findById(vehicleId);
+    public Vehicle getVehicleById(Long vehicleId){
+        Optional<Vehicle> optionalVehicleEntity=vehicleRepository.findById(vehicleId);
         return optionalVehicleEntity.get();
     }
 
     @Override
-    public List<VehicleEntity> getAllVehicles() {
+    public List<Vehicle> getAllVehicles() {
         return vehicleRepository.findAll();
     }
 
     @Override
-    public VehicleEntity updateVehicle(VehicleEntity vehicleEntity) {
-        VehicleEntity existingVehicle = vehicleRepository.findById(vehicleEntity.getVehicleId()).orElse(null);
+    public Vehicle updateVehicle(Vehicle vehicleEntity) {
+        Vehicle existingVehicle = vehicleRepository.findById(vehicleEntity.getVehicleId()).orElse(null);
 
             existingVehicle.setVehicleNumber(vehicleEntity.getVehicleNumber());
             existingVehicle.setVehicleType(vehicleEntity.getVehicleType());
