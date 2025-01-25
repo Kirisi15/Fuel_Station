@@ -17,14 +17,15 @@ import StationDashboard from "./fuelStation/StationDashboard";
 import TransactionTable from "./fuelStation/TransactionTable";
 import ViewStations from "./vehicle/ViewStations";
 import EditStation from "./fuelStation/EditStation";
+import HomePageDesign from '.home//HomePageDesign';
 
 const HomePage = () => {
   return (
     <div>
       <Router>
         <Navigationbar />
+        <HomePageDesign />
         <Routes>
-          <Route path="/" element={<h1>Welcome to the App</h1>} />
           <Route path="/ownerReg" element={<OwnerRegistration />} />
           <Route path="/stationReg" element={<FuelStationRegistration />} />
           <Route path="/cusReg" element={<CustomerRegistration/>}/>
