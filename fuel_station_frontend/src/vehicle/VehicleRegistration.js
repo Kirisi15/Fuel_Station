@@ -8,32 +8,23 @@ function VehicleRegistration() {
     vehicleType: "",
     vehicleNumber: "",
     fuelType: "",
-    fuelLimit: "", // Added fuelLimit attribute
-    customerId: "",
+    fuelLimit: ""
   });
 
   const [vehicleId, setVehicleId] = useState(null);
   const [qrCodeData, setQrCodeData] = useState(null);
   const [error, setError] = useState("");
-  const [customers, setCustomers] = useState([]);
-  const qrCodeRef = useRef(null); // Ref for the QR code canvas
+  const [customer, setCustomer] = useState([]);
+  const qrCodeRef = useRef(null);
   const [existingVehicles, setExistingVehicles] = useState([]);
 
   useEffect(() => {
-    const fetchCustomers = async () => {
-      try {
-        const response = await axios.get("http://localhost:8080/api/customer");
-        setCustomers(response.data);
-      } catch (error) {
-        console.error("Failed to fetch customers:", error);
-      }
-    };
-
-    fetchCustomers();
+   
+    setCustomer(localStorage.getItem("customerId"));
     const fetchExistingVehicles = async () => {
       try {
         const response = await axios.get("http://localhost:8080/api/vehicle");
-        setExistingVehicles(response.data); // Store in state
+        setExistingVehicles(response.data); 
       } catch (error) {
         console.error("Failed to fetch existing vehicles:", error);
       }
@@ -47,7 +38,7 @@ function VehicleRegistration() {
   };
 
   const validateForm = () => {
-    if (!values.vehicleType || !values.vehicleNumber || !values.fuelType || !values.fuelLimit || !values.customerId) {
+    if (!values.vehicleType || !values.vehicleNumber || !values.fuelType || !values.fuelLimit) {
       setError("All fields are required.");
       return false;
     }
@@ -80,7 +71,7 @@ function VehicleRegistration() {
 
     try {
       const response = await axios.post(
-        `http://localhost:8080/api/vehicle/${values.customerId}`, 
+        `http://localhost:8080/api/vehicle/${customer}`, 
         values,
         {
           headers: { "Content-Type": "application/json" },
@@ -91,7 +82,7 @@ function VehicleRegistration() {
 
       setVehicleId(generatedVehicleId);
 
-      const qrData = `Vehicle ID: ${generatedVehicleId}, Vehicle Type: ${values.vehicleType}, Vehicle Number: ${values.vehicleNumber}, Fuel Type: ${values.fuelType}, Fuel Limit: ${values.fuelLimit}, Customer ID: ${values.customerId}`;
+      const qrData = `Vehicle ID: ${generatedVehicleId}, Vehicle Type: ${values.vehicleType}, Vehicle Number: ${values.vehicleNumber}, Fuel Type: ${values.fuelType}, Fuel Limit: ${values.fuelLimit}`;
       setQrCodeData(qrData);
 
       setExistingVehicles([...existingVehicles, { vehicleNumber: values.vehicleNumber }]);
@@ -100,8 +91,7 @@ function VehicleRegistration() {
         vehicleType: "",
         vehicleNumber: "",
         fuelType: "",
-        fuelLimit: "",
-        customerId: "",
+        fuelLimit: ""
       });
 
       alert("Vehicle successfully added");
@@ -177,23 +167,6 @@ function VehicleRegistration() {
           value={values.fuelLimit}
           required
         />
-        <br />
-        <br />
-
-        <label htmlFor="customerId">Customer:</label>
-        <select
-          name="customerId"
-          onChange={handleChanges}
-          value={values.customerId}
-          required
-        >
-          <option value="">Select Customer</option>
-          {customers.map((customer) => (
-            <option key={customer.id} value={customer.customerId}>
-              {customer.customerName} ({customer.customerEmail})
-            </option>
-          ))}
-        </select>
         <br />
         <br />
 
