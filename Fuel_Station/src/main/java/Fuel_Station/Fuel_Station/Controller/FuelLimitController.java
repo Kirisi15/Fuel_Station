@@ -35,13 +35,7 @@ public class FuelLimitController {
         return ResponseEntity.ok(createdFuelLimit);
     }
 
-    /**
-     * Update an existing fuel limit
-     *
-     * @param id        ID of the fuel limit to update
-     * @param fuelLimit Updated fuel limit details
-     * @return Updated fuel limit
-     */
+
     @PutMapping("/update/{id}")
     public ResponseEntity<FuelLimit> updateFuelLimit(
             @PathVariable int id,
@@ -52,12 +46,7 @@ public class FuelLimitController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    /**
-     * Delete a fuel limit by ID
-     *
-     * @param id ID of the fuel limit to delete
-     * @return Success or failure response
-     */
+
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> deleteFuelLimit(@PathVariable int id) {
         boolean isDeleted = fuelLimitService.deleteFuelLimit(id);
