@@ -54,8 +54,20 @@ public class OwnerController {
         ownerService.deleteOwner((long) ownerId);
         return new ResponseEntity<>("Owner successfully deleted", HttpStatus.OK);
     }
-    @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody Owner loginDetails) {
+//    @PostMapping("/login")
+//    public ResponseEntity<?> login(@RequestBody Owner loginDetails) {
+//        Optional<Owner> owner = ownerService.findByUsername(loginDetails.getUsername());
+//
+//        if (owner.isPresent() && owner.get().getPassword().equals(loginDetails.getPassword())) {
+//            return new ResponseEntity<>(owner.get(), HttpStatus.OK);
+//        } else {
+//            return new ResponseEntity<>("Invalid username or password", HttpStatus.UNAUTHORIZED);
+//        }
+
+//}
+@PostMapping("/login")
+public ResponseEntity<?> login(@RequestBody Owner loginDetails) {
+    try {
         Optional<Owner> owner = ownerService.findByUsername(loginDetails.getUsername());
 
         if (owner.isPresent() && owner.get().getPassword().equals(loginDetails.getPassword())) {
@@ -63,6 +75,11 @@ public class OwnerController {
         } else {
             return new ResponseEntity<>("Invalid username or password", HttpStatus.UNAUTHORIZED);
         }
+    } catch (Exception e) {
+        e.printStackTrace(); // Logs the error to the console
+        return new ResponseEntity<>("Internal Server Error: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
+}
+
 
 }

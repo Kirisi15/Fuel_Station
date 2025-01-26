@@ -1,23 +1,24 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import EmployeeRegistration from "../employee/EmployeeRegistration";
+import axios from "axios";
 
 const ManageEmployees = ({ stationId }) => {
+  const navigate = useNavigate();
   const [employees, setEmployees] = useState([]);
-  const navigate = useNavigate(); 
-
 
   useEffect(() => {
     const fetchEmployees = async () => {
       try {
-        const response = await fetch(
-          `https://api.example.com/stations/${stationId}/employees`
+        const stationId = localStorage.getItem("stationId");
+        console.log(stationId);
+        const employeeId=localStorage.getItem("employeeId");
+        console.log(employeeId);
+        const response = await axios.get(
+          
+          `http://localhost:8080/employee`
         );
-        if (!response.ok) {
-          throw new Error("Failed to fetch employees");
-        }
-        const data = await response.json();
-        setEmployees(data);
+console.log(response.data);
+        setEmployees(response.data);
       } catch (error) {
         console.error("Error fetching employees:", error);
       }
@@ -26,70 +27,32 @@ const ManageEmployees = ({ stationId }) => {
     fetchEmployees();
   }, [stationId]);
 
-  // Delete an employee
   const handleDeleteEmployee = async (employeeId) => {
     const confirmDelete = window.confirm("Are you sure you want to delete this employee?");
     if (!confirmDelete) return;
 
     try {
-      const response = await fetch(
-        `https://api.example.com/fuelStation/${stationId}/employee/${employeeId}`,
-        {
-          method: "DELETE",
-        }
-      );
-      if (!response.ok) {
-        throw new Error("Failed to delete employee");
-      }
-      setEmployees((prev) => prev.filter((emp) => emp.id !== employeeId));
+      await axios.delete(`http://localhost:8080/employee/${employeeId}`);
+
+      // Remove the deleted employee from the state
+      setEmployees((prevEmployees) => prevEmployees.filter(emp => emp.employeeId !== employeeId));
     } catch (error) {
       console.error("Error deleting employee:", error);
     }
   };
 
-  
   const handleNavigateToAddEmployee = () => {
     navigate(`/EmpReg`);
-    <EmployeeRegistration/>
   };
 
   return (
     <div>
       <h2>Manage Employees for Station {stationId}</h2>
 
-      
-      <h3>Employee List</h3>
-      {employees.length === 0 ? (
-        <p>No employees found.</p>
-      ) : (
-        <ul>
-          {employees.map((employee) => (
-            <li key={employee.employeeId}>
-              <strong>{employee.employeeName}</strong> - {employee.position} -{" "}
-              {employee.contact}
-              <button
-                onClick={() => handleDeleteEmployee(employee.id)}
-                style={{
-                  marginLeft: "10px",
-                  backgroundColor: "red",
-                  color: "white",
-                  border: "none",
-                  cursor: "pointer",
-                  padding: "5px 10px",
-                }}
-              >
-                Delete
-              </button>
-            </li>
-          ))}
-        </ul>
-      )}
-
-      {/* Redirect to Employee Registration */}
       <button
         onClick={handleNavigateToAddEmployee}
         style={{
-          marginTop: "20px",
+          marginBottom: "20px",
           backgroundColor: "blue",
           color: "white",
           padding: "10px 15px",
@@ -99,7 +62,47 @@ const ManageEmployees = ({ stationId }) => {
       >
         Add Employee
       </button>
-    </div>
+
+      {employees.length === 0 ? (
+        <p>No employees found.</p>
+      ) : (
+        <table style={{ width: "100%", borderCollapse: "collapse" }}>
+          <thead>
+            <tr>
+              <th style={{ border: "1px solid #ddd", padding: "8px" }}>Employee ID</th>
+              <th style={{ border: "1px solid #ddd", padding: "8px" }}>Name</th>
+              <th style={{ border: "1px solid #ddd", padding: "8px" }}>NIC</th>
+              <th style={{ border: "1px solid #ddd", padding: "8px" }}>Contact Number</th>
+              <th style={{ border: "1px solid #ddd", padding: "8px" }}>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {employees.map((employee) => (
+              <tr key={employee.empId}>
+                <td style={{ border: "1px solid #ddd", padding: "8px" }}>{employee.employeeId}</td>
+                <td style={{ border: "1px solid #ddd", padding: "8px" }}>{employee.employeeName}</td>
+                <td style={{ border: "1px solid #ddd", padding: "8px" }}>{employee.employeeNic}</td>
+                <td style={{ border: "1px solid #ddd", padding: "8px" }}>{employee.employeeContactnumber}</td>
+                <td style={{ border: "1px solid #ddd", padding: "8px" }}>
+                  <button
+                    onClick={() => handleDeleteEmployee(employee.employeeId)}
+                    style={{
+                      backgroundColor: "red",
+                      color: "white",
+                      border: "none",
+                      cursor: "pointer",
+                      padding: "5px 10px",
+                    }}
+                  >
+                  Delete
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
+      </div>
   );
 };
 

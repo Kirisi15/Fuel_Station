@@ -2,10 +2,12 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { ValidatePassword } from '../formValidation/ValidatePassword';
 import { ValidateNIC } from '../formValidation/ValidateNIC';
+import { useNavigate } from "react-router-dom";
+
 
 function EmployeeRegistration() {
-  const employeeId = localStorage.getItem("employeeId");
-
+  
+    const navigate = useNavigate(); 
     const [values, setEmployees] = useState({
         employeeName: '',
         employeeNic: '',
@@ -20,23 +22,8 @@ function EmployeeRegistration() {
     const [nicError, setNicError] = useState("");
     const [valPasswordError, setValPasswordError] = useState("");
     const [uniqueError, setUniqueError] = useState("");
-
-    useEffect(() => {
-        const fetchUsers = async () => {
-            try {
-                const employeeId = localStorage.getItem("employeeId");
-                if (employeeId) {
-                    const response = await axios.get(`http://localhost:8080/employee/${employeeId}`);
-                    setExistingUsers(response.data);
-                } else {
-                    console.error("Station ID not found in localStorage");
-                }
-            } catch (error) {
-                console.error("Error fetching existing users:", error);
-            }
-        };
-        fetchUsers();
-    }, []);
+    const employeeId=   localStorage.getItem("employeeId");
+   
 
     const handleChanges = (e) => {
         setEmployees({ ...values, [e.target.name]: e.target.value });
@@ -96,6 +83,8 @@ function EmployeeRegistration() {
             const response = await axios.post(`http://localhost:8080/employee/${stationId}`, values, {
                 headers: { "Content-Type": "application/json" },
             });
+      const employeeId=  localStorage.setItem("EmployeeId",response.data.employeeId);
+             console.log(employeeId);
             console.log("Response:", response.data);
 
             setEmployees({
@@ -108,12 +97,32 @@ function EmployeeRegistration() {
             });
 
             alert("Employee successfully added");
+           
+         navigate('/EmpMang');
 
         } catch (error) {
             console.error("Registration error:", error);
             alert("Network error occurred. Please try again");
         }
     };
+
+   
+    useEffect(() => {
+        const fetchUsers = async () => {
+            try {
+                localStorage.getItem("employeeId");
+              console.log(employeeId)
+                    const response = await axios.get(`http://localhost:8080/employee/${employeeId}`);
+                    setExistingUsers(response.data);
+                
+                    // console.error("Employee ID not found in localStorage");
+            
+            } catch (error) {
+                console.error("Error fetching existing users:", error);
+            }
+        };
+        fetchUsers();
+    }, []);
 
     return (
         <div className="container">

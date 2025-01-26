@@ -26,27 +26,32 @@ public class EmployeeController {
     {
         return employeeService.getAllEmployees();
     }
-    @GetMapping("/{id}")
-    public Employee getEmployeeById(@PathVariable("id") Long employeeId)
+    @GetMapping("/{employeeId}")
+    public Employee getEmployeeById(@PathVariable("employeeId") Long employeeId)
     {
         return employeeService.getEmployeeById(employeeId);
     }
 
     @PostMapping("/{stationId}")
-    public Employee createEmployee(@RequestBody Employee employee, @PathVariable Long stationId)
+    public Employee createEmployee(@RequestBody Employee employeeEntity,@PathVariable Long stationId)
     {
-        return employeeService.createEmployee(employee,stationId);
+        return employeeService.createEmployee(employeeEntity,stationId);
     }
 
     @PutMapping("/{id}")
     public Employee updateEmployee(@PathVariable("id") Long employeeId, @RequestBody Employee employee)
     {
-        return employeeService.updateEmployee(employeeId, employee);
+        return employeeService.updateEmployee(employeeId,employee);
     }
 
-    @DeleteMapping("/{id}")
-    public void deleteEmployee(@PathVariable("id") Long employeeId)
+    @DeleteMapping("/{employeeId}")
+    public void deleteEmployee(@PathVariable("employeeId") Long employeeId)
     {
         employeeService.deleteEmployee(employeeId);
+    }
+    @GetMapping("/{stationId}")
+    public Employee getEmployeeByStationId(@PathVariable("stationId") Long stationId)
+    {
+        return employeeService.getEmployeeByStationId(stationId);
     }
 }
