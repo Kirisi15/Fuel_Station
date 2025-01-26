@@ -17,6 +17,7 @@ import StationDashboard from "./fuelStation/StationDashboard";
 import TransactionTable from "./fuelStation/TransactionTable";
 import ViewStations from "./vehicle/ViewStations";
 import EditStation from "./fuelStation/EditStation";
+import VehicleRegistrationAfter from "./vehicle/VehicleRegistrationAfter";
 
 const HomePage = () => {
   return (
@@ -43,6 +44,7 @@ const HomePage = () => {
           <Route path="ViewStations" element={<ViewStations/>} />
           <Route  path="/vehReg" element={<VehicleRegistration/>}/>
           <Route path="EditStation"  element={<EditStation/>}/>
+          <Route path="/vehicle-qr/:vehicleId" element={<VehicleRegistrationAfter/>}/>
           </Routes>
         </Router>
     </div>
