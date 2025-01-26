@@ -14,6 +14,7 @@ const OwnerLogin = () => {
     
 try {
       const response = await axios.post("http://localhost:8080/api/owners/login",formData);
+      console.log("Backend Response: ",response.data);
       if (response.data.username === formData.username) {
         setIsLogin(true);
         localStorage.setItem("ownerId",response.data.ownerId);

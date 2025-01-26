@@ -37,9 +37,12 @@ public class Owner {
 
     @Column(name="password")
     private String password;
+    public Owner() {
+        // Default constructor required by JPA
+    }
 
     public Owner(Long ownerId, String name, String nic, String contactNumber, String email, String username, String password) {
-        //this.ownerId = ownerId;
+        this.ownerId = ownerId;
         this.name = name;
         this.nic = nic;
         this.contactNumber = contactNumber;
