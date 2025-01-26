@@ -1,7 +1,7 @@
 package Fuel_Station.Fuel_Station.Controller;
 
 import Fuel_Station.Fuel_Station.Entity.FuelEntity;
-import Fuel_Station.Fuel_Station.Entity.FuelStationEntity;
+import Fuel_Station.Fuel_Station.Entity.FuelStation;
 import Fuel_Station.Fuel_Station.Service.FuelService;
 import Fuel_Station.Fuel_Station.Service.FuelStationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +25,7 @@ public class FuelController {
 
     @PostMapping("/{stationId}")
     public FuelEntity createFuel(@RequestBody FuelEntity fuelEntity, @PathVariable Long stationId) {
-        FuelStationEntity fuelStation = fuelStationService.getStationById(stationId);
+        FuelStation fuelStation = fuelStationService.getStationById(stationId);
         if (fuelStation == null) {
             throw new RuntimeException("Fuel Station not found with ID: " + stationId);
         }
@@ -38,7 +38,7 @@ public class FuelController {
 
     @GetMapping("/types/{stationId}")
     public List<Map<String, Object>> getFuelTypesByStationId(@PathVariable Long stationId) {
-        FuelStationEntity fuelStation = fuelStationService.getStationById(stationId);
+        FuelStation fuelStation = fuelStationService.getStationById(stationId);
         if (fuelStation == null) {
             throw new RuntimeException("Fuel Station not found with ID: " + stationId);
         }
@@ -61,7 +61,7 @@ public class FuelController {
         double quantity = Double.parseDouble(payload.get("quantity").toString());
 
         // Fetch the station by ID
-        FuelStationEntity station = fuelStationService.getStationById(stationId);
+        FuelStation station = fuelStationService.getStationById(stationId);
 
         if (station == null) {
             return ResponseEntity.badRequest().body("Station not found");

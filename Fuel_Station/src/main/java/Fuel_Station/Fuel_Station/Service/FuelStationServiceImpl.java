@@ -1,7 +1,7 @@
 package Fuel_Station.Fuel_Station.Service;
 
-import Fuel_Station.Fuel_Station.Entity.FuelStationEntity;
-import Fuel_Station.Fuel_Station.Entity.OwnerEntity;
+import Fuel_Station.Fuel_Station.Entity.FuelStation;
+import Fuel_Station.Fuel_Station.Entity.Owner;
 import Fuel_Station.Fuel_Station.Repository.FuelStationRepository;
 import Fuel_Station.Fuel_Station.Repository.OwnerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,29 +19,29 @@ public   class FuelStationServiceImpl implements FuelStationService {
     private OwnerRepository ownerRepository;
 
     @Override
-    public List<FuelStationEntity> getAllStations() {
+    public List<FuelStation> getAllStations() {
         return fuelStationRepository.findAll();
     }
 
     @Override
-    public FuelStationEntity getStationById(Long stationId) {
-        Optional<FuelStationEntity> station = fuelStationRepository.findById(stationId);
+    public FuelStation getStationById(Long stationId) {
+        Optional<FuelStation> station = fuelStationRepository.findById(stationId);
         return station.get();
     }
 
 
-    public FuelStationEntity addStation(FuelStationEntity fuelStation, Long ownerId) {
+    public FuelStation addStation(FuelStation fuelStation, Long ownerId) {
         // Fetch owner and associate with the fuel station
-        OwnerEntity ownerEntity = ownerRepository.findById(ownerId)
+        Owner owner = ownerRepository.findById(ownerId)
                 .orElseThrow(() -> new RuntimeException("Owner not found for ID: " + ownerId));
 
-        fuelStation.setOwner(ownerEntity);
+        fuelStation.setOwner(owner);
         return fuelStationRepository.save(fuelStation);
     }
 
     @Override
-    public FuelStationEntity updateStation(Long stationId, FuelStationEntity fuelStation) {
-        FuelStationEntity existingStation = getStationById(stationId);
+    public FuelStation updateStation(Long stationId, FuelStation fuelStation) {
+        FuelStation existingStation = getStationById(stationId);
         existingStation.setStationName(fuelStation.getStationName());
         existingStation.setAddress(fuelStation.getAddress());
         existingStation.setLicenseNumber(fuelStation.getLicenseNumber());
@@ -54,13 +54,13 @@ public   class FuelStationServiceImpl implements FuelStationService {
         fuelStationRepository.deleteById(stationId);
     }
     @Override
-    public FuelStationEntity getStationByOwnerId(Long ownerId) {
-        Optional<FuelStationEntity> station = fuelStationRepository.findById(ownerId);
+    public FuelStation getStationByOwnerId(Long ownerId) {
+        Optional<FuelStation> station = fuelStationRepository.findById(ownerId);
         return station.get();
     }
 
   @Override
- public FuelStationEntity saveFuelStation(FuelStationEntity fuelStation) {
+ public FuelStation saveFuelStation(FuelStation fuelStation) {
        return fuelStationRepository.save(fuelStation);
     }
 

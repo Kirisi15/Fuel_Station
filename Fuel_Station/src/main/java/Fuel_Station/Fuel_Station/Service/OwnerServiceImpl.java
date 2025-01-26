@@ -1,6 +1,6 @@
 package Fuel_Station.Fuel_Station.Service;
 
-import Fuel_Station.Fuel_Station.Entity.OwnerEntity;
+import Fuel_Station.Fuel_Station.Entity.Owner;
 import Fuel_Station.Fuel_Station.Repository.OwnerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,26 +15,26 @@ public  class OwnerServiceImpl implements OwnerService {
     private OwnerRepository ownerRepository;
 
     @Override
-    public List<OwnerEntity> getAllOwners() {
+    public List<Owner> getAllOwners() {
         return ownerRepository.findAll();
     }
 
     @Override
-    public OwnerEntity getOwnerById(Long ownerId) {
-        Optional<OwnerEntity> owner = ownerRepository.findById(ownerId);
+    public Owner getOwnerById(Long ownerId) {
+        Optional<Owner> owner = ownerRepository.findById(ownerId);
         return owner.orElseThrow(() -> new RuntimeException("Owner not found with ID: " + ownerId));
     }
 
     @Override
-    public OwnerEntity createOwner(OwnerEntity ownerEntity) {
-        return ownerRepository.save(ownerEntity);
+    public Owner createOwner(Owner owner) {
+        return ownerRepository.save(owner);
     }
 
     @Override
-    public OwnerEntity updateOwner(OwnerEntity ownerEntity) {
-        OwnerEntity existingOwner = getOwnerById(ownerEntity.getOwnerId());
-        existingOwner.setName(ownerEntity.getName());
-        existingOwner.setContactNumber(ownerEntity.getContactNumber());
+    public Owner updateOwner(Owner owner) {
+        Owner existingOwner = getOwnerById(owner.getOwnerId());
+        existingOwner.setName(owner.getName());
+        existingOwner.setContactNumber(owner.getContactNumber());
         return ownerRepository.save(existingOwner);
     }
 
@@ -43,7 +43,7 @@ public  class OwnerServiceImpl implements OwnerService {
         getOwnerById(ownerId); // Ensures owner exists before attempting to delete.
         ownerRepository.deleteById(ownerId);
     }
-    public Optional<OwnerEntity> findByUsername(String username) {
+    public Optional<Owner> findByUsername(String username) {
         return ownerRepository.findByUsername(username);
     }
 

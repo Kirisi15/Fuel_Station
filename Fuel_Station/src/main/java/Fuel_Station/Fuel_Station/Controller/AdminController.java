@@ -1,6 +1,6 @@
 package Fuel_Station.Fuel_Station.Controller;
 
-import Fuel_Station.Fuel_Station.Entity.AdminEntity;
+import Fuel_Station.Fuel_Station.Entity.Admin;
 import Fuel_Station.Fuel_Station.Service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,29 +23,29 @@ public class AdminController {
     }
 
     @PostMapping
-    public ResponseEntity<AdminEntity> createAdmin(@RequestBody AdminEntity adminEntity) {
-        AdminEntity savedAdmin = adminService.createAdmin(adminEntity);
+    public ResponseEntity<Admin> createAdmin(@RequestBody Admin admin) {
+        Admin savedAdmin = adminService.createAdmin(admin);
         return new ResponseEntity<>(savedAdmin, HttpStatus.CREATED);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<AdminEntity> getAdminById(@PathVariable("id") Long adminId) {
-        AdminEntity admin = adminService.getAdminById(adminId);
+    public ResponseEntity<Admin> getAdminById(@PathVariable("id") Long adminId) {
+        Admin admin = adminService.getAdminById(adminId);
         return new ResponseEntity<>(admin, HttpStatus.OK);
     }
 
     @GetMapping
-    public ResponseEntity<List<AdminEntity>> getAllAdmins() {
-        List<AdminEntity> admins = adminService.getAllAdmins();
+    public ResponseEntity<List<Admin>> getAllAdmins() {
+        List<Admin> admins = adminService.getAllAdmins();
         return new ResponseEntity<>(admins, HttpStatus.OK);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<AdminEntity> updateAdmin(
+    public ResponseEntity<Admin> updateAdmin(
             @PathVariable("id") Long adminId,
-            @RequestBody AdminEntity adminEntity) {
-        adminEntity.setAdminId(adminId);
-        AdminEntity updatedAdmin = adminService.updateAdmin(adminEntity);
+            @RequestBody Admin admin) {
+        admin.setAdminId(adminId);
+        Admin updatedAdmin = adminService.updateAdmin(admin);
         return new ResponseEntity<>(updatedAdmin, HttpStatus.OK);
     }
 
@@ -56,8 +56,8 @@ public class AdminController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> loginAdmin(@RequestBody AdminEntity loginDetails) {
-        Optional<AdminEntity> admin = adminService.findByUsername(loginDetails.getAdminUsername());
+    public ResponseEntity<?> loginAdmin(@RequestBody Admin loginDetails) {
+        Optional<Admin> admin = adminService.findByUsername(loginDetails.getAdminUsername());
 
         if (admin.isPresent() && admin.get().getAdminPassword().equals(loginDetails.getAdminPassword())) {
             return new ResponseEntity<>(admin.get(), HttpStatus.OK);

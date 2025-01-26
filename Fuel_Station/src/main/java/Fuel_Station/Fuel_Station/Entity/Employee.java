@@ -7,7 +7,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "Employee")
-public class EmployeeEntity {
+public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "empId")
@@ -27,18 +27,18 @@ public class EmployeeEntity {
 
     @ManyToOne
     @JoinColumn(name = "stationId")
-    private FuelStationEntity fuelStation;
+    private FuelStation fuelStation;
 
     @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL)
     private List<TransactionEntity> transactions = new ArrayList<>();
 
 
 
-    public EmployeeEntity() {
+    public Employee() {
 
     }
 
-    public EmployeeEntity(Long employeeId, Long employeeNic, String employeeName, String employeeContactnumber, String employeeUsername, String employeePassword) {
+    public Employee(Long employeeId, Long employeeNic, String employeeName, String employeeContactnumber, String employeeUsername, String employeePassword) {
       this.employeeId = employeeId;
         this.employeeNic = employeeNic;
         this.employeeName = employeeName;
@@ -97,11 +97,11 @@ public class EmployeeEntity {
        this. employeePassword = employeePassword;
     }
 
-    public FuelStationEntity getFuelStation() {
+    public FuelStation getFuelStation() {
         return fuelStation;
     }
 
-    public void setFuelStation(FuelStationEntity fuelStation) {
+    public void setFuelStation(FuelStation fuelStation) {
         this.fuelStation = fuelStation;
     }
 

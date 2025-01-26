@@ -1,18 +1,23 @@
 package Fuel_Station.Fuel_Station.Entity;
 
 import jakarta.persistence.*;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Data
+@AllArgsConstructor
+@Getter
+@Setter
 @Entity
 @Table(name="owner")
-public class OwnerEntity {
+public class Owner {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long ownerId;
     @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL)
-    private List<FuelStationEntity> fuelStations = new ArrayList<>();
+    private List<FuelStation> fuelStations = new ArrayList<>();
 
 
     @Column(name="name")
@@ -33,7 +38,7 @@ public class OwnerEntity {
     @Column(name="password")
     private String password;
 
-    public OwnerEntity(Long ownerId, String name, String nic, String contactNumber, String email, String username, String password) {
+    public Owner(Long ownerId, String name, String nic, String contactNumber, String email, String username, String password) {
         //this.ownerId = ownerId;
         this.name = name;
         this.nic = nic;
@@ -43,15 +48,20 @@ public class OwnerEntity {
         this.password = password;
     }
 
-    public OwnerEntity() {
-    }
-
-    public long getOwnerId() {
+    public Long getOwnerId() {
         return ownerId;
     }
 
     public void setOwnerId(Long ownerId) {
         this.ownerId = ownerId;
+    }
+
+    public List<FuelStation> getFuelStations() {
+        return fuelStations;
+    }
+
+    public void setFuelStations(List<FuelStation> fuelStations) {
+        this.fuelStations = fuelStations;
     }
 
     public String getName() {
@@ -101,29 +111,5 @@ public class OwnerEntity {
     public void setPassword(String password) {
         this.password = password;
     }
-    public List<FuelStationEntity> getFuelStations() {
-        return fuelStations;
-    }
-
-    public void setFuelStations(List<FuelStationEntity> fuelStations) {
-        this.fuelStations = fuelStations;
-    }
-
-    @Override
-    public String toString() {
-        return "OwnerEntity{" +
-                "ownerId=" + ownerId +
-                ", fuelStations=" + fuelStations +
-                ", name='" + name + '\'' +
-                ", nic='" + nic + '\'' +
-                ", contact_number='" + contactNumber + '\'' +
-                ", email='" + email + '\'' +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                '}';
-    }
-
-
-
 }
 

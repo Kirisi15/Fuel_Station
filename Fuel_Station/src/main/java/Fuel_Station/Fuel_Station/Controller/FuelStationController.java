@@ -1,7 +1,6 @@
 package Fuel_Station.Fuel_Station.Controller;
 
-import Fuel_Station.Fuel_Station.Entity.FuelStationEntity;
-import Fuel_Station.Fuel_Station.Entity.OwnerEntity;
+import Fuel_Station.Fuel_Station.Entity.FuelStation;
 import Fuel_Station.Fuel_Station.Service.FuelStationService;
 import Fuel_Station.Fuel_Station.Service.OwnerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,23 +21,23 @@ public class FuelStationController {
     }
 
     @GetMapping
-    public List<FuelStationEntity> getAllStations() {
+    public List<FuelStation> getAllStations() {
 
         return fuelStationService.getAllStations();
     }
 
     @GetMapping("/{stationId}")
-    public FuelStationEntity getStationById(@PathVariable("stationId") Long stationId) {
+    public FuelStation getStationById(@PathVariable("stationId") Long stationId) {
         return fuelStationService.getStationById(stationId);
     }
 
     @PostMapping("/{ownerId}")
-    public FuelStationEntity addStation(@RequestBody FuelStationEntity fuelStation,@PathVariable Long ownerId) {
+    public FuelStation addStation(@RequestBody FuelStation fuelStation, @PathVariable Long ownerId) {
         return fuelStationService.addStation(fuelStation, ownerId);
     }
 
     @PutMapping("/{stationId}")
-    public FuelStationEntity updateStation(@PathVariable("stationId") Long stationId, @RequestBody FuelStationEntity fuelStation) {
+    public FuelStation updateStation(@PathVariable("stationId") Long stationId, @RequestBody FuelStation fuelStation) {
         return fuelStationService.updateStation(stationId, fuelStation);
     }
 
@@ -49,7 +48,7 @@ public class FuelStationController {
 
 
     @GetMapping("/owner/{ownerId}")
-    public FuelStationEntity getStationByOwnerId(@PathVariable("ownerId") Long ownerId) {
+    public FuelStation getStationByOwnerId(@PathVariable("ownerId") Long ownerId) {
         return fuelStationService.getStationByOwnerId(ownerId);
     }
 }

@@ -1,7 +1,7 @@
 package Fuel_Station.Fuel_Station.Service;
 
 import Fuel_Station.Fuel_Station.Entity.FuelEntity;
-import Fuel_Station.Fuel_Station.Entity.FuelStationEntity;
+import Fuel_Station.Fuel_Station.Entity.FuelStation;
 import Fuel_Station.Fuel_Station.Repository.FuelRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,7 +33,7 @@ public class FuelServiceImpl implements FuelService {
     }
 
     public List<FuelEntity> getFuelsByStationId(Long stationId) {
-        FuelStationEntity fuelStation = fuelStationService.getStationById(stationId);
+        FuelStation fuelStation = fuelStationService.getStationById(stationId);
         return fuelStation.getFuel();
     }
 

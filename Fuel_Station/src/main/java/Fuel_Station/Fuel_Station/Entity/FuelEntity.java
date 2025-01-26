@@ -26,7 +26,7 @@ public class FuelEntity {
     private List<TransactionEntity> transactions = new ArrayList<>();
 
     @ManyToMany(mappedBy = "fuel")
-    private List<FuelStationEntity> fuelStations = new ArrayList<>();
+    private List<FuelStation> fuelStations = new ArrayList<>();
 
     public FuelEntity(long fuelId, String fuelType, double addedFuel, double pumpedFuel) {
         this.fuelId = fuelId;
