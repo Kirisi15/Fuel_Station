@@ -52,8 +52,8 @@ public class EmployeeServiceImpl implements EmployeeService{
 //        Optional<EmployeeEntity> employee = employeeRepository.findByStationId(stationId);
 //        return employee.get();
 //    }
-public EmployeeEntity getEmployeeByStationId(Long stationId) {
-    Optional<EmployeeEntity> optionalEmployee = employeeRepository.findById(stationId);
+public Employee getEmployeeByStationId(Long stationId) {
+    Optional<Employee> optionalEmployee = employeeRepository.findById(stationId);
     return optionalEmployee.get(); // Return null if no employee is found
 }
 }

@@ -10,16 +10,20 @@ function StationManagement() {
   useEffect(() => {
     const ownerId = localStorage.getItem("ownerId"); // Assuming ownerId is stored in localStorage
     console.log("Fetching stations for owner ID:", ownerId);
-
-    const fetchStations = async (ownerId) => {
+// const stationId=localStorage.setItem("stationId");
+// console.log(stationId);
+    const fetchStations = async () => {
       try {
         const response = await axios.get(
           `http://localhost:8080/fuel-stations/owner/${ownerId}`
         );
         console.log("Fetched stations:", response.data);
-        if (response.data && response.data.length > 0) {
+
+        // Check if response.data is an array or an object containing the stations array
+        if (Array.isArray(response.data)) {
           setStations(response.data);
-          setError("");
+        } else if (response.data && Array.isArray(response.data.stations)) {
+          setStations(response.data.stations);
         } else {
           setError("No stations found for this owner.");
         }
@@ -30,7 +34,7 @@ function StationManagement() {
     };
 
     if (ownerId) {
-      fetchStations(ownerId);
+      fetchStations();
     }
   }, []);
 
@@ -56,17 +60,17 @@ function StationManagement() {
               <div
                 key={index}
                 style={styles.card}
-               // onClick={() => handleNavigation(`/stations/${station.id}/dashboard`)}
+                onClick={() => handleNavigation(`/StationDashboard/${station.stationId}`)}
               >
-                <h3 style={styles.cardHeader}>{station.name}</h3>
+                <h3 style={styles.cardHeader}>{station.stationName}</h3>
                 <p>
-                  <strong>Location:</strong> {station.location}
+                  <strong>LicenseNumber:</strong> {station.licenseNumber}
                 </p>
                 <p>
                   <strong>Contact:</strong> {station.contactNumber}
                 </p>
                 <p>
-                  <strong>Fuel Types:</strong> {station.fuelTypes.join(", ")}
+                  <strong>Address:</strong> {station.address}
                 </p>
               </div>
             ))}

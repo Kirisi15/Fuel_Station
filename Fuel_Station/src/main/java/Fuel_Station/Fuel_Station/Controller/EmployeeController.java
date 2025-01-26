@@ -1,6 +1,6 @@
 package Fuel_Station.Fuel_Station.Controller;
 
-import Fuel_Station.Fuel_Station.Entity.EmployeeEntity;
+import Fuel_Station.Fuel_Station.Entity.Employee;
 import Fuel_Station.Fuel_Station.Service.EmployeeService;
 import Fuel_Station.Fuel_Station.Service.FuelStationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,26 +22,26 @@ public class EmployeeController {
     }
 
     @GetMapping
-    public List<EmployeeEntity> getEmployees()
+    public List<Employee> getEmployees()
     {
         return employeeService.getAllEmployees();
     }
     @GetMapping("/{employeeId}")
-    public EmployeeEntity getEmployeeById(@PathVariable("employeeId") Long employeeId)
+    public Employee getEmployeeById(@PathVariable("employeeId") Long employeeId)
     {
         return employeeService.getEmployeeById(employeeId);
     }
 
     @PostMapping("/{stationId}")
-    public EmployeeEntity createEmployee(@RequestBody EmployeeEntity employeeEntity,@PathVariable Long stationId)
+    public Employee createEmployee(@RequestBody Employee employeeEntity,@PathVariable Long stationId)
     {
         return employeeService.createEmployee(employeeEntity,stationId);
     }
 
     @PutMapping("/{id}")
-    public EmployeeEntity updateEmployee(@PathVariable("id") Long employeeId, @RequestBody EmployeeEntity employeeEntity)
+    public Employee updateEmployee(@PathVariable("id") Long employeeId, @RequestBody Employee employee)
     {
-        return employeeService.updateEmployee(employeeId,employeeEntity);
+        return employeeService.updateEmployee(employeeId,employee);
     }
 
     @DeleteMapping("/{employeeId}")
@@ -50,7 +50,7 @@ public class EmployeeController {
         employeeService.deleteEmployee(employeeId);
     }
     @GetMapping("/{stationId}")
-    public EmployeeEntity getEmployeeByStationId(@PathVariable("stationId") Long stationId)
+    public Employee getEmployeeByStationId(@PathVariable("stationId") Long stationId)
     {
         return employeeService.getEmployeeByStationId(stationId);
     }
