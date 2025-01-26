@@ -47,40 +47,54 @@ const CustomerLogin = () => {
 
 return(
   <div>
-  {
-    isLogin ? (
-       <div>
-        <CustomerDashboard />
-       </div>
-     ):
-    
-    (
-    <form onSubmit={handleLogin}>
-         <h2>Login</h2> 
-     
-      <label htmlFor="customerUsername">Username : </label>
-      <input
-          type="text"
-          placeholder="Username"
-          value={formData.customerUsername}
-          onChange={(e) => setFormData({ ...formData, customerUsername: e.target.value })}
-      />
-      <br/><br/>
-      <label htmlFor="customerPassword">Password : </label>
-      <input
-          type="password"
-          placeholder="Password"
-          value={formData.customerPassword}
-          onChange={(e) => setFormData({ ...formData, customerPassword: e.target.value })}
-      />
-      <br/><br/>
-      <button type="submit">Login</button>
-  </form>
-  )}
-    
-  </div>
-);
-}
+  {isLogin ? (
+        <div>
+          <CustomerDashboard />
+        </div>
+      ) : (
+        <div className="custom-form">
+          <form onSubmit={handleLogin}>
+            <h2>Customer Login</h2>
+
+            <input
+              type="text"
+              placeholder="Username"
+              value={formData.customerUsername}
+              onChange={(e) =>
+                setFormData({ ...formData, customerUsername: e.target.value })
+              }
+              required
+            />
+            <br />
+            <input
+              type="password"
+              placeholder="Password"
+              value={formData.customerPassword}
+              onChange={(e) =>
+                setFormData({ ...formData, customerPassword: e.target.value })
+              }
+              required
+            />
+            <br />
+
+            <div className="button-container">
+              <button className="btn" type="submit">
+                Login
+              </button>
+              <button
+                className="btn"
+                type="button"
+                onClick={() => navigate("/OwnerRegistration")}
+              >
+                Register
+              </button>
+            </div>
+          </form>
+        </div>
+      )}
+    </div>
+  );
+};
 
 
 export default CustomerLogin;

@@ -31,32 +31,38 @@ const AdminLogin = () => {
 
   return (
     <div>
-        {isLogin ? (
-            <div>
-                <AdminDashboard />
+      {isLogin ? (
+        <div>
+          <AdminDashboard />
+        </div>
+      ) : (
+        <div className="custom-form">
+          <form onSubmit={handleLogin}>
+            <h2>Admin Login</h2>
+            <input
+              type="text"
+              placeholder="Username"
+              value={formData.adminUsername}
+              onChange={(e) => setFormData({ ...formData, adminUsername: e.target.value })}
+              required
+            />
+            <br />
+            <input
+              type="password"
+              placeholder="Password"
+              value={formData.adminPassword}
+              onChange={(e) => setFormData({ ...formData, adminPassword: e.target.value })}
+              required
+            />
+            <br />
+            <div className="button-container">
+              <button className="btn" type="submit">
+                Login
+              </button>
             </div>
-        ) : (
-        <form onSubmit={handleLogin}>
-            <h2>Login</h2>
-            <label htmlFor="AdminUsername">Username : </label>
-            <input
-                type="text"
-                placeholder="Username"
-                value={formData.adminUsername}
-                onChange={(e) => setFormData({ ...formData, adminUsername: e.target.value })}
-            />
-            <br/><br/>
-            <label htmlFor="AdminPassword">Password : </label>
-            <input
-                type="password"
-                placeholder="Password"
-                value={formData.adminPassword}
-                onChange={(e) => setFormData({ ...formData, adminPassword: e.target.value })}
-            />
-            <br/><br/>
-            <button type="submit">Login</button>
-        </form>
-        )}
+          </form>
+        </div>
+      )}
     </div>
   );
 };

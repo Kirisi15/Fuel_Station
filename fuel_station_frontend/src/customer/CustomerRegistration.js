@@ -120,82 +120,75 @@ function CustomerRegistration(){
 };
         
     return(
-        <div className = "container">
-            <h1>Customer Registration Form</h1>
-             {(
-                <form onSubmit = {handleSubmit} >
-                
-                <label htmlFor ="customerName">Name : </label>  
-               <input
-                type = "text" 
-                placeholder="Enter the customername" 
-                name = "customerName" 
-                onChange={(e) =>handleChanges(e)} 
-                required 
-                value = {values.customerName}/>
-               <br/><br/> 
-              
-               <label htmlFor ="customerNIC">NIC : </label>
-               <input type = "text" 
-               placeholder="Enter the NIC No" 
-               name = "customerNIC" 
-               onChange={(e) =>handleChanges(e)}  
-               value = {values.customerNIC} 
-               required/>
-               {nicError && <p style = {{ color:"red", fontSize: "12px"}}>{nicError}</p>}
-               <br/><br/>
-               
-               
-               <label htmlFor ="customerEmail">Email : </label>
-               <input type = "email"
-                placeholder="Enter the email" 
-                name = "customerEmail" 
-                onChange={(e) =>handleChanges(e)} 
-                required 
-                value = {values.customerEmail}/>
-            {emailError && <p style={{ color :"red", fontSize :"12px"}}>{emailError}</p>}       
-               <br/><br/>
-               
-               <label htmlFor ="customerUsername">User Name : </label>
-               <input type = "text" 
-               placeholder="Enter the username" 
-               name = "customerUsername" 
-               onChange={(e) =>handleChanges(e)} 
-               required 
-               value = {values.customerUsername}/>
-               <br/><br/>
-              
-               
-              
-               <label htmlFor ="customerPassword">Password : </label>
-               <input type = "password"
-                placeholder="Enter the Password" 
-                name = "customerPassword" 
-                onChange={(e) =>handleChanges(e)} 
-                required 
-                value = {values.customerPassword }/>
-                {passwordError && <p style = {{ color :"red", fontSize:"12px"}}>{passwordError}</p>}
-                {valPasswordError && <p style ={{ color :"red",fontSize : "12px"}}>{valPasswordError}</p>}
-               <br/><br/>
-
-               <label htmlFor ="confirmPassword">Confirm Password : </label>
-               <input type = "password"
-                placeholder="Rewrite password" 
-                name = "confirmPassword" 
-                onChange={(e) =>handleChanges(e)} 
-                required 
-                value = {values.confirmPassword}/>
-               <br/><br/>
-
-               {uniqueError && (
-                <p style = {{ color:"red", fontSize :"12px"}}>{uniqueError}</p>
-               )}
-
-               <button type = "submit" >Submit</button>
-               </form>
-            )}
-           
-            </div>
-            );
+      <div>
+      <div className="custom-form">
+        <form onSubmit={handleSubmit}>
+          <h2>Customer Registration</h2>
+          <input
+            type="text"
+            placeholder="Name"
+            name="customerName"
+            value={values.customerName}
+            onChange={handleChanges}
+            required
+          />
+          <br />
+          <input
+            type="text"
+            placeholder="NIC number"
+            name="customerNIC"
+            value={values.customerNIC}
+            onChange={handleChanges}
+            required
+          />
+          {nicError && <p>{nicError}</p>}
+          <br />
+          <input
+            type="email"
+            placeholder="Email"
+            name="customerEmail"
+            value={values.customerEmail}
+            onChange={handleChanges}
+            required
+          />
+          {emailError && <p>{emailError}</p>}
+          <br />
+          <input
+            type="text"
+            placeholder="Username"
+            name="customerUsername"
+            value={values.customerUsername}
+            onChange={handleChanges}
+            required
+          />
+          <br />
+          <input
+            type="password"
+            placeholder="Password"
+            name="customerPassword"
+            value={values.customerPassword}
+            onChange={handleChanges}
+            required
+          />
+          {passwordError && <p>{passwordError}</p>}
+          {valPasswordError && <p>{valPasswordError}</p>}
+          <br />
+          <input
+            type="password"
+            placeholder="Rewrite password"
+            name="confirmPassword"
+            value={values.confirmPassword}
+            onChange={handleChanges}
+            required
+          />
+          <br />
+          {uniqueError && <p>{uniqueError}</p>}
+          <button className="btn" type="submit">
+            SignUp
+          </button>
+        </form>
+      </div>
+    </div>
+    );
 };
 export default CustomerRegistration;
