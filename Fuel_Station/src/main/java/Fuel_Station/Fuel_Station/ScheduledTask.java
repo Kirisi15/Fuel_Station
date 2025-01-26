@@ -1,7 +1,7 @@
 package Fuel_Station.Fuel_Station;
 
 import Fuel_Station.Fuel_Station.Entity.TimePeriod;
-import Fuel_Station.Fuel_Station.Repository.TimeLimitRepository;
+import Fuel_Station.Fuel_Station.Repository.TimePeriodRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -13,7 +13,7 @@ import java.time.temporal.TemporalAdjusters;
 @Component
 public class ScheduledTask {
     @Autowired
-    private TimeLimitRepository timeLimitRepository;
+    private TimePeriodRepository timePeriodRepository;
     @Scheduled(cron = "0 0 0 * * MON", zone = "Asia/Colombo")
     @Transactional
     public void everyWeek() {
@@ -30,7 +30,7 @@ public class ScheduledTask {
         timePeriod.setCreatedUserId(1L);
         timePeriod.setCreatedDate(LocalDateTime.now());
 
-        timeLimitRepository.save(timePeriod);
+        timePeriodRepository.save(timePeriod);
 
         System.out.println("Weekly fuel quota updated for period: " + weekStart + " to " + weekEnd);
     }
