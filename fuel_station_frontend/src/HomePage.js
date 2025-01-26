@@ -17,7 +17,7 @@ import StationDashboard from "./fuelStation/StationDashboard";
 import TransactionTable from "./fuelStation/TransactionTable";
 import ViewStations from "./vehicle/ViewStations";
 import EditStation from "./fuelStation/EditStation";
-import HomePageDesign from '.home//HomePageDesign';
+import HomePageDesign from './HomePageDesign';
 
 const HomePage = () => {
   return (
