@@ -34,4 +34,12 @@ public class FuelStation {
     private String address;
     private String licenseNumber;
     private String contactNumber;
+
+    public FuelStation(Owner owner, String stationName, String address, String licenseNumber, String contactNumber) {
+        this.owner = owner;
+        this.stationName = stationName;
+        this.address = address;
+        this.licenseNumber = licenseNumber;
+        this.contactNumber = contactNumber;
+    }
 }
