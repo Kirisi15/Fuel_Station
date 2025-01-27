@@ -16,7 +16,7 @@ import java.util.List;
 @RequestMapping("api/vehicle")
 public class VehicleController {
     @Autowired
-    private final VehicleService vehicleService;
+     VehicleService vehicleService;
 
     @Autowired
     private VehicleRepository vehicleRepository;
@@ -25,47 +25,30 @@ public class VehicleController {
     public VehicleController(VehicleService vehicleService) {
         this.vehicleService = vehicleService;
     }
-    @PostMapping("/{customerId}")
-    public ResponseEntity<Vehicle> createVehicle(@RequestBody Vehicle vehicleEntity, @PathVariable Long customerId ){
-        Vehicle savedVehicle= vehicleService.createVehicle(vehicleEntity,customerId);
-        return new ResponseEntity<>(savedVehicle, HttpStatus.CREATED);
-    }
-
-    @GetMapping("/{id}")
-    public ResponseEntity<Vehicle> getVehicleById(@PathVariable("id") Long vehicleId){
-        Vehicle vehicle=vehicleService.getVehicleById(vehicleId);
-        return new ResponseEntity<>(vehicle,HttpStatus.OK);
-    }
 
     @GetMapping
-    public ResponseEntity<List<Vehicle>> getAllVehicles(){
-        List<Vehicle> vehicles=vehicleService.getAllVehicles();
-        return new ResponseEntity<>(vehicles,HttpStatus.OK);
+    public ResponseEntity<?> getAllVehicles(){
+        return vehicleService.getAllVehicles();
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Vehicle> updateVehicle(
-            @PathVariable("id") Long vehicleId,
-            @RequestBody Vehicle vehicleEntity){
-        vehicleEntity.setVehicleId(vehicleId);
-        Vehicle updatedVehicle= vehicleService.updateVehicle(vehicleEntity);
-        return new ResponseEntity<>(updatedVehicle,HttpStatus.OK);
+    @GetMapping("/{vehicleId}")
+    public ResponseEntity<?> getVehicleById(@PathVariable("id") Long vehicleId){
+        return vehicleService.getVehicleById(vehicleId);
+    }
+
+    @PostMapping("/{customerId}")
+    public ResponseEntity<?> createVehicle(@RequestBody Vehicle vehicleEntity, @PathVariable Long customerId ){
+        return vehicleService.addVehicle(vehicleEntity,customerId);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteVehicle(@PathVariable("id") Long vehicleId){
-        vehicleService.deleteVehicle(vehicleId);
-        return new ResponseEntity<>("Vehicle Sucessfully deleted",HttpStatus.OK);
+    public ResponseEntity<?> deleteVehicle(@PathVariable("id") Long vehicleId){
+        return vehicleService.deleteVehicle(vehicleId);
     }
 
     @GetMapping("/customer/{customerId}")
-    public ResponseEntity<List<Vehicle>> getVehiclesByCustomerId(@PathVariable Long customerId) {
-        List<Vehicle> vehicles = vehicleRepository.findByCustomer_CustomerId(customerId);
-
-        if (vehicles.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);  // Return 404 if no vehicles are found
-        }
-        return ResponseEntity.ok(vehicles);  // Return 200 and the vehicles list
+    public ResponseEntity<?> getVehiclesByCustomerId(@PathVariable("customerId") Long customerId) {
+        return vehicleService.getVehicleBycustomerId(customerId);
     }
 
     @PutMapping("scan/{vehicleId}")

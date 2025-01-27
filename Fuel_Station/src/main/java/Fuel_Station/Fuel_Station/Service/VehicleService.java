@@ -2,19 +2,26 @@ package Fuel_Station.Fuel_Station.Service;
 
 import Fuel_Station.Fuel_Station.Entity.Vehicle;
 import Fuel_Station.Fuel_Station.dto.VehicleScanResponse;
+import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
 public interface VehicleService {
-    Vehicle createVehicle(Vehicle vehicleEntity, Long customerId);
 
-    Vehicle getVehicleById(Long VehicleId);
+    ResponseEntity<?> addVehicle(Vehicle vehicleEntity, Long customerId);
 
-    List<Vehicle> getAllVehicles();
+    ResponseEntity<?> getVehicleById(Long VehicleId);
 
-    Vehicle updateVehicle(Vehicle vehicleEntity);
+    ResponseEntity<?> getById(Long vehicleId);
 
-    void deleteVehicle(Long VehicleId);
+    ResponseEntity<?> getAllVehicles();
+
+
+    ResponseEntity<?> deleteVehicle(Long VehicleId);
+
+    ResponseEntity<?> getVehicleByOwnerId(Long vehicleId);
 
     VehicleScanResponse scan(Long vehicleId) throws Exception;
+
+    ResponseEntity<?> getVehicleBycustomerId(Long customerId);
 }
