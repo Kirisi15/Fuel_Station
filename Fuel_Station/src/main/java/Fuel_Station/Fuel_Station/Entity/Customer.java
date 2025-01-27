@@ -32,5 +32,11 @@ public class Customer {
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
     private List<Vehicle> vehicles = new ArrayList<>();
 
-
+    public Customer(String customerNIC, String customerName, String customerEmail, String customerUsername, String customerPassword) {
+        this.customerNIC = customerNIC;
+        this.customerName = customerName;
+        this.customerEmail = customerEmail;
+        this.customerUsername = customerUsername;
+        this.customerPassword = customerPassword;
+    }
 }
