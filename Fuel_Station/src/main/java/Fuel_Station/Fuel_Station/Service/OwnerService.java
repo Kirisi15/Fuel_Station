@@ -1,21 +1,22 @@
 package Fuel_Station.Fuel_Station.Service;
 
 import Fuel_Station.Fuel_Station.Entity.Owner;
+import Fuel_Station.Fuel_Station.dto.request.OwnerRequest;
+import org.springframework.http.ResponseEntity;
 
-import java.util.List;
 import java.util.Optional;
 
 public interface OwnerService {
     Owner getById(Long id);
-    Owner getOwnerById(Long ownerId);
+    ResponseEntity<?> getOwnerById(Long ownerId);
 
-    Owner createOwner(Owner owner);
+    ResponseEntity<?> createOwner(OwnerRequest owner);
 
-    List<Owner> getAllOwners();
+    ResponseEntity<?> getAllOwners();
 
-    Owner updateOwner(Owner owner);
+    ResponseEntity<?> updateOwner(Long ownerId, Owner owner);
 
-    void deleteOwner(Long ownerId);
+    ResponseEntity<?> deleteOwner(Long ownerId);
 
     Optional<Owner> findByUsername(String username);
 
