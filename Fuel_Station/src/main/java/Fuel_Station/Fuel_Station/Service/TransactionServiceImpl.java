@@ -1,6 +1,6 @@
 package Fuel_Station.Fuel_Station.Service;
 
-import Fuel_Station.Fuel_Station.Entity.TransactionEntity;
+import Fuel_Station.Fuel_Station.Entity.Transaction;
 import Fuel_Station.Fuel_Station.Repository.TransactionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,26 +13,26 @@ public class TransactionServiceImpl implements TransactionService{
     private TransactionRepository transactionRepository;
 
     @Override
-    public List<TransactionEntity> getAllTransactions() {
+    public List<Transaction> getAllTransactions() {
         return transactionRepository.findAll();
     }
 
     @Override
-    public TransactionEntity getTransactionById(Long transactionId) {
-        Optional<TransactionEntity> transaction = transactionRepository.findById(transactionId);
+    public Transaction getTransactionById(Long transactionId) {
+        Optional<Transaction> transaction = transactionRepository.findById(transactionId);
 
             return transaction.get();
 
     }
 
     @Override
-    public TransactionEntity addTransaction(TransactionEntity transaction) {
+    public Transaction addTransaction(Transaction transaction) {
         return transactionRepository.save(transaction);
     }
 
     @Override
-    public TransactionEntity updateTransaction(Long transactionId, TransactionEntity transaction) {
-        TransactionEntity existingTransaction = getTransactionById(transactionId);
+    public Transaction updateTransaction(Long transactionId, Transaction transaction) {
+        Transaction existingTransaction = getTransactionById(transactionId);
 
         existingTransaction.setQuantity(transaction.getQuantity());
         existingTransaction.setDateTime(transaction.getDateTime());
@@ -43,7 +43,7 @@ public class TransactionServiceImpl implements TransactionService{
     public void deleteTransaction(Long transactionId) {
         transactionRepository.deleteById(transactionId);
     }
-    public List<TransactionEntity> getTransactionsByStationId(Long stationId) {
+    public List<Transaction> getTransactionsByStationId(Long stationId) {
         return transactionRepository.findByStation_Id(stationId);
     }
 }

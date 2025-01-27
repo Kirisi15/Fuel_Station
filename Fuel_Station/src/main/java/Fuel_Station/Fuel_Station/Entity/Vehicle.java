@@ -39,7 +39,7 @@ public class Vehicle {
     private Customer customer;
 
     @OneToMany(mappedBy = "vehicle", cascade = CascadeType.ALL)
-    private List<TransactionEntity> transactions = new ArrayList<>();
+    private List<Transaction> transactions = new ArrayList<>();
 
     @ManyToMany
     @JoinTable(
@@ -100,11 +100,11 @@ public class Vehicle {
         this.customer = customer;
     }
 
-    public List<TransactionEntity> getTransactions() {
+    public List<Transaction> getTransactions() {
         return transactions;
     }
 
-    public void setTransactions(List<TransactionEntity> transactions) {
+    public void setTransactions(List<Transaction> transactions) {
         this.transactions = transactions;
     }
 
