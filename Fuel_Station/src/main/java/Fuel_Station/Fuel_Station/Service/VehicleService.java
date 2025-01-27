@@ -2,17 +2,18 @@ package Fuel_Station.Fuel_Station.Service;
 
 import Fuel_Station.Fuel_Station.Entity.Vehicle;
 import Fuel_Station.Fuel_Station.dto.VehicleScanResponse;
+import Fuel_Station.Fuel_Station.dto.request.VehicleRequest;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
 public interface VehicleService {
 
-    ResponseEntity<?> addVehicle(Vehicle vehicleEntity, Long customerId);
+    ResponseEntity<?> createVehicle(VehicleRequest vehicle);
 
     ResponseEntity<?> getVehicleById(Long VehicleId);
 
-    ResponseEntity<?> getById(Long vehicleId);
+    Vehicle getById(Long vehicleId);
 
     ResponseEntity<?> getAllVehicles();
 

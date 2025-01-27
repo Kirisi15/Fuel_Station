@@ -10,7 +10,7 @@ import lombok.Data;
 public class VehicleRequest {
     private String vehicleNumber;
     private VehicleType vehicleType;
-    private String FuelType;
+    private String fuelType;
     private FuelLimit fuelLimitId;
     private Long customerId;
 }

@@ -19,11 +19,6 @@ public class AdminServiceImpl implements AdminService{
     }
 
     @Override
-    public Admin createAdmin(Admin admin) {
-        return adminRepository.save(admin);
-    }
-
-    @Override
     public Admin getAdminById(Long adminId) {
         Optional<Admin> optionalAdminEntity = adminRepository.findById(adminId);
         return optionalAdminEntity.get();
@@ -40,7 +35,7 @@ public class AdminServiceImpl implements AdminService{
 
         existingAdmin.setAdminUsername(admin.getAdminUsername());
         existingAdmin.setAdminPassword(admin.getAdminPassword());
-        existingAdmin.setAdminEmail(admin.getAdminEmail());
+        existingAdmin.setEmail(admin.getEmail());
         existingAdmin.setContactNumber(admin.getContactNumber());
 
         return adminRepository.save(existingAdmin);
@@ -53,6 +48,13 @@ public class AdminServiceImpl implements AdminService{
 
     public Optional<Admin> findByUsername(String adminUsername) {
         return adminRepository.findByAdminUsername(adminUsername);
+    }
+
+    public Admin createAdmin(Admin admin) {
+        if (adminRepository.existsByEmail(admin.getEmail())) {
+            throw new IllegalArgumentException("Email already exists!");
+        }
+        return adminRepository.save(admin);
     }
 }
 

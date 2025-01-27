@@ -9,15 +9,7 @@ import lombok.Data;
 
 public class AdminResponse {
     private long adminId;
-
-
     private String adminUsername;
-
-
-
     private String adminEmail;
-
-
     private String contactNumber;
-
 }

@@ -4,6 +4,7 @@ import Fuel_Station.Fuel_Station.Entity.Vehicle;
 import Fuel_Station.Fuel_Station.Repository.VehicleRepository;
 import Fuel_Station.Fuel_Station.Service.VehicleService;
 import Fuel_Station.Fuel_Station.dto.VehicleScanResponse;
+import Fuel_Station.Fuel_Station.dto.request.VehicleRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,15 +17,7 @@ import java.util.List;
 @RequestMapping("api/vehicle")
 public class VehicleController {
     @Autowired
-     VehicleService vehicleService;
-
-    @Autowired
-    private VehicleRepository vehicleRepository;
-
-
-    public VehicleController(VehicleService vehicleService) {
-        this.vehicleService = vehicleService;
-    }
+    public VehicleService vehicleService;
 
     @GetMapping
     public ResponseEntity<?> getAllVehicles(){
@@ -36,9 +29,9 @@ public class VehicleController {
         return vehicleService.getVehicleById(vehicleId);
     }
 
-    @PostMapping("/{customerId}")
-    public ResponseEntity<?> createVehicle(@RequestBody Vehicle vehicleEntity, @PathVariable Long customerId ){
-        return vehicleService.addVehicle(vehicleEntity,customerId);
+    @PostMapping("")
+    public ResponseEntity<?> createVehicle(@RequestBody VehicleRequest vehicle){
+        return vehicleService.createVehicle(vehicle);
     }
 
     @DeleteMapping("/{id}")

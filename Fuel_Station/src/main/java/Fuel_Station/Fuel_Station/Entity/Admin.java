@@ -19,15 +19,15 @@ public class Admin {
     private String adminUsername;
     @Column(nullable = false)
     private String adminPassword;
-    @Column(nullable = false)
-    private String adminEmail;
+    @Column(unique = true, nullable = false)
+    private String email;
     @Column
     private String contactNumber;
 
     public Admin(String adminUsername, String adminPassword, String adminEmail, String contactNumber) {
         this.adminUsername = adminUsername;
         this.adminPassword = adminPassword;
-        this.adminEmail = adminEmail;
+        this.email = adminEmail;
         this.contactNumber = contactNumber;
     }
 }
