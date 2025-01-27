@@ -30,7 +30,7 @@ public class Employee {
     private FuelStation fuelStation;
 
     @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL)
-    private List<TransactionEntity> transactions = new ArrayList<>();
+    private List<Transaction> transactions = new ArrayList<>();
 
 
 
@@ -105,11 +105,11 @@ public class Employee {
         this.fuelStation = fuelStation;
     }
 
-    public List<TransactionEntity> getTransactions() {
+    public List<Transaction> getTransactions() {
         return transactions;
     }
 
-    public void setTransactions(List<TransactionEntity> transactions) {
+    public void setTransactions(List<Transaction> transactions) {
         this.transactions = transactions;
     }
 

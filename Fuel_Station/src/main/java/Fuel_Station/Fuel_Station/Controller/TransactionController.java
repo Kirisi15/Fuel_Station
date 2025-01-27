@@ -1,6 +1,6 @@
 package Fuel_Station.Fuel_Station.Controller;
 
-import Fuel_Station.Fuel_Station.Entity.TransactionEntity;
+import Fuel_Station.Fuel_Station.Entity.Transaction;
 import Fuel_Station.Fuel_Station.Service.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -18,26 +18,26 @@ public class TransactionController {
 
     @GetMapping
 
-    public List<TransactionEntity> getAllTransactions() {
+    public List<Transaction> getAllTransactions() {
         return transactionService.getAllTransactions();
     }
 
     @GetMapping("/{id}")
-    public TransactionEntity getTransactionById(@PathVariable("id") Long transactionId) {
+    public Transaction getTransactionById(@PathVariable("id") Long transactionId) {
         return transactionService.getTransactionById(transactionId);
     }
     @GetMapping("/station/{stationId}")
-    public List<TransactionEntity> getTransactionsByStation(@PathVariable("stationId") Long stationId) {
+    public List<Transaction> getTransactionsByStation(@PathVariable("stationId") Long stationId) {
         return transactionService.getTransactionsByStationId(stationId);
     }
 
     @PostMapping
-    public TransactionEntity addTransaction(@RequestBody TransactionEntity transaction) {
+    public Transaction addTransaction(@RequestBody Transaction transaction) {
         return transactionService.addTransaction(transaction);
     }
 
     @PutMapping("/{id}")
-    public TransactionEntity updateTransaction(@PathVariable ("id")Long transactionId, @RequestBody TransactionEntity transaction) {
+    public Transaction updateTransaction(@PathVariable ("id")Long transactionId, @RequestBody Transaction transaction) {
         return transactionService.updateTransaction(transactionId, transaction);
     }
 
