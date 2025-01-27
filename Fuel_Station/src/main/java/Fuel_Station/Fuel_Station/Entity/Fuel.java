@@ -40,5 +40,4 @@ public class Fuel {
         this.transactions = transactions;
         this.fuelStations = fuelStations;
     }
-
 }
