@@ -11,6 +11,4 @@ public class EmployeeRequest {
     private String employeeUsername;
     private String employeePassword;
     private Long stationId;
-
-
 }
