@@ -1,18 +1,18 @@
 package Fuel_Station.Fuel_Station.Service;
 
-import Fuel_Station.Fuel_Station.Entity.FuelEntity;
+import Fuel_Station.Fuel_Station.Entity.Fuel;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface FuelService {
-    FuelEntity createFuel(FuelEntity fuelEntity);
+    Fuel createFuel(Fuel fuel);
 
-    List<FuelEntity> getAllFuels();
+    List<Fuel> getAllFuels();
 
-    List<FuelEntity> getFuelsByStationId(Long stationId);
+    List<Fuel> getFuelsByStationId(Long stationId);
 
-     Optional<FuelEntity> getFuelById(Long fuelId);
+     Optional<Fuel> getFuelById(Long fuelId);
 
-    FuelEntity updateFuel(FuelEntity fuel);
+    Fuel updateFuel(Fuel fuel);
 }

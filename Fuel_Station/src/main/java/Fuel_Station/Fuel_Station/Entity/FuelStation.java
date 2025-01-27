@@ -29,7 +29,7 @@ public class FuelStation {
     @ManyToMany
     @JsonIgnore
     @JoinTable(name = "FuelStation_Fuel",joinColumns =@JoinColumn(name = "stationId") ,inverseJoinColumns = @JoinColumn(name = "fuelId"))
-    private List<FuelEntity> fuel = new ArrayList<>();
+    private List<Fuel> fuel = new ArrayList<>();
     private String stationName;
     private String address;
     private String licenseNumber;

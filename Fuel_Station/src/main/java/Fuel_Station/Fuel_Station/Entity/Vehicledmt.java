@@ -10,7 +10,6 @@ public class Vehicledmt {
     private String licenseNumber;
     private String nic;
 
-    // Getters and Setters
     public String getLicenseNumber() {
         return licenseNumber;
     }

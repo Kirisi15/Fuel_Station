@@ -1,6 +1,6 @@
 package Fuel_Station.Fuel_Station.Controller;
 
-import Fuel_Station.Fuel_Station.Entity.FuelEntity;
+import Fuel_Station.Fuel_Station.Entity.Fuel;
 import Fuel_Station.Fuel_Station.Entity.FuelStation;
 import Fuel_Station.Fuel_Station.Service.FuelService;
 import Fuel_Station.Fuel_Station.Service.FuelStationService;
@@ -24,12 +24,12 @@ public class FuelController {
     private FuelStationService fuelStationService;
 
     @PostMapping("/{stationId}")
-    public FuelEntity createFuel(@RequestBody FuelEntity fuelEntity, @PathVariable Long stationId) {
+    public Fuel createFuel(@RequestBody Fuel fuel, @PathVariable Long stationId) {
         FuelStation fuelStation = fuelStationService.getStationById(stationId);
         if (fuelStation == null) {
             throw new RuntimeException("Fuel Station not found with ID: " + stationId);
         }
-        FuelEntity createdFuel = fuelService.createFuel(fuelEntity);
+        Fuel createdFuel = fuelService.createFuel(fuel);
         fuelStation.getFuel().add(createdFuel);
         fuelStationService.saveFuelStation(fuelStation);
 
@@ -44,10 +44,9 @@ public class FuelController {
         }
 
         List<Map<String, Object>> fuelData = new ArrayList<>();
-        for (FuelEntity fuelEntity : fuelStation.getFuel()) {
+        for (Fuel fuel : fuelStation.getFuel()) {
             Map<String, Object> fuelInfo = new HashMap<>();
-            fuelInfo.put("fuelId", fuelEntity.getFuelId());
-            fuelInfo.put("fuelType", fuelEntity.getFuelType());
+
             fuelData.add(fuelInfo);
         }
         return fuelData;
@@ -66,7 +65,7 @@ public class FuelController {
         if (station == null) {
             return ResponseEntity.badRequest().body("Station not found");
         }
-        FuelEntity fuel = station.getFuel().stream()
+        Fuel fuel = station.getFuel().stream()
                 .filter(f -> f.getFuelType().equals(fuelType))
                 .findFirst()
                 .orElseThrow(() -> new RuntimeException("Fuel type not found"));

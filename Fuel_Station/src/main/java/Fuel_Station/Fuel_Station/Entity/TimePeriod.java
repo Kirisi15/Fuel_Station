@@ -10,8 +10,6 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.scheduling.annotation.Schedules;
 
 import java.time.LocalDateTime;
-
-
 @Getter
 @Setter
 @Entity
