@@ -2,12 +2,17 @@ package Fuel_Station.Fuel_Station.Entity;
 
 
 import jakarta.persistence.*;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
-
+@Data
 @Entity
 @Table(name = "Customer")
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class Customer {
 
     @Id
@@ -27,87 +32,5 @@ public class Customer {
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
     private List<Vehicle> vehicles = new ArrayList<>();
 
-    public Customer() {
-    }
 
-    public Customer(Long customerId, String customerNIC, String customerName, String customerEmail, String customerUsername, String customerPassword, List<Vehicle> vehicles) {
-
-        this.customerId = customerId;
-        this.customerNIC = customerNIC;
-        this.customerName = customerName;
-        this.customerEmail = customerEmail;
-        this.customerUsername = customerUsername;
-        this.customerPassword = customerPassword;
-        this.vehicles = vehicles;
-    }
-
-    public Customer(String customerNIC, String customerName, String customerEmail, String customerUsername, String customerPassword, List<Vehicle> vehicles) {
-
-        this.customerNIC = customerNIC;
-        this.customerName = customerName;
-        this.customerEmail = customerEmail;
-        this.customerUsername = customerUsername;
-        this.customerPassword = customerPassword;
-        this.vehicles = vehicles;
-    }
-
-    public Long getCustomerId() {
-        return customerId;
-    }
-
-    public void setCustomerId(Long customerId) {
-        this.customerId = customerId;
-    }
-
-    public String getCustomerNIC() {
-        return customerNIC;
-    }
-
-    public void setCustomerNIC(String customerNIC) {
-        this.customerNIC = customerNIC;
-    }
-
-    public String getCustomerName() {
-        return customerName;
-    }
-
-    public void setCustomerName(String customerName) {
-        this.customerName = customerName;
-    }
-
-    public String getCustomerEmail() {
-        return customerEmail;
-    }
-
-    public void setCustomerEmail(String customerEmail) {
-        this.customerEmail = customerEmail;
-    }
-
-    public String getCustomerUsername() {
-        return customerUsername;
-    }
-
-    public void setCustomerUsername(String customerUsername) {
-        this.customerUsername = customerUsername;
-    }
-
-    public String getCustomerPassword() {
-        return customerPassword;
-    }
-
-    public void setCustomerPassword(String customerPassword) {
-        this.customerPassword = customerPassword;
-    }
-
-    @Override
-    public String toString() {
-        return "CustomerEntity{" +
-                "customerId=" + customerId +
-                ", customerNIC='" + customerNIC + '\'' +
-                ", customerName='" + customerName + '\'' +
-                ", customerEmail='" + customerEmail + '\'' +
-                ", customerUsername='" + customerUsername + '\'' +
-                ", customerPassword='" + customerPassword + '\'' +
-                '}';
-    }
 }
