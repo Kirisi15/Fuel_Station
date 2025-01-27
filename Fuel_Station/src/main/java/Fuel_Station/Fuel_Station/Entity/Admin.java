@@ -1,8 +1,14 @@
 package Fuel_Station.Fuel_Station.Entity;
 
 import jakarta.persistence.*;
+import lombok.*;
 
 @Entity
+@Data
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "admin")
 
 public class Admin {
@@ -23,65 +29,5 @@ public class Admin {
     @Column
     private String contactNumber;
 
-    public Admin(long adminId, String adminUsername, String adminPassword, String adminEmail, String contactNumber) {
-        this.adminId = adminId;
-        this.adminUsername = adminUsername;
-        this.adminPassword = adminPassword;
-        this.adminEmail = adminEmail;
-        this.contactNumber = contactNumber;
-    }
 
-    public Admin() {
-    }
-
-    public long getAdminId() {
-        return adminId;
-    }
-
-    public void setAdminId(long adminId) {
-        this.adminId = adminId;
-    }
-
-    public String getAdminUsername() {
-        return adminUsername;
-    }
-
-    public void setAdminUsername(String adminUsername) {
-        this.adminUsername = adminUsername;
-    }
-
-    public String getAdminPassword() {
-        return adminPassword;
-    }
-
-    public void setAdminPassword(String adminPassword) {
-        this.adminPassword = adminPassword;
-    }
-
-    public String getAdminEmail() {
-        return adminEmail;
-    }
-
-    public void setAdminEmail(String adminEmail) {
-        this.adminEmail = adminEmail;
-    }
-
-    public String getContactNumber() {
-        return contactNumber;
-    }
-
-    public void setContactNumber(String contactNumber) {
-        this.contactNumber = contactNumber;
-    }
-
-    @Override
-    public String toString() {
-        return "AdminEntity{" +
-                "adminId=" + adminId +
-                ", adminUsername='" + adminUsername + '\'' +
-                ", adminPassword='" + adminPassword + '\'' +
-                ", adminEmail='" + adminEmail + '\'' +
-                ", contactNumber='" + contactNumber + '\'' +
-                '}';
-    }
 }
