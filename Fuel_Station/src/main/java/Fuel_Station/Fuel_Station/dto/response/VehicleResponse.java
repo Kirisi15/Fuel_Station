@@ -1,6 +1,9 @@
 package Fuel_Station.Fuel_Station.dto.response;
 
 
+import Fuel_Station.Fuel_Station.Entity.Customer;
+import Fuel_Station.Fuel_Station.Entity.FuelLimit;
+import Fuel_Station.Fuel_Station.enums.VehicleType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -8,15 +11,11 @@ import lombok.Data;
 @AllArgsConstructor
 public class VehicleResponse {
 
-    private Long customerId;
-
-    private String customerNIC;
-
-    private String customerName;
-
-    private  String customerEmail;
-
-    private String customerUsername;
+    private String VehicleNumber;
+    private VehicleType vehicleType;
+    private String FuelType;
+    private FuelLimit fuelLimitId;
+    private Customer customer;
 
 
 }

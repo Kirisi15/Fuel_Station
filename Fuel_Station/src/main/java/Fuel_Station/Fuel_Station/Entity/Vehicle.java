@@ -2,10 +2,7 @@ package Fuel_Station.Fuel_Station.Entity;
 
 import Fuel_Station.Fuel_Station.enums.VehicleType;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 
 import java.util.ArrayList;
@@ -13,9 +10,7 @@ import java.util.List;
 
 
 @Entity
-@Table(name="vehicle")
-@Getter
-@Setter
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class Vehicle {
