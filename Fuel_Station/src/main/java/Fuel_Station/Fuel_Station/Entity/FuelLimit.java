@@ -19,7 +19,6 @@ public class FuelLimit {
     @Enumerated(EnumType.STRING)
     private VehicleType vehicleType;
 
-
     @Column
     private int fuelLimit;
 
