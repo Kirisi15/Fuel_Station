@@ -2,27 +2,21 @@ package Fuel_Station.Fuel_Station.Entity;
 
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
-@Entity
-@Table(name="Transaction")
-@Getter
-@Setter
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Entity
 public class Transaction {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long transactionId;
-
-@ManyToOne
-@JoinColumn(name = "stationId")
-private FuelStation FuelStation;
+    @ManyToOne
+    @JoinColumn(name = "stationId")
+    private FuelStation fuelStation;
     @ManyToOne
     @JoinColumn(name = "fuelId")
     private FuelEntity fuel;
