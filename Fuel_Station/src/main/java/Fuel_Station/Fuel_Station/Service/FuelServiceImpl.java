@@ -23,6 +23,9 @@ public class FuelServiceImpl implements FuelService {
     private FuelRepository fuelRepository;
     @Autowired
     private FuelStationService fuelStationService;
+    public Fuel getById(Long id){
+        return fuelRepository.findById(id).orElse(null);
+    }
     @Override
     @Transactional
     public ResponseEntity<?> createFuel(FuelRequest fuelRequest) {

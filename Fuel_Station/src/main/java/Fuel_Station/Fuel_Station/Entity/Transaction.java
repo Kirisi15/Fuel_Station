@@ -32,7 +32,6 @@ public class Transaction {
     private LocalDateTime dateTime;
 
     public Transaction( FuelStation fuelStation, Fuel fuel, Vehicle vehicle, Employee employee, Double quantity, LocalDateTime dateTime) {
-
         this.fuelStation = fuelStation;
         this.fuel = fuel;
         this.vehicle = vehicle;

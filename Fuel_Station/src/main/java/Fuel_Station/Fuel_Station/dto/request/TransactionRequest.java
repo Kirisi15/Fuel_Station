@@ -12,10 +12,9 @@ import java.time.LocalDateTime;
 
 public class TransactionRequest {
     private Double quantity;
-    private Employee employee;
-    private Vehicle vehicle;
-    private FuelStation fuelStation;
-    private Fuel fuel;
-
+    private Long employeeId;
+    private Long vehicleId;
+    private Long fuelStationId;
+    private Long fuelId;
     private LocalDateTime dateTime;
 }
