@@ -5,13 +5,8 @@ import lombok.Data;
 
 @Data
 public class AdminRequest {
-
     private String adminUsername;
-
-
     private String adminPassword;
-
-
     private String adminEmail;
     private String contactNumber;
 }

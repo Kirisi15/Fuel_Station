@@ -66,5 +66,14 @@ public class AdminController {
         }
     }
 
+    @PostMapping("/register")
+    public ResponseEntity<String> registerAdmin(@RequestBody Admin admin) {
+        try {
+            adminService.createAdmin(admin);
+            return ResponseEntity.ok("Admin registered successfully!");
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
+    }
 }
 

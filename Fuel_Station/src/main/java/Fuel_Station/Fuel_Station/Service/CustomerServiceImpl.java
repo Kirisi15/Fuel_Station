@@ -26,6 +26,11 @@ public class CustomerServiceImpl implements CustomerService{
     }
 
     @Override
+    public Customer getById(Long id) {
+        return customerRepository.findByCustomerId(id).orElse(null);
+    }
+
+    @Override
     @Transactional
     public ResponseEntity<?> createCustomer(CustomerRequest customerRequest) {
         Customer customer = new Customer(

@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface CustomerService {
+    Customer getById(Long id);
     ResponseEntity<?> createCustomer(CustomerRequest customerRequest);
 
     ResponseEntity<?> getCustomerById(Long customerId);

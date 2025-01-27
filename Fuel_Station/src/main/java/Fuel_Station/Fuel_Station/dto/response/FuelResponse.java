@@ -9,6 +9,4 @@ import lombok.Data;
 public class FuelResponse {
     private long fuelId;
     private String fuelType;
-    private double addedFuel;
-    private double pumpedFuel;
 }
