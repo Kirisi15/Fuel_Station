@@ -1,6 +1,6 @@
 package Fuel_Station.Fuel_Station.Service;
 
-import Fuel_Station.Fuel_Station.Entity.FuelEntity;
+import Fuel_Station.Fuel_Station.Entity.Fuel;
 import Fuel_Station.Fuel_Station.Entity.FuelStation;
 import Fuel_Station.Fuel_Station.Repository.FuelRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,31 +19,31 @@ public class FuelServiceImpl implements FuelService {
     private FuelStationService fuelStationService;
 
     @Override
-    public FuelEntity createFuel(FuelEntity fuelEntity) {
-      FuelEntity fuelEntity1=new FuelEntity();
-      fuelEntity1.setFuelType(fuelEntity.getFuelType());
-      fuelEntity1.setAddedFuel(fuelEntity.getAddedFuel());
-      fuelEntity1.setPumpedFuel(fuelEntity.getPumpedFuel());
-      return fuelRepository.save(fuelEntity1);
+    public Fuel createFuel(Fuel fuel) {
+      Fuel fuel1 =new Fuel();
+      fuel1.setFuelType(fuel.getFuelType());
+      fuel1.setAddedFuel(fuel.getAddedFuel());
+      fuel1.setPumpedFuel(fuel.getPumpedFuel());
+      return fuelRepository.save(fuel1);
 
     }
 
-    public List<FuelEntity> getAllFuels() {
+    public List<Fuel> getAllFuels() {
         return fuelRepository.findAll();
     }
 
-    public List<FuelEntity> getFuelsByStationId(Long stationId) {
+    public List<Fuel> getFuelsByStationId(Long stationId) {
         FuelStation fuelStation = fuelStationService.getStationById(stationId);
         return fuelStation.getFuel();
     }
 
     @Override
-    public Optional<FuelEntity> getFuelById(Long fuelId) {
+    public Optional<Fuel> getFuelById(Long fuelId) {
         return fuelRepository.findById(fuelId);
     }
 
     @Override
-    public FuelEntity updateFuel(FuelEntity fuel) {
+    public Fuel updateFuel(Fuel fuel) {
         if (!fuelRepository.existsById(fuel.getFuelId())) {
             throw new RuntimeException("Fuel not found for update");
         }
