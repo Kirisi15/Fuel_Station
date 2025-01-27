@@ -10,7 +10,7 @@ public class EmployeeRequest {
     private String employeeContactnumber;
     private String employeeUsername;
     private String employeePassword;
-    private FuelStation fuelStation;
+    private Long stationId;
 
 
 }
