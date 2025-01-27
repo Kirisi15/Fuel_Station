@@ -23,22 +23,22 @@ public class FuelController {
     @Autowired
     private FuelStationService fuelStationService;
 
-    @PostMapping("/{stationId}")
-    public Fuel createFuel(@RequestBody Fuel fuel, @PathVariable Long stationId) {
-        FuelStation fuelStation = fuelStationService.getStationById(stationId);
+  @PostMapping("/{stationId}")
+  public Fuel createFuel(@RequestBody Fuel fuel, @PathVariable Long stationId) {
+        FuelStation fuelStation = fuelStationService.getById(stationId);
         if (fuelStation == null) {
             throw new RuntimeException("Fuel Station not found with ID: " + stationId);
         }
         Fuel createdFuel = fuelService.createFuel(fuel);
         fuelStation.getFuel().add(createdFuel);
-        fuelStationService.saveFuelStation(fuelStation);
+//        fuelStationService.addFuelStation(fuelStation);
 
         return createdFuel;
     }
 
     @GetMapping("/types/{stationId}")
     public List<Map<String, Object>> getFuelTypesByStationId(@PathVariable Long stationId) {
-        FuelStation fuelStation = fuelStationService.getStationById(stationId);
+        FuelStation fuelStation = fuelStationService.getById(stationId);
         if (fuelStation == null) {
             throw new RuntimeException("Fuel Station not found with ID: " + stationId);
         }
@@ -47,7 +47,7 @@ public class FuelController {
         for (Fuel fuel : fuelStation.getFuel()) {
             Map<String, Object> fuelInfo = new HashMap<>();
 
-            fuelData.add(fuelInfo);
+           fuelData.add(fuelInfo);
         }
         return fuelData;
     }
@@ -59,21 +59,21 @@ public class FuelController {
         String fuelType = payload.get("fuelType").toString();
         double quantity = Double.parseDouble(payload.get("quantity").toString());
 
-        // Fetch the station by ID
-        FuelStation station = fuelStationService.getStationById(stationId);
+      // Fetch the station by ID
+        FuelStation fuelStation = fuelStationService.getById(stationId);
 
-        if (station == null) {
+        if (fuelStation == null) {
             return ResponseEntity.badRequest().body("Station not found");
         }
-        Fuel fuel = station.getFuel().stream()
+        Fuel fuel = fuelStation.getFuel().stream()
                 .filter(f -> f.getFuelType().equals(fuelType))
                 .findFirst()
                 .orElseThrow(() -> new RuntimeException("Fuel type not found"));
         fuel.setAddedFuel(fuel.getAddedFuel() + quantity);
         fuelService.updateFuel(fuel);
 
-        return ResponseEntity.ok("Fuel quantity updated successfully");
-    }
+       return ResponseEntity.ok("Fuel quantity updated successfully");
+       }
 
 
 

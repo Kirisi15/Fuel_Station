@@ -49,7 +49,7 @@ public class TransactionServiceImpl implements TransactionService{
     }
 
     public List<Transaction> getTransactionsByStationId(Long stationId) {
-        FuelStation fuelStation = fuelStationService.getStationById(stationId);
+        FuelStation fuelStation = fuelStationService.getById(stationId);
         if(fuelStation != null){
             return transactionRepository.findByFuelStation(fuelStation);
         }

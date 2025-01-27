@@ -33,7 +33,7 @@ public class FuelServiceImpl implements FuelService {
     }
 
     public List<Fuel> getFuelsByStationId(Long stationId) {
-        FuelStation fuelStation = fuelStationService.getStationById(stationId);
+        FuelStation fuelStation = fuelStationService.getById(stationId);
         return fuelStation.getFuel();
     }
 
