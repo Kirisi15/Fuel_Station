@@ -39,9 +39,13 @@ public class Employee {
     @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL)
     private List<Transaction> transactions = new ArrayList<>();
 
-
-
-
-    
+    public Employee(Long employeeNic, String employeeName, String employeeContactnumber, String employeeUsername, String employeePassword, FuelStation fuelStation) {
+        this.employeeNic = employeeNic;
+        this.employeeName = employeeName;
+        this.employeeContactnumber = employeeContactnumber;
+        this.employeeUsername = employeeUsername;
+        this.employeePassword = employeePassword;
+        this.fuelStation = fuelStation;
+    }
 }
 
