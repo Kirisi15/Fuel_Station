@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
 @Data
 @AllArgsConstructor
 public class TransactionResponse {
+    private Long  transactionId;
     private Double quantity;
     private LocalDateTime dateTime;
 }
