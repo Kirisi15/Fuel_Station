@@ -23,7 +23,7 @@ public class FuelEntity {
     private double pumpedFuel;
 
     @OneToMany(mappedBy = "fuel", cascade = CascadeType.ALL)
-    private List<TransactionEntity> transactions = new ArrayList<>();
+    private List<Transaction> transactions = new ArrayList<>();
 
     @ManyToMany(mappedBy = "fuel")
     private List<FuelStation> fuelStations = new ArrayList<>();
