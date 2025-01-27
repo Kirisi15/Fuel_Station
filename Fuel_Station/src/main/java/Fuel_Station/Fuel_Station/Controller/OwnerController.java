@@ -40,17 +40,17 @@ public class OwnerController {
         return new ResponseEntity<>(owners, HttpStatus.OK);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/{ownerId}")
     public ResponseEntity<Owner> updateOwner(
-            @PathVariable("id") Long ownerId,
+            @PathVariable("ownerId") Long ownerId,
             @RequestBody Owner owner) {
         owner.setOwnerId(ownerId);
         Owner updatedOwner = ownerService.updateOwner(owner);
         return new ResponseEntity<>(updatedOwner, HttpStatus.OK);
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteOwner(@PathVariable("id") Long ownerId) {
+    @DeleteMapping("/{ownerId}")
+    public ResponseEntity<String> deleteOwner(@PathVariable("ownerId") Long ownerId) {
         ownerService.deleteOwner((long) ownerId);
         return new ResponseEntity<>("Owner successfully deleted", HttpStatus.OK);
     }

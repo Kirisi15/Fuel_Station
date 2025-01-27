@@ -21,6 +21,8 @@ import EditStation from "./fuelStation/EditStation";
 import VehicleRegistrationAfter from "./vehicle/VehicleRegistrationAfter";
 
 import HomePageDesign from './HomePageDesign';
+import StationManagement from './owner/StationManagement';
+import UpdateOwnerDetails from './owner/UpdateOwnerDetails';
 
 
 const HomePage = () => {
@@ -49,6 +51,8 @@ const HomePage = () => {
           <Route  path="/vehReg" element={<VehicleRegistration/>}/>
           <Route path="EditStation"  element={<EditStation/>}/>
           <Route path="/vehicle-qr/:vehicleId" element={<VehicleRegistrationAfter/>}/>
+          <Route path="UpdateOwnerDetails" element={<UpdateOwnerDetails/>}/>
+          <Route path='StationManagement' element={<StationManagement/>}/>
           </Routes>
         </Router>
     </div>

@@ -20,6 +20,7 @@ function UpdateOwnerDetails() {
     const fetchOwnerDetails = async () => {
       try {
         const response = await axios.get(`http://localhost:8080/api/owners/${ownerId}`);
+        console.log(response.data)
         setOwnerDetails(response.data);
       } catch (error) {
         console.error("Error fetching owner details:", error);

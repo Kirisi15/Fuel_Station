@@ -47,7 +47,7 @@ private List<FuelEntity> fuel = new ArrayList<>();
         this.licenseNumber = licenseNumber;
         this.contactNumber = contactNumber;
     }
-
+@JsonIgnore
     public List<Employee> getEmployee() {
         return employee;
     }
@@ -55,7 +55,7 @@ private List<FuelEntity> fuel = new ArrayList<>();
     public void setEmployee(List<Employee> employee) {
         this.employee = employee;
     }
-
+@JsonIgnore
     public List<TransactionEntity> getTransaction() {
         return transaction;
     }
@@ -63,7 +63,7 @@ private List<FuelEntity> fuel = new ArrayList<>();
     public void setTransaction(List<TransactionEntity> transaction) {
         this.transaction = transaction;
     }
-
+@JsonIgnore
     public List<Vehicle> getVehicle() {
         return vehicle;
     }
@@ -71,7 +71,7 @@ private List<FuelEntity> fuel = new ArrayList<>();
     public void setVehicle(List<Vehicle> vehicle) {
         this.vehicle = vehicle;
     }
-
+@JsonIgnore
     public List<FuelEntity> getFuel() {
         return fuel;
     }
@@ -119,6 +119,7 @@ private List<FuelEntity> fuel = new ArrayList<>();
     public void setContactNumber(String contactNumber) {
         this.contactNumber = contactNumber;
     }
+    @JsonIgnore
     public Owner getOwner() {
         return owner;
     }
