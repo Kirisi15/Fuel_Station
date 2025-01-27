@@ -10,16 +10,10 @@ import org.springframework.http.ResponseEntity;
 import java.util.List;
 
 public interface EmployeeService {
-
-    ResponseEntity<?> createEmployee(EmployeeRequest employee, Long stationId);
-
+    ResponseEntity<?> createEmployee(EmployeeRequest employee);
     ResponseEntity<?> getEmployeeById(Long EmployeeId);
-
     ResponseEntity<?> getAllEmployees();
-
     ResponseEntity<?> updateEmployee(Long employeeId, EmployeeRequest Employee);
     ResponseEntity<?> getEmployeeByStationId(Long EmployeeId);
-
     ResponseEntity<?> deleteEmployee(Long EmployeeId);
-
 }

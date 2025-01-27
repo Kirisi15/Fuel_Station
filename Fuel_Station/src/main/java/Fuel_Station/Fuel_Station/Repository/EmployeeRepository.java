@@ -16,5 +16,4 @@ public interface EmployeeRepository extends JpaRepository<Employee,Long> {
 
    List<Employee> findByFuelStation(FuelStation fuelStation);
 
-   Optional<Employee> getEmployeeById(Long employeeId);
 }

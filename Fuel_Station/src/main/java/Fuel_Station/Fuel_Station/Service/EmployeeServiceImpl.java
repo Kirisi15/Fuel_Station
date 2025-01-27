@@ -10,6 +10,7 @@ import Fuel_Station.Fuel_Station.dto.response.EmployeeResponse;
 //import Fuel_Station.Fuel_Station.dto.response.FuelStationResponse;
 import Fuel_Station.Fuel_Station.dto.response.MessageResponse;
 
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -20,36 +21,42 @@ import java.util.Optional;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService{
-
     @Autowired
-  private EmployeeRepository employeeRepository;
+    private EmployeeRepository employeeRepository;
     @Autowired
     private FuelStationService fuelStationService;
-   
-   
-    public ResponseEntity<?> createEmployee(EmployeeRequest employeeRequest, Long stationId )
-   {
-       FuelStation fuelStation= fuelStationService.getById(stationId);
-       Employee employee = new Employee(
-        fuelStation,
-        employeeRequest.getEmployeeNic(),
-        employeeRequest.getEmployeeName(),
-        employeeRequest.getEmployeeContactnumber(),
-        employeeRequest.getEmployeeUsername(),
-       employeeRequest.getEmployeePassword()
-       );
 
+    @Override
+    @Transactional
+    public ResponseEntity<?> createEmployee(EmployeeRequest employeeRequest) {
+       FuelStation fuelStation= fuelStationService.getById(employeeRequest.getStationId());
+       if(fuelStation == null){
+           return ResponseEntity.ok().body(
+                   new MessageResponse<>(
+                           400,
+                           "Fuel station not found for this id",
+                           null
+                   )
+           );
+       }
+       Employee employee = new Employee(
+               employeeRequest.getEmployeeNic(),
+               employeeRequest.getEmployeeName(),
+               employeeRequest.getEmployeeContactnumber(),
+               employeeRequest.getEmployeeUsername(),
+               employeeRequest.getEmployeePassword(),
+               fuelStation
+       );
       employeeRepository.save(employee);
       return ResponseEntity.ok().body(
             new MessageResponse<>(
-                status : 200,
-                message : "employee added successfully",
-                data : null
-
-        ))  ;    
+                200,
+                "employee added successfully",
+                null
+            )
+      );
    }
-  public ResponseEntity<?> getEmployeeById(Long employeeId)
-    {
+  public ResponseEntity<?> getEmployeeById(Long employeeId) {
         Optional<Employee> optionalEmployee = employeeRepository.findById(employeeId);
         if( optionalEmployee.isEmpty()){
             return ResponseEntity.ok().body(
@@ -60,15 +67,14 @@ public class EmployeeServiceImpl implements EmployeeService{
                     )
             );
         }
-         Employee employee = optionalEmployee.get();
-    EmployeeResponse response = new EmployeeResponse(
-                employee.getEmployeeNic(),
-                employee.getEmployeeContactnumber(),
-                employee.getEmployeeName(),
-                employee.getEmployeeUsername(),
-                employee.getEmployeePassword(),
-                employee.getEmployeeId()
-        );
+        Employee employee = optionalEmployee.get();
+       EmployeeResponse response = new EmployeeResponse(
+               employee.getEmployeeId(),
+               employee.getEmployeeNic(),
+               employee.getEmployeeContactnumber(),
+               employee.getEmployeeName(),
+               employee.getEmployeeUsername()
+       );
         return ResponseEntity.ok().body(
                 new MessageResponse<>(
                         200,
@@ -77,18 +83,16 @@ public class EmployeeServiceImpl implements EmployeeService{
                 )
         );
     }
-   public ResponseEntity<?> getAllEmployees()
-   {
+   public ResponseEntity<?> getAllEmployees(){
         List<Employee> employeeList = employeeRepository.findAll();
         List<EmployeeResponse> responses = new ArrayList<>();
         for(Employee employee:employeeList){
             EmployeeResponse response = new EmployeeResponse(
+                    employee.getEmployeeId(),
                     employee.getEmployeeNic(),
                     employee.getEmployeeContactnumber(),
                     employee.getEmployeeName(),
-                    employee.getEmployeeUsername(),
-                    employee.getEmployeePassword(),
-                    employee.getEmployeeId()
+                    employee.getEmployeeUsername()
             );
             responses.add(response);
         }
@@ -103,9 +107,10 @@ public class EmployeeServiceImpl implements EmployeeService{
    
    
    
-   public ResponseEntity<?> updateEmployee(Long employeeId, EmployeeRequest employee)
-    { Employee existingEmployee = getById(employeeId);
-                if(existingEmployee == null){
+   public ResponseEntity<?> updateEmployee(Long employeeId, EmployeeRequest employeeRequest)
+    {
+        Optional<Employee> optionalEmployee = employeeRepository.findById(employeeId);
+                if(optionalEmployee.isEmpty()){
                     return ResponseEntity.ok().body(
                             new MessageResponse<>(
                                     400,
@@ -114,12 +119,13 @@ public class EmployeeServiceImpl implements EmployeeService{
                             )
                     );
                 }
-                existingEmployee.setEmployeeNic(employee.getEmployeeNic());
-                existingEmployee.setEmployeeName(employee.getEmployeeName());
-                existingEmployee.setEmployeeContactnumber(employee.getEmployeeContactnumber());
-                existingEmployee.setEmployeeUsername(employee.getEmployeeUsername());
-                existingEmployee.setEmployeePassword(employee.getEmployeePassword());
-               employeeRepository.save(existingEmployee);
+                Employee employee = optionalEmployee.get();
+                employee.setEmployeeNic(employeeRequest.getEmployeeNic());
+                employee.setEmployeeName(employeeRequest.getEmployeeName());
+                employee.setEmployeeContactnumber(employeeRequest.getEmployeeContactnumber());
+                employee.setEmployeeUsername(employeeRequest.getEmployeeUsername());
+                employee.setEmployeePassword(employeeRequest.getEmployeePassword());
+               employeeRepository.save(employee);
                 return ResponseEntity.ok().body(
                         new MessageResponse<>(
                                 200,
@@ -128,12 +134,18 @@ public class EmployeeServiceImpl implements EmployeeService{
                         )
                 );
             }
-          
-       
-    
-    
-    public  ResponseEntity<?> deleteEmployee(Long employeeId)
-  {
+
+    public  ResponseEntity<?> deleteEmployee(Long employeeId) {
+    Optional<Employee> employee = employeeRepository.findById(employeeId);
+    if(employee.isEmpty()){
+        return ResponseEntity.ok().body(
+                new MessageResponse<>(
+                        400,
+                        "Employee not Found",
+                        null
+                )
+        );
+    }
     employeeRepository.deleteById(employeeId);
     return ResponseEntity.ok().body(
             new MessageResponse<>(
@@ -159,11 +171,11 @@ public ResponseEntity<?> getEmployeeByStationId(Long stationId) {
        List<EmployeeResponse> responses = new ArrayList<>();
        for(Employee employee:employeeList){
            EmployeeResponse response = new EmployeeResponse(
-                        employee.getEmployeeId(),
-                  employee.getEmployeeNic(),
-                  employee.getEmployeeName(),
-                  employee.getEmployeeContactnumber(),
-                  employee.getEmployeeUsername()
+                   employee.getEmployeeId(),
+                   employee.getEmployeeNic(),
+                   employee.getEmployeeName(),
+                   employee.getEmployeeContactnumber(),
+                   employee.getEmployeeUsername()
            );
            responses.add(response);
        }
