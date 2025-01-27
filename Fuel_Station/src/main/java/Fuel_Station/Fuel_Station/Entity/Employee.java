@@ -37,7 +37,11 @@ public class Employee {
     private FuelStation fuelStation;
 
     @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL)
-    private List<TransactionEntity> transactions = new ArrayList<>();
+    private List<Transaction> transactions = new ArrayList<>();
 
+
+
+
+    
 }
 

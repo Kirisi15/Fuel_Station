@@ -41,7 +41,7 @@ public class Vehicle {
     private Customer customer;
 
     @OneToMany(mappedBy = "vehicle", cascade = CascadeType.ALL)
-    private List<TransactionEntity> transactions = new ArrayList<>();
+    private List<Transaction> transactions = new ArrayList<>();
 
     @ManyToMany
     @JoinTable(
@@ -50,6 +50,7 @@ public class Vehicle {
             inverseJoinColumns = @JoinColumn(name = "StationId")
     )
     private List<FuelStation> fuelStations = new ArrayList<>();
+
 
 
 

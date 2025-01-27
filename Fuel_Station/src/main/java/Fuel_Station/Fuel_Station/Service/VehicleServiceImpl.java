@@ -26,6 +26,8 @@ public class VehicleServiceImpl implements VehicleService {
 
     @Autowired
     private VehicleFuelQuoteRepository vehicleFuelQuoteRepository;
+    @Autowired
+    private VehicledmtRepository vehicledmtRepository;
 
 
 
@@ -102,6 +104,17 @@ public class VehicleServiceImpl implements VehicleService {
         }
         return null;
     }
+//    public boolean validateAndRegisterVehicle(String licenseNumber, String nic) {
+//        var optionalVehicledmt = vehicledmtRepository.findByLicenseNumberAndNic(licenseNumber, nic);
+//        if (optionalVehicledmt.isPresent()) {
+//            Vehicle vehicle = new Vehicle();
+//            vehicle.setLicenseNumber(licenseNumber);
+//            vehicle.setNic(nic);
+//            vehicleRepository.save(vehicle);
+//            return true;
+//        }
+//        return false;
+   // }
 
 
 }
