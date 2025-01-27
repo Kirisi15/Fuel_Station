@@ -9,5 +9,5 @@ public class FuelStationRequest {
     private String address;
     private String licenseNumber;
     private String contactNumber;
-    private Owner owner;
+    private Long ownerId;
 }

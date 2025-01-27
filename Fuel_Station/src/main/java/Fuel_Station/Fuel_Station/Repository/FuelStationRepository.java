@@ -11,4 +11,6 @@ import java.util.Optional;
 @Repository
 public interface FuelStationRepository extends JpaRepository <FuelStation, Long> {
     List<FuelStation> findByOwner(Owner owner);
+
+    Optional<FuelStation> getByStationId(Long stationId);
 }
