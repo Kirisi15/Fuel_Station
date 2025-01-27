@@ -3,20 +3,23 @@ package Fuel_Station.Fuel_Station.Service;
 
 
 import Fuel_Station.Fuel_Station.Entity.Employee;
+import Fuel_Station.Fuel_Station.dto.request.EmployeeRequest;
+
+import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
 public interface EmployeeService {
 
-    Employee createEmployee(Employee employee,Long stationId);
+    ResponseEntity<?> createEmployee(EmployeeRequest employee, Long stationId);
 
-    Employee getEmployeeById(Long EmployeeId);
+    ResponseEntity<?> getEmployeeById(Long EmployeeId);
 
-    List< Employee> getAllEmployees();
+    ResponseEntity<?> getAllEmployees();
 
-    Employee updateEmployee(Long employeeId, Employee Employee);
-    Employee getEmployeeByStationId(Long EmployeeId);
+    ResponseEntity<?> updateEmployee(Long employeeId, EmployeeRequest Employee);
+    ResponseEntity<?> getEmployeeByStationId(Long EmployeeId);
 
-    void deleteEmployee(Long EmployeeId);
+    ResponseEntity<?> deleteEmployee(Long EmployeeId);
 
 }
