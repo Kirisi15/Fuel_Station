@@ -7,6 +7,7 @@ import Fuel_Station.Fuel_Station.Repository.OwnerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,6 +18,8 @@ public   class FuelStationServiceImpl implements FuelStationService {
     private FuelStationRepository fuelStationRepository;
     @Autowired
     private OwnerRepository ownerRepository;
+    @Autowired
+    private OwnerService ownerService;
 
     @Override
     public List<FuelStation> getAllStations() {
@@ -25,8 +28,7 @@ public   class FuelStationServiceImpl implements FuelStationService {
 
     @Override
     public FuelStation getStationById(Long stationId) {
-        Optional<FuelStation> station = fuelStationRepository.findById(stationId);
-        return station.get();
+        return fuelStationRepository.findById(stationId).orElse(null);
     }
 
 
@@ -54,8 +56,8 @@ public   class FuelStationServiceImpl implements FuelStationService {
         fuelStationRepository.deleteById(stationId);
     }
 //   @Override
-//   public FuelStation getStationByOwnerId(Long ownerId) {
-//       List<FuelStation> stations = fuelStationRepository.findByOwner_OwnerId(ownerId);
+//   public FuelStation.java getStationByOwnerId(Long ownerId) {
+//       List<FuelStation.java> stations = fuelStationRepository.findByOwner_OwnerId(ownerId);
 //
 //       if (stations.isEmpty()) {
 //           throw new RuntimeException("No fuel stations found for owner ID: " + ownerId);
@@ -65,13 +67,17 @@ public   class FuelStationServiceImpl implements FuelStationService {
 //       return stations.get(0);
 //   }
 
-//public FuelStation getStationByOwnerId(Long ownerId) {
-//       List<FuelStation> station = fuelStationRepository.findByOwner_OwnerId(ownerId);
+//public FuelStation.java getStationByOwnerId(Long ownerId) {
+//       List<FuelStation.java> station = fuelStationRepository.findByOwner_OwnerId(ownerId);
 //       return station.get(0) ;
 //    }
    @Override
 public List<FuelStation> getStationByOwnerId(Long ownerId) {
-    return fuelStationRepository.findByOwner_OwnerId(ownerId);
+        Owner owner = ownerService.getById(ownerId);
+        if(owner != null){
+            return fuelStationRepository.findByOwner(owner);
+        }
+        return new ArrayList<>();
 }
 
 

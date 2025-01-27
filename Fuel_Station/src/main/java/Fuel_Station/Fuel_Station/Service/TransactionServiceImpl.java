@@ -1,16 +1,20 @@
 package Fuel_Station.Fuel_Station.Service;
 
+import Fuel_Station.Fuel_Station.Entity.FuelStation;
 import Fuel_Station.Fuel_Station.Entity.Transaction;
 import Fuel_Station.Fuel_Station.Repository.TransactionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 @Service
 public class TransactionServiceImpl implements TransactionService{
     @Autowired
     private TransactionRepository transactionRepository;
+    @Autowired
+    private FuelStationService fuelStationService;
 
     @Override
     public List<Transaction> getAllTransactions() {
@@ -43,7 +47,12 @@ public class TransactionServiceImpl implements TransactionService{
     public void deleteTransaction(Long transactionId) {
         transactionRepository.deleteById(transactionId);
     }
+
     public List<Transaction> getTransactionsByStationId(Long stationId) {
-        return transactionRepository.findByStation_Id(stationId);
+        FuelStation fuelStation = fuelStationService.getStationById(stationId);
+        if(fuelStation != null){
+            return transactionRepository.findByFuelStation(fuelStation);
+        }
+        return new ArrayList<>();
     }
 }

@@ -50,12 +50,12 @@ public class FuelStationController {
 
 
 
-//    public FuelStation getStationByOwnerId(@PathVariable("ownerId") Long ownerId) {
+//    public FuelStation.java getStationByOwnerId(@PathVariable("ownerId") Long ownerId) {
 //        return fuelStationService.getStationByOwnerId(ownerId);
 //  }
    @GetMapping("/owners/{ownerId}")
 public List<FuelStation> getStationByOwnerId(@PathVariable("ownerId") Long ownerId) {
-    return fuelStationRepository.findByOwner_OwnerId(ownerId);
+    return fuelStationService.getStationByOwnerId(ownerId);
            // .orElseThrow(() -> new RuntimeException("Fuel station not found for owner ID: " + ownerId));
 }
 
