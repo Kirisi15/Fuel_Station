@@ -11,4 +11,5 @@ public class FuelStationResponse {
     private String address;
     private String licenseNumber;
     private String contactNumber;
+
 }
