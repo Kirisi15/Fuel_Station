@@ -43,6 +43,14 @@ public class Vehicle {
     @OneToMany(mappedBy = "vehicle", cascade = CascadeType.ALL)
     private List<Transaction> transactions = new ArrayList<>();
 
+    public Vehicle(String vehicleNumber, VehicleType vehicleType, String fuelType, FuelLimit fuelLimitId, Customer customer) {
+        VehicleNumber = vehicleNumber;
+        this.vehicleType = vehicleType;
+        FuelType = fuelType;
+        this.fuelLimitId = fuelLimitId;
+        this.customer = customer;
+    }
+
     @ManyToMany
     @JoinTable(
             name = "Vehicle_FuelStation",
