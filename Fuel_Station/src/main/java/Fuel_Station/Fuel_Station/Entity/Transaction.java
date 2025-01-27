@@ -19,7 +19,7 @@ public class Transaction {
     private FuelStation fuelStation;
     @ManyToOne
     @JoinColumn(name = "fuelId")
-    private FuelEntity fuel;
+    private Fuel fuel;
     @ManyToOne
     @JoinColumn(name = "vehicleId")
     private Vehicle vehicle;
