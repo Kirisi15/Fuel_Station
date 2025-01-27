@@ -25,35 +25,4 @@ public class VehicleFuelQuota {
     @Column(name = "pumped_fuel")
     private int pumpedFuel;
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public Vehicle getVehicle() {
-        return vehicle;
-    }
-
-    public void setVehicle(Vehicle vehicle) {
-        this.vehicle = vehicle;
-    }
-
-    public TimePeriod getTimePeriod() {
-        return timePeriod;
-    }
-
-    public void setTimePeriod(TimePeriod timePeriod) {
-        this.timePeriod = timePeriod;
-    }
-
-    public int getPumpedFuel() {
-        return pumpedFuel;
-    }
-
-    public void setPumpedFuel(int pumpedFuel) {
-        this.pumpedFuel = pumpedFuel;
-    }
 }
