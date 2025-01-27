@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import React from "react";
 import { QRCodeCanvas } from "qrcode.react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function VehicleRegistration() {
   const [values, setVehicles] = useState({
@@ -10,6 +11,8 @@ function VehicleRegistration() {
     fuelType: "",
     fuelLimit: ""
   });
+
+  const navigate = useNavigate();
 
   const [vehicleId, setVehicleId] = useState(null);
   const [qrCodeData, setQrCodeData] = useState(null);
@@ -100,8 +103,14 @@ function VehicleRegistration() {
       const generatedVehicleId = response.data.vehicleId;
 
       setVehicleId(generatedVehicleId);
+      navigate(`/vehicle-qr/${generatedVehicleId}`, { state: { qrCodeData: generatedVehicleId } });
 
-      const qrData = `Vehicle ID: ${generatedVehicleId}, Vehicle Type: ${values.vehicleType}, Vehicle Number: ${values.vehicleNumber}, Fuel Type: ${values.fuelType}, Fuel Limit: ${values.fuelLimit}`;
+      alert("Vehicle successfully added");
+    } catch (error) {
+      setError("Failed to register the vehicle. Please try again.");
+    }
+  };
+     /* const qrData = `Vehicle ID: ${generatedVehicleId}, Vehicle Type: ${values.vehicleType}, Vehicle Number: ${values.vehicleNumber}, Fuel Type: ${values.fuelType}, Fuel Limit: ${values.fuelLimit}`;
       setQrCodeData(qrData);
 
       setExistingVehicles([...existingVehicles, { vehicleNumber: values.vehicleNumber }]);
@@ -112,12 +121,8 @@ function VehicleRegistration() {
         fuelType: "",
         fuelLimit: ""
       });
-
-      alert("Vehicle successfully added");
-    } catch (error) {
-      setError("Failed to register the vehicle. Please try again.");
-    }
-  };
+*/
+      
 
   const downloadQRCode = () => {
     const canvas = qrCodeRef.current.querySelector("canvas");
@@ -196,7 +201,7 @@ function VehicleRegistration() {
         <button type="submit">Submit</button>
       </form>
 
-      {vehicleId && (
+      {/* {vehicleId && (
         <div>
           <h2>Vehicle Registered Successfully!</h2>
           <p>Vehicle ID: {vehicleId}</p>
@@ -206,7 +211,7 @@ function VehicleRegistration() {
           </div>
           <button onClick={downloadQRCode}>Download QR Code</button>
         </div>
-      )}
+      )} */}
     </div>
   );
 }

@@ -3,6 +3,7 @@ package Fuel_Station.Fuel_Station.Controller;
 import Fuel_Station.Fuel_Station.Entity.Vehicle;
 import Fuel_Station.Fuel_Station.Repository.VehicleRepository;
 import Fuel_Station.Fuel_Station.Service.VehicleService;
+import Fuel_Station.Fuel_Station.dto.VehicleScanResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -66,4 +67,10 @@ public class VehicleController {
         }
         return ResponseEntity.ok(vehicles);  // Return 200 and the vehicles list
     }
+
+    @PutMapping("scan/{vehicleId}")
+    public VehicleScanResponse vehicleScanner(@PathVariable Long vehicleId) throws Exception {
+       return vehicleService.scan(vehicleId);
+    }
+
 }

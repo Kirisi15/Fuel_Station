@@ -17,9 +17,13 @@ import StationDashboard from "./fuelStation/StationDashboard";
 import TransactionTable from "./fuelStation/TransactionTable";
 import ViewStations from "./vehicle/ViewStations";
 import EditStation from "./fuelStation/EditStation";
+
+import VehicleRegistrationAfter from "./vehicle/VehicleRegistrationAfter";
+
 import HomePageDesign from './HomePageDesign';
-import UpdateOwnerDetails from './owner/UpdateOwnerDetails';
 import StationManagement from './owner/StationManagement';
+import UpdateOwnerDetails from './owner/UpdateOwnerDetails';
+
 
 const HomePage = () => {
   return (
@@ -46,6 +50,7 @@ const HomePage = () => {
           <Route path="ViewStations" element={<ViewStations/>} />
           <Route  path="/vehReg" element={<VehicleRegistration/>}/>
           <Route path="EditStation"  element={<EditStation/>}/>
+          <Route path="/vehicle-qr/:vehicleId" element={<VehicleRegistrationAfter/>}/>
           <Route path="UpdateOwnerDetails" element={<UpdateOwnerDetails/>}/>
           <Route path='StationManagement' element={<StationManagement/>}/>
           </Routes>

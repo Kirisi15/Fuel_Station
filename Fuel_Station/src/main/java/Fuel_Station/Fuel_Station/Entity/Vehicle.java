@@ -1,5 +1,6 @@
 package Fuel_Station.Fuel_Station.Entity;
 
+import Fuel_Station.Fuel_Station.enums.VehicleType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -24,8 +25,9 @@ public class Vehicle {
 
     private String VehicleNumber;
 
-    private String VehicleType;
-
+    @Column
+    @Enumerated(EnumType.STRING)
+    private VehicleType vehicleType;
     private String FuelType;
 
     @OneToOne
@@ -52,6 +54,14 @@ public class Vehicle {
         return VehicleId;
     }
 
+    public VehicleType getVehicleType() {
+        return vehicleType;
+    }
+
+    public void setVehicleType(VehicleType vehicleType) {
+        this.vehicleType = vehicleType;
+    }
+
     public void setVehicleId(Long vehicleId) {
         VehicleId = vehicleId;
     }
@@ -64,13 +74,7 @@ public class Vehicle {
         VehicleNumber = vehicleNumber;
     }
 
-    public String getVehicleType() {
-        return VehicleType;
-    }
 
-    public void setVehicleType(String vehicleType) {
-        VehicleType = vehicleType;
-    }
 
     public String getFuelType() {
         return FuelType;
