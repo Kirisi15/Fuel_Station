@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface FuelService {
+    Fuel getById(Long id);
     ResponseEntity<?> createFuel(FuelRequest fuelRequest);
     ResponseEntity<?> getAllFuels();
 }

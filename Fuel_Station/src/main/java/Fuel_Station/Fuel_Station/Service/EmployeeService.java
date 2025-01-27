@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import java.util.List;
 
 public interface EmployeeService {
+    Employee getById(Long id);
     ResponseEntity<?> createEmployee(EmployeeRequest employee);
     ResponseEntity<?> getEmployeeById(Long EmployeeId);
     ResponseEntity<?> getAllEmployees();

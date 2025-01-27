@@ -25,6 +25,9 @@ public class EmployeeServiceImpl implements EmployeeService{
     private EmployeeRepository employeeRepository;
     @Autowired
     private FuelStationService fuelStationService;
+    public Employee getById(Long id){
+        return employeeRepository.findById(id).orElse(null);
+    }
 
     @Override
     @Transactional
