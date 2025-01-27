@@ -2,6 +2,7 @@ package Fuel_Station.Fuel_Station.Controller;
 
 import Fuel_Station.Fuel_Station.Entity.Customer;
 import Fuel_Station.Fuel_Station.Service.CustomerService;
+import Fuel_Station.Fuel_Station.dto.request.CustomerRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,28 +19,28 @@ public class CustomerController {
     private CustomerService customerService;
 
     @GetMapping
-    public List<Customer> getCustomers() {
+    public ResponseEntity<?> getCustomers() {
         return customerService.getAllCustomers();
     }
 
     @GetMapping("/{id}")
-    public Customer getCustomerById(@PathVariable("id") Long customerId) {
+    public ResponseEntity<?> getCustomerById(@PathVariable("id") Long customerId) {
         return customerService.getCustomerById(customerId);
     }
 
     @PostMapping
-    public Customer createCustomer(@RequestBody Customer customerEntity) {
-        return customerService.createCustomer(customerEntity);
+    public ResponseEntity<?> createCustomer(@RequestBody CustomerRequest customerRequest) {
+        return customerService.createCustomer(customerRequest);
     }
 
     @PutMapping("/{id}")
-    public Customer updateCustomer(@PathVariable("id") Long customerId, @RequestBody Customer customerEntity) {
-        return customerService.updateCustomer(customerId, customerEntity);
+    public ResponseEntity<?> updateCustomer(@PathVariable("id") Long customerId, @RequestBody CustomerRequest customerRequest) {
+        return customerService.updateCustomer(customerId, customerRequest);
     }
 
     @DeleteMapping("/{id}")
-    public void deleteCustomer(@PathVariable("id") Long customerId) {
-        customerService.deleteCustomer(customerId);
+    public ResponseEntity<?> deleteCustomer(@PathVariable("id") Long customerId) {
+        return  customerService.deleteCustomer(customerId);
     }
 
     @PostMapping("/login")

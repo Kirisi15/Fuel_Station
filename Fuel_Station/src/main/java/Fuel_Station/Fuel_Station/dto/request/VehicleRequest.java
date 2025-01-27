@@ -8,8 +8,9 @@ import lombok.Data;
 
 @Data
 public class VehicleRequest {
+    private String vehicleNumber;
     private VehicleType vehicleType;
     private String FuelType;
     private FuelLimit fuelLimitId;
-    private Customer customer;
+    private Long customerId;
 }
