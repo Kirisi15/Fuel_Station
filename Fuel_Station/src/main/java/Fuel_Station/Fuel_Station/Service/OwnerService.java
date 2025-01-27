@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface OwnerService {
+    Owner getById(Long id);
     Owner getOwnerById(Long ownerId);
 
     Owner createOwner(Owner owner);
