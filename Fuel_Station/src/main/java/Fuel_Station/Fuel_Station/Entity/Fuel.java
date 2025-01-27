@@ -33,4 +33,11 @@ public class Fuel {
     @ManyToMany(mappedBy = "fuel")
     private List<FuelStation> fuelStations = new ArrayList<>();
 
+    public Fuel(String fuelType, double addedFuel, double pumpedFuel, List<Transaction> transactions, List<FuelStation> fuelStations) {
+        this.fuelType = fuelType;
+        this.addedFuel = addedFuel;
+        this.pumpedFuel = pumpedFuel;
+        this.transactions = transactions;
+        this.fuelStations = fuelStations;
+    }
 }

@@ -42,6 +42,14 @@ public class Owner {
     @Column(name="password")
     private String password;
 
-
+    public Owner(List<FuelStation> fuelStations, String name, String nic, String contactNumber, String email, String username, String password) {
+        this.fuelStations = fuelStations;
+        this.name = name;
+        this.nic = nic;
+        this.contactNumber = contactNumber;
+        this.email = email;
+        this.username = username;
+        this.password = password;
+    }
 }
 
