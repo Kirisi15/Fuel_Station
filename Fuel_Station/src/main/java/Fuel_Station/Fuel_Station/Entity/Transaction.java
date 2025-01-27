@@ -31,10 +31,8 @@ public class Transaction {
 
     private LocalDateTime dateTime;
 
-
-
-
-
-
-
+    public Transaction(Double quantity, LocalDateTime dateTime) {
+        this.quantity = quantity;
+        this.dateTime = dateTime;
+    }
 }
