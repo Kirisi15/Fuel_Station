@@ -4,6 +4,7 @@ import Fuel_Station.Fuel_Station.enums.VehicleType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 
@@ -16,6 +17,7 @@ import java.util.List;
 @Getter
 @Setter
 @AllArgsConstructor
+@NoArgsConstructor
 public class Vehicle {
 
     @Id
@@ -50,71 +52,8 @@ public class Vehicle {
     private List<FuelStation> fuelStations = new ArrayList<>();
 
 
-    public Long getVehicleId() {
-        return VehicleId;
-    }
-
-    public VehicleType getVehicleType() {
-        return vehicleType;
-    }
-
-    public void setVehicleType(VehicleType vehicleType) {
-        this.vehicleType = vehicleType;
-    }
-
-    public void setVehicleId(Long vehicleId) {
-        VehicleId = vehicleId;
-    }
-
-    public String getVehicleNumber() {
-        return VehicleNumber;
-    }
-
-    public void setVehicleNumber(String vehicleNumber) {
-        VehicleNumber = vehicleNumber;
-    }
 
 
-
-    public String getFuelType() {
-        return FuelType;
-    }
-
-    public void setFuelType(String fuelType) {
-        FuelType = fuelType;
-    }
-
-    public FuelLimit getFuelLimitId() {
-        return fuelLimitId;
-    }
-
-    public void setFuelLimitId(FuelLimit fuelLimitId) {
-        this.fuelLimitId = fuelLimitId;
-    }
-
-    public Customer getCustomer() {
-        return customer;
-    }
-
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
-    }
-
-    public List<Transaction> getTransactions() {
-        return transactions;
-    }
-
-    public void setTransactions(List<Transaction> transactions) {
-        this.transactions = transactions;
-    }
-
-    public List<FuelStation> getFuelStations() {
-        return fuelStations;
-    }
-
-    public void setFuelStations(List<FuelStation> fuelStations) {
-        this.fuelStations = fuelStations;
-    }
 }
 
 
