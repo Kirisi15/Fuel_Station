@@ -29,5 +29,10 @@ public class Admin {
     @Column
     private String contactNumber;
 
-
+    public Admin(String adminUsername, String adminPassword, String adminEmail, String contactNumber) {
+        this.adminUsername = adminUsername;
+        this.adminPassword = adminPassword;
+        this.adminEmail = adminEmail;
+        this.contactNumber = contactNumber;
+    }
 }
