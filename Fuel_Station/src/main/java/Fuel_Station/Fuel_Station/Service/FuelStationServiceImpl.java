@@ -53,13 +53,29 @@ public   class FuelStationServiceImpl implements FuelStationService {
     public void deleteStation(Long stationId) {
         fuelStationRepository.deleteById(stationId);
     }
-    @Override
-    public FuelStation getStationByOwnerId(Long ownerId) {
-        Optional<FuelStation> station = fuelStationRepository.findById(ownerId);
-        return station.get();
-    }
+//   @Override
+//   public FuelStation getStationByOwnerId(Long ownerId) {
+//       List<FuelStation> stations = fuelStationRepository.findByOwner_OwnerId(ownerId);
+//
+//       if (stations.isEmpty()) {
+//           throw new RuntimeException("No fuel stations found for owner ID: " + ownerId);
+//       }
+//
+//       // Return the first station if the list is not empty
+//       return stations.get(0);
+//   }
 
-  @Override
+//public FuelStation getStationByOwnerId(Long ownerId) {
+//       List<FuelStation> station = fuelStationRepository.findByOwner_OwnerId(ownerId);
+//       return station.get(0) ;
+//    }
+   @Override
+public List<FuelStation> getStationByOwnerId(Long ownerId) {
+    return fuelStationRepository.findByOwner_OwnerId(ownerId);
+}
+
+
+@Override
  public FuelStation saveFuelStation(FuelStation fuelStation) {
        return fuelStationRepository.save(fuelStation);
     }

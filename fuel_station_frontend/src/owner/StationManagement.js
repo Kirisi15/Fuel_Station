@@ -3,19 +3,20 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 function StationManagement() {
-  const [stations, setStations] = useState([]);
+  const [stations, setStations] = useState([""]);
   const [error, setError] = useState("");
   const navigate = useNavigate();
+  
+
 
   useEffect(() => {
     const ownerId = localStorage.getItem("ownerId"); // Assuming ownerId is stored in localStorage
     console.log("Fetching stations for owner ID:", ownerId);
-// const stationId=localStorage.setItem("stationId");
-// console.log(stationId);
-    const fetchStations = async () => {
+    
+    const fetchStations = async (ownerId) => {
       try {
         const response = await axios.get(
-          `http://localhost:8080/fuel-stations/owner/${ownerId}`
+          `http://localhost:8080/fuel-stations/owners/${ownerId}`
         );
         console.log("Fetched stations:", response.data);
 
@@ -34,7 +35,7 @@ function StationManagement() {
     };
 
     if (ownerId) {
-      fetchStations();
+      fetchStations(ownerId);
     }
   }, []);
 

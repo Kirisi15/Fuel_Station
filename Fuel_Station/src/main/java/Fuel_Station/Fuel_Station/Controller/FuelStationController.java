@@ -1,6 +1,8 @@
 package Fuel_Station.Fuel_Station.Controller;
 
 import Fuel_Station.Fuel_Station.Entity.FuelStation;
+import Fuel_Station.Fuel_Station.Repository.FuelStationRepository;
+import Fuel_Station.Fuel_Station.Repository.OwnerRepository;
 import Fuel_Station.Fuel_Station.Service.FuelStationService;
 import Fuel_Station.Fuel_Station.Service.OwnerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +16,7 @@ public class FuelStationController {
     @Autowired
     private FuelStationService fuelStationService;
     @Autowired
-    private OwnerService ownerService;
+    private FuelStationRepository fuelStationRepository;
 
     public FuelStationController(FuelStationService fuelStationService) {
         this.fuelStationService = fuelStationService;
@@ -47,8 +49,16 @@ public class FuelStationController {
     }
 
 
-    @GetMapping("/owner/{ownerId}")
-    public FuelStation getStationByOwnerId(@PathVariable("ownerId") Long ownerId) {
-        return fuelStationService.getStationByOwnerId(ownerId);
-    }
+
+//    public FuelStation getStationByOwnerId(@PathVariable("ownerId") Long ownerId) {
+//        return fuelStationService.getStationByOwnerId(ownerId);
+//  }
+   @GetMapping("/owners/{ownerId}")
+public List<FuelStation> getStationByOwnerId(@PathVariable("ownerId") Long ownerId) {
+    return fuelStationRepository.findByOwner_OwnerId(ownerId);
+           // .orElseThrow(() -> new RuntimeException("Fuel station not found for owner ID: " + ownerId));
 }
+
+
+}
+

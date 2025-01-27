@@ -1,6 +1,10 @@
 package Fuel_Station.Fuel_Station.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GenerationType;
 import lombok.*;
 
 import java.util.ArrayList;
@@ -58,7 +62,7 @@ public class Owner {
     public void setOwnerId(Long ownerId) {
         this.ownerId = ownerId;
     }
-
+@JsonIgnore
     public List<FuelStation> getFuelStations() {
         return fuelStations;
     }
@@ -113,6 +117,20 @@ public class Owner {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    @Override
+    public String toString() {
+        return "Owner{" +
+                "ownerId=" + ownerId +
+                ", fuelStations=" + fuelStations +
+                ", name='" + name + '\'' +
+                ", nic='" + nic + '\'' +
+                ", contactNumber='" + contactNumber + '\'' +
+                ", email='" + email + '\'' +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                '}';
     }
 }
 
