@@ -13,7 +13,7 @@ import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "http://Localhost:3000/")
-@RequestMapping("/employee")
+@RequestMapping("api/employee")
 public class EmployeeController {
     @Autowired
     private EmployeeService employeeService;
@@ -35,7 +35,7 @@ public class EmployeeController {
         return employeeService.getEmployeeById(employeeId);
     }
 
-    @PostMapping("/{stationId}")
+    @PostMapping("")
     public ResponseEntity<?> createEmployee(@RequestBody EmployeeRequest employeeRequest)
     {
         return employeeService.createEmployee(employeeRequest);

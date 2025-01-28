@@ -13,6 +13,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -32,7 +36,6 @@ public class TransactionServiceImpl implements TransactionService{
     public Transaction getById(Long transactionId){
         return transactionRepository.getByTransactionId(transactionId).orElse(null);
     }
-
     @Override
     public ResponseEntity<?> getAllTransactions() {
         List<Transaction> transactionList= transactionRepository.findAll();
@@ -120,13 +123,17 @@ public class TransactionServiceImpl implements TransactionService{
                     )
             );
         }
+        long currentMillis = System.currentTimeMillis();
+        LocalDateTime localDateTime = Instant.ofEpochMilli(currentMillis)
+                .atZone(ZoneId.systemDefault())
+                .toLocalDateTime();
         Transaction transaction = new Transaction(
                 fuelStation,
                 fuel,
                 vehicle,
                 employee,
                 transactionRequest.getQuantity(),
-                transactionRequest.getDateTime()
+                localDateTime
         );
         transactionRepository.save(transaction);
         return ResponseEntity.ok().body(

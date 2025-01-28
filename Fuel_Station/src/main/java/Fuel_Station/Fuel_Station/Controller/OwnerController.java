@@ -56,8 +56,8 @@ public class OwnerController {
 
     }
 
-@PostMapping("/login")
-public ResponseEntity<?> login(@RequestBody Owner loginDetails) {
+     @PostMapping("/login")
+      public ResponseEntity<?> login(@RequestBody Owner loginDetails) {
 
         Optional<Owner> owner = ownerService.findByUsername(loginDetails.getUsername());
         if(owner.isPresent() && owner.get().getPassword().equals(loginDetails.getPassword())){

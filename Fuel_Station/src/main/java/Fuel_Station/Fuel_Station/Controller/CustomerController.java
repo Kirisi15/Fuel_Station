@@ -28,7 +28,7 @@ public class CustomerController {
         return customerService.getCustomerById(customerId);
     }
 
-    @PostMapping
+    @PostMapping("")
     public ResponseEntity<?> createCustomer(@RequestBody CustomerRequest customerRequest) {
         return customerService.createCustomer(customerRequest);
     }

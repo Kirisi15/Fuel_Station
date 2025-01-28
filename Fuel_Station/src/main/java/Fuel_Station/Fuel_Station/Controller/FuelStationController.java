@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 @RestController
-@RequestMapping("/fuel-stations")
+@RequestMapping("api/fuelstation")
 @CrossOrigin(origins = "http://localhost:3000")
 public class FuelStationController {
    @Autowired
@@ -31,9 +31,9 @@ public class FuelStationController {
         return fuelStationService.getStationById(stationId);
     }
 
-    @PostMapping("/{ownerId}")
-    public ResponseEntity<?> addStation(@RequestBody FuelStationRequest fuelStation, @PathVariable Long ownerId) {
-        return fuelStationService.addStation(fuelStation, ownerId);
+    @PostMapping("")
+    public ResponseEntity<?> addStation(@RequestBody FuelStationRequest fuelStation) {
+        return fuelStationService.addStation(fuelStation);
     }
 
     @PutMapping("/{stationId}")

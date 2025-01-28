@@ -10,9 +10,9 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class VehicleResponse {
+    private Long vehicleId;
     private String vehicleNumber;
     private VehicleType vehicleType;
     private String fuelType;
     private FuelLimit fuelLimitId;
-    private Customer customer;
 }

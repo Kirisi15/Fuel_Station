@@ -1,22 +1,24 @@
 package Fuel_Station.Fuel_Station.Service;
 
 import Fuel_Station.Fuel_Station.Entity.Admin;
+import Fuel_Station.Fuel_Station.dto.request.AdminRequest;
+import Fuel_Station.Fuel_Station.dto.request.LoginRequest;
+import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface AdminService {
 
-    Admin createAdmin(Admin admin);
+    ResponseEntity<?> createAdmin(AdminRequest adminRequest);
 
-    Admin getAdminById(Long adminId);
+    ResponseEntity<?> getAdminById(Long adminId);
 
-    List<Admin> getAllAdmins();
+    ResponseEntity<?> getAllAdmins();
 
-    Admin updateAdmin(Admin admin);
+    ResponseEntity<?> updateAdmin(Long id,AdminRequest adminRequest);
 
-    void deleteAdmin(Long adminId);
+    ResponseEntity<?> deleteAdmin(Long adminId);
 
-    Optional<Admin> findByUsername(String adminUsername);
-
+    ResponseEntity<?> login(LoginRequest loginRequest);
 }

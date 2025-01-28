@@ -1,6 +1,7 @@
 package Fuel_Station.Fuel_Station.Service;
 
 import Fuel_Station.Fuel_Station.Entity.Transaction;
+import Fuel_Station.Fuel_Station.Entity.Vehicle;
 import Fuel_Station.Fuel_Station.dto.request.TransactionRequest;
 import org.springframework.http.ResponseEntity;
 
