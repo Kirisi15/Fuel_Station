@@ -14,5 +14,5 @@ public class VehicleResponse {
     private VehicleType vehicleType;
     private String fuelType;
     private FuelLimit fuelLimitId;
-    private Customer customer;
+    private Long customerId;
 }
