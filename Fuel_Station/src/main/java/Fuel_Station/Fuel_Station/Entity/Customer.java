@@ -1,6 +1,7 @@
 package Fuel_Station.Fuel_Station.Entity;
 
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -28,9 +29,10 @@ public class Customer {
     private String customerUsername;
     @Column(name = "Customer_Password")
     private String customerPassword;
-
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
+    @JsonManagedReference
     private List<Vehicle> vehicles = new ArrayList<>();
+
 
     public Customer(String customerNIC, String customerName, String customerEmail, String customerUsername, String customerPassword) {
         this.customerNIC = customerNIC;
