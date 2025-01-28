@@ -17,4 +17,5 @@ public interface EmployeeRepository extends JpaRepository<Employee,Long> {
    List<Employee> findByFuelStation(FuelStation fuelStation);
    boolean existsByEmployeeNic(Long nic);
    boolean existsByEmployeeUsername(String username);
+
 }
