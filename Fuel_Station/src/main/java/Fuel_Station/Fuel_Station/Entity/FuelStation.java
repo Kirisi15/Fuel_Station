@@ -20,7 +20,7 @@ public class FuelStation {
     @JoinColumn(name = "ownerId")
     @JsonIgnore
     private Owner owner;
-    @OneToMany(mappedBy = "fuelStation",cascade =CascadeType.ALL )
+    @OneToMany(mappedBy = "fuelStation",cascade =CascadeType.ALL)
     private List<Employee> employee=new ArrayList<>();
     @OneToMany(mappedBy = "fuelStation",cascade = CascadeType.ALL)
     private List<Transaction> transaction =new ArrayList<>();

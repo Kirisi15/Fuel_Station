@@ -2,6 +2,7 @@ package Fuel_Station.Fuel_Station.Entity;
 
 import Fuel_Station.Fuel_Station.enums.VehicleType;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -26,14 +27,15 @@ public class Vehicle {
     @OneToOne
     @JoinColumn(name = "fuel_limit_id")
     private FuelLimit fuelLimitId;
-    @ManyToOne
-    @JoinColumn(name = "customer_id")
+    @ManyToOne(fetch = FetchType.LAZY)
     @JsonBackReference
+    @JoinColumn(name = "customer_id")
     private Customer customer;
 
-    @OneToMany(mappedBy = "vehicle", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "vehicle", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Transaction> transactions = new ArrayList<>();
-    @ManyToMany
+
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "Vehicle_FuelStation",
             joinColumns = @JoinColumn(name = "VehicleId"),

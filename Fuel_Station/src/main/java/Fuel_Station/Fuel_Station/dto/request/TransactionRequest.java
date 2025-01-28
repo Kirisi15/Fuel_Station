@@ -16,5 +16,4 @@ public class TransactionRequest {
     private Long vehicleId;
     private Long fuelStationId;
     private Long fuelId;
-    private LocalDateTime dateTime;
 }

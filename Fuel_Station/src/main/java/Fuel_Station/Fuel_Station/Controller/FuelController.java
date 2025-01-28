@@ -21,7 +21,7 @@ public class FuelController {
     @Autowired
     private FuelService fuelService;
 
-    @GetMapping("")
+    @GetMapping("/{fuelId}")
     public ResponseEntity<?> getAllFuel() {
         return fuelService.getAllFuels();
     }

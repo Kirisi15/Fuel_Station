@@ -9,6 +9,7 @@ import Fuel_Station.Fuel_Station.dto.response.MessageResponse;
 import Fuel_Station.Fuel_Station.dto.response.VehicleResponse;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -39,11 +40,11 @@ public class VehicleServiceImpl implements VehicleService {
         List<VehicleResponse> responses = new ArrayList<>();
         for(Vehicle vehicle:vehicleList){
             VehicleResponse response = new VehicleResponse(
+                    vehicle.getVehicleId(),
                     vehicle.getVehicleNumber(),
                     vehicle.getVehicleType(),
                     vehicle.getFuelType(),
-                    vehicle.getFuelLimitId(),
-                    vehicle.getCustomer().getCustomerId()
+
             );
             responses.add(response);
         }
@@ -60,7 +61,7 @@ public class VehicleServiceImpl implements VehicleService {
     public ResponseEntity<?> createVehicle(VehicleRequest vehicleRequest) {
         Customer customer = customerService.getById(vehicleRequest.getCustomerId());
         if(customer == null){
-            return ResponseEntity.ok().body(
+            return ResponseEntity.badRequest().body(
                     new MessageResponse<>(
                             400,
                             "Customer not find with this id",
@@ -89,7 +90,7 @@ public class VehicleServiceImpl implements VehicleService {
     public ResponseEntity<?> getVehicleById(Long vehicleId) {
         Optional<Vehicle> optionalVehicle = vehicleRepository.findById(vehicleId);
         if( optionalVehicle.isEmpty()){
-            return ResponseEntity.ok().body(
+            return ResponseEntity.badRequest().body(
                     new MessageResponse<>(
                             400,
                             "Vehicle id not found",
@@ -100,11 +101,11 @@ public class VehicleServiceImpl implements VehicleService {
 
         Vehicle vehicle = optionalVehicle.get();
         VehicleResponse response = new VehicleResponse(
+                vehicle.getVehicleId(),
                 vehicle.getVehicleNumber(),
                 vehicle.getVehicleType(),
                 vehicle.getFuelType(),
-                vehicle.getFuelLimitId(),
-                vehicle.getCustomer().getCustomerId()
+
         );
         return ResponseEntity.ok().body(
                 new MessageResponse<>(
@@ -117,21 +118,31 @@ public class VehicleServiceImpl implements VehicleService {
     @Override
     @Transactional
     public ResponseEntity<?> deleteVehicle(Long vehicleId) {
-        vehicleRepository.deleteById(vehicleId);
-        return ResponseEntity.ok().body(
-                new MessageResponse<>(
-                        200,
-                        "Vehicle deleted successfully",
-                        null
-                )
-        );
+        Optional<Vehicle> optionalVehicle = vehicleRepository.findById(vehicleId);
+        if( optionalVehicle.isEmpty()){
+            return ResponseEntity.badRequest().body(
+                    new MessageResponse<>(
+                            400,
+                            "Vehicle id not found",
+                            null
+                    )
+            );
+        }
+            vehicleRepository.deleteById(vehicleId);
+            return ResponseEntity.ok().body(
+                    new MessageResponse<>(
+                            200,
+                            "Vehicle deleted successfully",
+                            null
+                    )
+            );
     }
 
     @Override
     public ResponseEntity<?> getVehicleByOwnerId(Long id) {
         Customer customer =customerService.getById(id);
         if(customer == null){
-            return ResponseEntity.ok().body(
+            return ResponseEntity.badRequest().body(
                     new MessageResponse<>(
                             400,
                             "Customer not find with this id",
@@ -143,11 +154,11 @@ public class VehicleServiceImpl implements VehicleService {
         List<VehicleResponse> responses = new ArrayList<>();
         for(Vehicle vehicle:vehicleList){
             VehicleResponse response = new VehicleResponse(
+                    vehicle.getVehicleId(),
                     vehicle.getVehicleNumber(),
                     vehicle.getVehicleType(),
                     vehicle.getFuelType(),
-                    vehicle.getFuelLimitId(),
-                    vehicle.getCustomer().getCustomerId()
+
             );
             responses.add(response);
         }
@@ -197,7 +208,7 @@ public class VehicleServiceImpl implements VehicleService {
     public ResponseEntity<?> getVehicleBycustomerId(Long customerId) {
         Customer customer = customerService.getById(customerId);
         if (customer == null) {
-            return ResponseEntity.ok().body(
+            return ResponseEntity.badRequest().body(
                     new MessageResponse<>(400, "Customer not found with this ID", null)
             );
         }
@@ -205,11 +216,11 @@ public class VehicleServiceImpl implements VehicleService {
         List<VehicleResponse> responses = new ArrayList<>();
         for (Vehicle vehicle : vehicleList) {
             VehicleResponse response = new VehicleResponse(
+                    vehicle.getVehicleId(),
                     vehicle.getVehicleNumber(),
                     vehicle.getVehicleType(),
                     vehicle.getFuelType(),
-                    vehicle.getFuelLimitId(),
-                    vehicle.getCustomer().getCustomerId()
+
             );
             responses.add(response);
         }

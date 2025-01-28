@@ -87,8 +87,24 @@ public  class OwnerServiceImpl implements OwnerService {
     }
 
     @Override
-    public ResponseEntity<?> createOwner(OwnerRequest owner) {
-        return null;
+    @Transactional
+    public ResponseEntity<?> createOwner(OwnerRequest ownerRequest) {
+        Owner owner = new Owner(
+                ownerRequest.getName(),
+                ownerRequest.getNic(),
+                ownerRequest.getContactNumber(),
+                ownerRequest.getEmail(),
+                ownerRequest.getUsername(),
+                ownerRequest.getPassword()
+        );
+        ownerRepository.save(owner);
+        return ResponseEntity.ok().body(
+                new MessageResponse<>(
+                        200,
+                        "Owner created successfully",
+                        null
+                )
+        );
     }
 
 

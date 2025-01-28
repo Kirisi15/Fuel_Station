@@ -20,14 +20,14 @@ public class Admin {
     @Column(nullable = false)
     private String adminPassword;
     @Column(unique = true, nullable = false)
-    private String email;
+    private String adminEmail;
     @Column
     private String contactNumber;
 
     public Admin(String adminUsername, String adminPassword, String adminEmail, String contactNumber) {
         this.adminUsername = adminUsername;
         this.adminPassword = adminPassword;
-        this.email = adminEmail;
+        this.adminEmail = adminEmail;
         this.contactNumber = contactNumber;
     }
 }

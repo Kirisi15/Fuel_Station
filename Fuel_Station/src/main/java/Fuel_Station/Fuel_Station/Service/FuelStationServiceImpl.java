@@ -2,6 +2,7 @@ package Fuel_Station.Fuel_Station.Service;
 
 import Fuel_Station.Fuel_Station.Entity.FuelStation;
 import Fuel_Station.Fuel_Station.Entity.Owner;
+import Fuel_Station.Fuel_Station.Entity.Vehicle;
 import Fuel_Station.Fuel_Station.Repository.FuelStationRepository;
 import Fuel_Station.Fuel_Station.dto.request.FuelStationRequest;
 import Fuel_Station.Fuel_Station.dto.response.FuelStationResponse;
@@ -26,6 +27,7 @@ public   class FuelStationServiceImpl implements FuelStationService {
     public FuelStation getById(Long stationId) {
         return fuelStationRepository.getByStationId(stationId).orElse(null);
     }
+
     @Override
     public ResponseEntity<?> getAllStations() {
         List<FuelStation> fuelStationList = fuelStationRepository.findAll();
@@ -81,8 +83,8 @@ public   class FuelStationServiceImpl implements FuelStationService {
 
     @Transactional
     @Override
-    public ResponseEntity<?> addStation(FuelStationRequest fuelStationRequest, Long ownerId) {
-        Owner owner = ownerService.getById(ownerId);
+    public ResponseEntity<?> addStation(FuelStationRequest fuelStationRequest) {
+        Owner owner = ownerService.getById(fuelStationRequest.getOwnerId());
         FuelStation fuelStation = new FuelStation(
                 owner,
                 fuelStationRequest.getStationName(),
