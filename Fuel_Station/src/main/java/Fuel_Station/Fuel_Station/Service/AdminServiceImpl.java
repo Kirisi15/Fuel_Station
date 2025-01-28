@@ -148,7 +148,7 @@ public class AdminServiceImpl implements AdminService{
 
     @Override
     public ResponseEntity<?> login(LoginRequest loginRequest) {
-        Optional<Admin> optionalAdmin = adminRepository.findByAdminUsername(loginRequest.getAdminUsername());
+        Optional<Admin> optionalAdmin = adminRepository.findByAdminUsername(loginRequest.getUsername());
         if(optionalAdmin.isEmpty()){
             return ResponseEntity.badRequest().body(
                     new MessageResponse<>(
@@ -159,7 +159,7 @@ public class AdminServiceImpl implements AdminService{
             );
         }
         Admin admin = optionalAdmin.get();
-        if(admin.getAdminPassword() != loginRequest.getAdminPassword()){
+        if(admin.getAdminPassword() != loginRequest.getPassword()){
             return ResponseEntity.badRequest().body(
                     new MessageResponse<>(
                             400,

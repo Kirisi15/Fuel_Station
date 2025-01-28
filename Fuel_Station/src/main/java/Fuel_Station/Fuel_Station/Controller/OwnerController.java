@@ -4,6 +4,7 @@ import Fuel_Station.Fuel_Station.Entity.Customer;
 import Fuel_Station.Fuel_Station.Entity.Owner;
 import Fuel_Station.Fuel_Station.Service.OwnerService;
 import Fuel_Station.Fuel_Station.dto.request.CustomerRequest;
+import Fuel_Station.Fuel_Station.dto.request.LoginRequest;
 import Fuel_Station.Fuel_Station.dto.request.OwnerRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -25,7 +26,7 @@ public class OwnerController {
         this.ownerService = ownerService;
     }
 
-    @PostMapping
+    @PostMapping("/register")
     public ResponseEntity<?> createOwner(@RequestBody OwnerRequest ownerRequest) {
         return ownerService.createOwner(ownerRequest);
     }
@@ -44,9 +45,8 @@ public class OwnerController {
     @PutMapping("/{ownerId}")
     public ResponseEntity<?> updateOwner(
             @PathVariable("ownerId") Long ownerId,
-            @RequestBody Owner owner) {
-        owner.setOwnerId(ownerId);
-        return ownerService.updateOwner(ownerId,owner);
+            @RequestBody OwnerRequest ownerRequest) {
+        return ownerService.updateOwner(ownerId,ownerRequest);
 
     }
 
@@ -57,14 +57,8 @@ public class OwnerController {
     }
 
      @PostMapping("/login")
-      public ResponseEntity<?> login(@RequestBody Owner loginDetails) {
-
-        Optional<Owner> owner = ownerService.findByUsername(loginDetails.getUsername());
-        if(owner.isPresent() && owner.get().getPassword().equals(loginDetails.getPassword())){
-            return new ResponseEntity<>(owner.get(), HttpStatus.OK);
-        } else{
-            return new ResponseEntity<>("Invalid Username or password ",HttpStatus.UNAUTHORIZED);
-        }
-}
+      public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) {
+        return ownerService.login(loginRequest);
+    }
 
 }
