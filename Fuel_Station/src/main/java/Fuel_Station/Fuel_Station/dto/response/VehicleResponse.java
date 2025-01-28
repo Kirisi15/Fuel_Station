@@ -15,4 +15,5 @@ public class VehicleResponse {
     private VehicleType vehicleType;
     private String fuelType;
     private FuelLimit fuelLimitId;
+
 }
