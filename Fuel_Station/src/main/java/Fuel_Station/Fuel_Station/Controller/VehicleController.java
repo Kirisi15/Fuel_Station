@@ -25,9 +25,10 @@ public class VehicleController {
     }
 
     @GetMapping("/{vehicleId}")
-    public ResponseEntity<?> getVehicleById(@PathVariable("id") Long vehicleId){
+    public ResponseEntity<?> getVehicleById(@PathVariable("vehicleId") Long vehicleId) {
         return vehicleService.getVehicleById(vehicleId);
     }
+
 
     @PostMapping("")
     public ResponseEntity<?> createVehicle(@RequestBody VehicleRequest vehicle){
