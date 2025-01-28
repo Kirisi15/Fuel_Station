@@ -1,8 +1,11 @@
 package Fuel_Station.Fuel_Station.Service;
 
+import Fuel_Station.Fuel_Station.Entity.Admin;
 import Fuel_Station.Fuel_Station.Entity.Customer;
 import Fuel_Station.Fuel_Station.Repository.CustomerRepository;
 import Fuel_Station.Fuel_Station.dto.request.CustomerRequest;
+import Fuel_Station.Fuel_Station.dto.request.LoginRequest;
+import Fuel_Station.Fuel_Station.dto.response.AdminResponse;
 import Fuel_Station.Fuel_Station.dto.response.CustomerResponse;
 import Fuel_Station.Fuel_Station.dto.response.MessageResponse;
 import jakarta.transaction.Transactional;
@@ -33,6 +36,33 @@ public class CustomerServiceImpl implements CustomerService{
     @Override
     @Transactional
     public ResponseEntity<?> createCustomer(CustomerRequest customerRequest) {
+        if (customerRepository.existsByCustomerEmail(customerRequest.getCustomerEmail())) {
+            return ResponseEntity.badRequest().body(
+                    new MessageResponse<>(
+                            400,
+                            "Email already exist",
+                            null
+                    )
+            );
+        }
+        if(customerRepository.existsByCustomerUsername(customerRequest.getCustomerUsername())){
+            return ResponseEntity.badRequest().body(
+                    new MessageResponse<>(
+                            400,
+                            "Username already exists",
+                            null
+                    )
+            );
+        }
+        if(customerRepository.existsByCustomerNIC(customerRequest.getCustomerNIC())){
+            return ResponseEntity.badRequest().body(
+                    new MessageResponse<>(
+                            400,
+                            "NIC already exists",
+                            null
+                    )
+            );
+        }
         Customer customer = new Customer(
                 customerRequest.getCustomerNIC(),
                 customerRequest.getCustomerName(),
@@ -44,11 +74,12 @@ public class CustomerServiceImpl implements CustomerService{
         return ResponseEntity.ok().body(
                 new MessageResponse<>(
                         200,
-                        "Customer created successfully",
+                        "Customer registered successfully",
                         null
                 )
         );
     }
+
 
 
     @Override
@@ -106,28 +137,105 @@ public class CustomerServiceImpl implements CustomerService{
     @Override
     @Transactional
     public ResponseEntity<?> updateCustomer(Long id, CustomerRequest customerRequest) {
-        Optional<Customer> optionalCustomer = customerRepository.findById(id);
-        if(optionalCustomer.isEmpty()){
-            return ResponseEntity.ok().body(
+        Customer customer = getById(id);
+        if(customer == null){
+            return ResponseEntity.badRequest().body(
                     new MessageResponse<>(
                             400,
-                            "Customer not find for this id",
+                            "Customer not found with this id",
                             null
                     )
             );
         }
-        Customer existingCustomer = optionalCustomer.get();
-        existingCustomer.setCustomerNIC(customerRequest.getCustomerNIC());
-        existingCustomer.setCustomerName(customerRequest.getCustomerName());
-        existingCustomer.setCustomerEmail(customerRequest.getCustomerEmail());
-        existingCustomer.setCustomerUsername(customerRequest.getCustomerUsername());
-        existingCustomer.setCustomerPassword(customerRequest.getCustomerPassword());
-
+        if(customerRequest.getCustomerUsername() != customer.getCustomerUsername()){
+            if (customerRepository.existsByCustomerUsername(customerRequest.getCustomerUsername())) {
+                return ResponseEntity.badRequest().body(
+                        new MessageResponse<>(
+                                400,
+                                "Username already exist",
+                                null
+                        )
+                );
+            }else{
+                customer.setCustomerUsername(customerRequest.getCustomerUsername());
+            }
+        }
+        if(customerRequest.getCustomerEmail() != customer.getCustomerEmail()){
+            if (customerRepository.existsByCustomerEmail(customerRequest.getCustomerEmail())) {
+                return ResponseEntity.badRequest().body(
+                        new MessageResponse<>(
+                                400,
+                                "Email already exist",
+                                null
+                        )
+                );
+            }else{
+                customer.setCustomerEmail(customerRequest.getCustomerEmail());
+            }
+        }
+        if(customerRequest.getCustomerNIC() != customer.getCustomerNIC()){
+            if (customerRepository.existsByCustomerNIC(customerRequest.getCustomerNIC())) {
+                return ResponseEntity.badRequest().body(
+                        new MessageResponse<>(
+                                400,
+                                "NIC already exist",
+                                null
+                        )
+                );
+            }else{
+                customer.setCustomerNIC(customerRequest.getCustomerNIC());
+            }
+        }
+        if(customerRequest.getCustomerPassword() != customer.getCustomerPassword()){
+            customer.setCustomerPassword(customerRequest.getCustomerPassword());
+        }
+        if(customerRequest.getCustomerName() != customer.getCustomerName()){
+            customer.setCustomerName(customerRequest.getCustomerName());
+        }
+        customerRepository.save(customer);
         return ResponseEntity.ok().body(
                 new MessageResponse<>(
                         200,
                         "Customer updated successfully",
                         null
+                )
+        );
+    }
+
+    @Override
+    public ResponseEntity<?> login(LoginRequest loginRequest) {
+        Optional<Customer> optionalCustomer = customerRepository.findByCustomerUsername(loginRequest.getUsername());
+        if(optionalCustomer.isEmpty()){
+            return ResponseEntity.badRequest().body(
+                    new MessageResponse<>(
+                            400,
+                            "Account not registered",
+                            null
+                    )
+            );
+        }
+        Customer customer = optionalCustomer.get();
+        if(customer.getCustomerPassword() != loginRequest.getPassword()){
+            return ResponseEntity.badRequest().body(
+                    new MessageResponse<>(
+                            400,
+                            "Password is wrong",
+                            null
+                    )
+            );
+        }
+       CustomerResponse response = new CustomerResponse(
+               customer.getCustomerId(),
+               customer.getCustomerNIC(),
+               customer.getCustomerName(),
+               customer.getCustomerEmail(),
+               customer.getCustomerUsername()
+       );
+        return ResponseEntity.ok().body(
+                new MessageResponse<>(
+                        200,
+                        "Login successfully",
+                        response
                 )
         );
     }
@@ -143,9 +251,5 @@ public class CustomerServiceImpl implements CustomerService{
                         null
                 )
         );
-    }
-
-    public Optional<Customer> findByUsername(String customerUsername) {
-        return customerRepository.findByCustomerUsername(customerUsername);
     }
 }

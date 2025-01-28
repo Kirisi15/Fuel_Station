@@ -3,6 +3,7 @@ package Fuel_Station.Fuel_Station.Controller;
 import Fuel_Station.Fuel_Station.Entity.Customer;
 import Fuel_Station.Fuel_Station.Service.CustomerService;
 import Fuel_Station.Fuel_Station.dto.request.CustomerRequest;
+import Fuel_Station.Fuel_Station.dto.request.LoginRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,7 +29,7 @@ public class CustomerController {
         return customerService.getCustomerById(customerId);
     }
 
-    @PostMapping("")
+    @PostMapping("/register")
     public ResponseEntity<?> createCustomer(@RequestBody CustomerRequest customerRequest) {
         return customerService.createCustomer(customerRequest);
     }
@@ -44,13 +45,7 @@ public class CustomerController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> loginCustomer(@RequestBody Customer loginDetails) {
-        Optional<Customer> customer= customerService.findByUsername(loginDetails.getCustomerUsername());
-
-        if (customer.isPresent() && customer.get().getCustomerPassword().equals(loginDetails.getCustomerPassword())) {
-            return new ResponseEntity<>(customer.get(), HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>("Invalid username or password", HttpStatus.UNAUTHORIZED);
-        }
+    public ResponseEntity<?> loginCustomer(@RequestBody LoginRequest loginRequest) {
+       return customerService.login(loginRequest);
     }
 }

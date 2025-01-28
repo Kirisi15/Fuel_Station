@@ -2,6 +2,7 @@ package Fuel_Station.Fuel_Station.Service;
 
 import Fuel_Station.Fuel_Station.Entity.Customer;
 import Fuel_Station.Fuel_Station.dto.request.CustomerRequest;
+import Fuel_Station.Fuel_Station.dto.request.LoginRequest;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;
@@ -19,5 +20,5 @@ public interface CustomerService {
 
     ResponseEntity<?> updateCustomer(Long customerId, CustomerRequest customerRequest);
 
-    Optional<Customer> findByUsername(String customerEmail);
+    ResponseEntity<?> login(LoginRequest loginRequest);
 }

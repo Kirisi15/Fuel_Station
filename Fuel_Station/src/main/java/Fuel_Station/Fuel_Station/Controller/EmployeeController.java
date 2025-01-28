@@ -5,6 +5,7 @@ import Fuel_Station.Fuel_Station.Service.EmployeeService;
 import Fuel_Station.Fuel_Station.Service.FuelStationService;
 import Fuel_Station.Fuel_Station.dto.request.EmployeeRequest;
 
+import Fuel_Station.Fuel_Station.dto.request.LoginRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -35,10 +36,15 @@ public class EmployeeController {
         return employeeService.getEmployeeById(employeeId);
     }
 
-    @PostMapping("")
+    @PostMapping("/register")
     public ResponseEntity<?> createEmployee(@RequestBody EmployeeRequest employeeRequest)
     {
         return employeeService.createEmployee(employeeRequest);
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest){
+        return employeeService.login(loginRequest);
     }
 
     @PutMapping("/{id}")
