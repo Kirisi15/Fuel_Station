@@ -195,19 +195,29 @@ public class VehicleServiceImpl implements VehicleService {
 
     @Override
     public ResponseEntity<?> getVehicleBycustomerId(Long customerId) {
-        return null;
+        Customer customer = customerService.getById(customerId);
+        if (customer == null) {
+            return ResponseEntity.ok().body(
+                    new MessageResponse<>(400, "Customer not found with this ID", null)
+            );
+        }
+        List<Vehicle> vehicleList = vehicleRepository.findByCustomer(customer);
+        List<VehicleResponse> responses = new ArrayList<>();
+        for (Vehicle vehicle : vehicleList) {
+            VehicleResponse response = new VehicleResponse(
+                    vehicle.getVehicleNumber(),
+                    vehicle.getVehicleType(),
+                    vehicle.getFuelType(),
+                    vehicle.getFuelLimitId(),
+                    vehicle.getCustomer()
+            );
+            responses.add(response);
+        }
+        return ResponseEntity.ok().body(
+                new MessageResponse<>(200, "Vehicles fetched successfully", responses)
+        );
     }
-//    public boolean validateAndRegisterVehicle(String licenseNumber, String nic) {
-//        var optionalVehicledmt = vehicledmtRepository.findByLicenseNumberAndNic(licenseNumber, nic);
-//        if (optionalVehicledmt.isPresent()) {
-//            Vehicle vehicle = new Vehicle();
-//            vehicle.setLicenseNumber(licenseNumber);
-//            vehicle.setNic(nic);
-//            vehicleRepository.save(vehicle);
-//            return true;
-//        }
-//        return false;
-   // }
+
 
 
 }

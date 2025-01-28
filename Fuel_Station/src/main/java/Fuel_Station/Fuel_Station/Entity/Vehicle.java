@@ -1,6 +1,7 @@
 package Fuel_Station.Fuel_Station.Entity;
 
 import Fuel_Station.Fuel_Station.enums.VehicleType;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -27,7 +28,9 @@ public class Vehicle {
     private FuelLimit fuelLimitId;
     @ManyToOne
     @JoinColumn(name = "customer_id")
+    @JsonBackReference
     private Customer customer;
+
     @OneToMany(mappedBy = "vehicle", cascade = CascadeType.ALL)
     private List<Transaction> transactions = new ArrayList<>();
     @ManyToMany
