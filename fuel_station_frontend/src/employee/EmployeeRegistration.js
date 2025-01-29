@@ -80,7 +80,7 @@ function EmployeeRegistration() {
         try {
           
         
-            const response = await axios.post(`http://localhost:8080/employee/${stationId}`, values, {
+            const response = await axios.post(`http://localhost:8080/api/employee/register`, values, {
                 headers: { "Content-Type": "application/json" },
             });
       const employeeId=  localStorage.setItem("EmployeeId",response.data.employeeId);
@@ -112,7 +112,7 @@ function EmployeeRegistration() {
             try {
                 localStorage.getItem("employeeId");
               console.log(employeeId)
-                    const response = await axios.get(`http://localhost:8080/employee/${employeeId}`);
+                    const response = await axios.get(`http://localhost:8080/api/employee/${employeeId}`);
                     setExistingUsers(response.data);
                 
                     // console.error("Employee ID not found in localStorage");

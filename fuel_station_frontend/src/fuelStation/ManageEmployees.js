@@ -15,7 +15,7 @@ const ManageEmployees = ({ stationId }) => {
         console.log(employeeId);
         const response = await axios.get(
           
-          `http://localhost:8080/api/employee`
+          `http://localhost:8080/api/employee/${stationId}`
         );
 console.log(response.data);
         setEmployees(response.data);

@@ -93,7 +93,7 @@ function VehicleRegistration() {
 
     try {
       const response = await axios.post(
-        `http://localhost:8080/api/vehicle/${customer}`,
+        `http://localhost:8080/api/vehicle`,
         values,
         {
           headers: { "Content-Type": "application/json" },
