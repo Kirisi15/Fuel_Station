@@ -231,7 +231,7 @@ public  class OwnerServiceImpl implements OwnerService {
             );
         }
        Owner owner = optionalOwner.get();
-        if(owner.getPassword() != loginRequest.getPassword()){
+        if(!owner.getPassword().equals( loginRequest.getPassword())){
             return ResponseEntity.badRequest().body(
                     new MessageResponse<>(
                             400,
@@ -241,9 +241,9 @@ public  class OwnerServiceImpl implements OwnerService {
             );
         }
        OwnerResponse response = new OwnerResponse(
-               owner.getOwnerId(),
+              owner.getOwnerId(),
                owner.getName(),
-               owner.getNic(),
+              owner.getNic(),
                owner.getContactNumber(),
                owner.getEmail(),
                owner.getUsername()

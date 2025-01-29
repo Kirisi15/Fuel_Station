@@ -11,14 +11,15 @@ const OwnerLogin = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    
+   
 try {
+  
       const response = await axios.post("http://localhost:8080/api/owners/login",formData);
       console.log("Backend Response: ",response.data);
-      if (response.data.username === formData.username) {
+      if (response.data.status === 200) {
         setIsLogin(true);
-        localStorage.setItem("ownerId",response.data.ownerId);
-        alert("Login successful! Welcome " + response.data.username);
+        localStorage.setItem("ownerId",response.data.data.ownerId);
+        alert("Login successful! Welcome " + response.data.data.username);
     } else {
         alert("Invalid username or password. Please try again.");
     }
