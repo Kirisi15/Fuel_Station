@@ -102,7 +102,7 @@ const OwnerRegistration = () => {
     setUniqueError("");
 
     axios
-      .post("http://localhost:8080/api/owners", formData, {
+      .post("http://localhost:8080/api/owners/register", formData, {
         headers: { "Content-Type": "application/json" },
       })
       .then(() => {
