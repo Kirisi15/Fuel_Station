@@ -12,7 +12,7 @@ const ViewStations = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8080/fuel-stations")
+      .get("http://localhost:8080/api/fuelstation")
       .then((response) => setStations(response.data))
       .catch((error) => console.error("Error fetching stations:", error));
   }, []);
