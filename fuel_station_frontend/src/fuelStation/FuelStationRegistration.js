@@ -16,7 +16,7 @@ const FuelStationRegistration = () => {
   useEffect(() => {
     const fetchExistingStations = async () => {
       try {
-        const response = await axios.get("http://localhost:8080/fuel-stations");
+        const response = await axios.get("http://localhost:8080/api/fuelstation");
 
         // Ensure response.data is an array
         const stations = Array.isArray(response.data) ? response.data : [];
@@ -69,7 +69,7 @@ const FuelStationRegistration = () => {
 
     try {
       const response = await axios.post(
-        `http://localhost:8080/fuel-stations/${ownerId}`,
+        `http://localhost:8080/api/fuelstation`,
         formData,
         {
           headers: { "Content-Type": "application/json" },
