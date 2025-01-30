@@ -14,14 +14,15 @@ function VehicleRegistration() {
 
   const navigate = useNavigate();
   const [vehicleId, setVehicleId] = useState(null);
-  const [qrCodeData, setQrCodeData] = useState("");
+  const [qrCodeData, setQrCodeData] = useState(null);
   const [error, setError] = useState("");
-  const [customer, setCustomer] = useState(localStorage.getItem("customerId") || "");
+  const [customer, setCustomer] = useState(localStorage.getItem("customerId") || ""); 
   const qrCodeRef = useRef(null);
-  const [existingVehicles, setExistingVehicles] = useState([]);
-  const [fuelLimits, setFuelLimits] = useState([]);
+  const [existingVehicles, setExistingVehicles] = useState([]); 
+  const [fuelLimits, setFuelLimits] = useState([]); 
 
   useEffect(() => {
+    // Fetch existing vehicles
     const fetchExistingVehicles = async () => {
       try {
         const response = await axios.get("http://localhost:8080/api/vehicle");
@@ -31,9 +32,11 @@ function VehicleRegistration() {
       }
     };
 
+    // Fetch fuel limits to populate the dropdown
     const fetchFuelLimits = async () => {
       try {
         const response = await axios.get("http://localhost:8080/api/fuelLimit/limits");
+        console.log("Fuel Limits API Response:", response.data);
         setFuelLimits(Array.isArray(response.data) ? response.data : []);
       } catch (error) {
         console.error("Failed to fetch fuel limits:", error);
@@ -44,6 +47,7 @@ function VehicleRegistration() {
     fetchFuelLimits();
   }, []);
 
+  // Handle input changes
   const handleChanges = (e) => {
     const { name, value } = e.target;
 
@@ -59,9 +63,15 @@ function VehicleRegistration() {
     }
   };
 
+  // Validate the form before submission
   const validateForm = () => {
     if (!values.vehicleType || !values.vehicleNumber || !values.fuelType || !values.fuelLimit) {
       setError("All fields are required.");
+      return false;
+    }
+
+    if (!Array.isArray(existingVehicles)) {
+      setError("Existing vehicles data is not valid.");
       return false;
     }
 
@@ -88,9 +98,13 @@ function VehicleRegistration() {
     return true;
   };
 
+  // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!validateForm()) return;
+
+    // Log data before making the request
+    console.log("Submitting vehicle data:", values);
 
     try {
       const response = await axios.post(
@@ -99,20 +113,19 @@ function VehicleRegistration() {
           vehicleType: values.vehicleType,
           vehicleNumber: values.vehicleNumber,
           fuelType: values.fuelType,
-          fuelLimit: Number(values.fuelLimit),
-          customerId: customer,
+          fuelLimit: Number(values.fuelLimit), 
+          customerId: customer, 
         },
         {
           headers: { "Content-Type": "application/json" },
         }
       );
 
+      console.log("Vehicle successfully registered:", response.data);
       const generatedVehicleId = response.data.vehicleId;
-      console.log(generatedVehicleId)
-      if (generatedVehicleId) {
-        setVehicleId(generatedVehicleId);
-        setQrCodeData(generatedVehicleId); // Set the QR code data
-      }
+
+      setVehicleId(generatedVehicleId);
+      navigate(`/vehicle-qr/${generatedVehicleId}`, { state: { qrCodeData: generatedVehicleId } });
 
       alert("Vehicle successfully added");
     } catch (error) {
@@ -121,6 +134,7 @@ function VehicleRegistration() {
     }
   };
 
+  // QR Code Download Function
   const downloadQRCode = () => {
     const canvas = qrCodeRef.current.querySelector("canvas");
     const pngUrl = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");
@@ -148,8 +162,7 @@ function VehicleRegistration() {
             </option>
           ))}
         </select>
-        <br />
-        <br />
+        <br /><br />
 
         <label htmlFor="vehicleNumber">Vehicle Number:</label>
         <input
@@ -160,8 +173,7 @@ function VehicleRegistration() {
           value={values.vehicleNumber}
           required
         />
-        <br />
-        <br />
+        <br /><br />
 
         <label htmlFor="fuelType">Fuel Type:</label>
         <select name="fuelType" onChange={handleChanges} value={values.fuelType} required>
@@ -171,8 +183,7 @@ function VehicleRegistration() {
           <option value="CNG">CNG</option>
           <option value="Electric">Electric</option>
         </select>
-        <br />
-        <br />
+        <br /><br />
 
         <label htmlFor="fuelLimit">Fuel Limit:</label>
         <input
@@ -183,23 +194,10 @@ function VehicleRegistration() {
           value={values.fuelLimit}
           readOnly
         />
-        <br />
-        <br />
+        <br /><br />
 
         <button type="submit">Submit</button>
       </form>
-
-      {qrCodeData && (
-        <div>
-          <h2>Vehicle Registered Successfully!</h2>
-          <p>Vehicle ID: {vehicleId}</p>
-          <h3>QR Code:</h3>
-          <div ref={qrCodeRef}>
-            <QRCodeCanvas value={qrCodeData} />
-          </div>
-          <button onClick={downloadQRCode}>Download QR Code</button>
-        </div>
-      )}
     </div>
   );
 }
