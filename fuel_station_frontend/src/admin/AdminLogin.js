@@ -38,7 +38,7 @@ const AdminLogin = () => {
       ) : (
         <div className="custom-form">
           <form onSubmit={handleLogin}>
-            <h2>Sign In</h2>
+            <h2>Admin Login</h2>
             <label htmlFor="username">Username:</label>
             <input
               type="text"
