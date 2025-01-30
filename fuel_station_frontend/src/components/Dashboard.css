@@ -1,0 +1,20 @@
+h2 {
+    color: #202d3e;
+}
+.dashboard-btn button {
+    width: auto; 
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 30px;
+    margin-left: 30px;
+    color: #fff;
+    font-weight: 600;
+    background-color: #202d3e;
+    box-shadow: 0 0 10px black;
+  }
+  
+  .dashboard-btn .btn:hover {
+    background-color: #6f7986;
+    color: #202d3e;
+  }

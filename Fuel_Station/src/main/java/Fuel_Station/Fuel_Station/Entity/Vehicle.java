@@ -1,11 +1,10 @@
 package Fuel_Station.Fuel_Station.Entity;
 
 import Fuel_Station.Fuel_Station.enums.VehicleType;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 
 import java.util.ArrayList;
@@ -13,45 +12,30 @@ import java.util.List;
 
 
 @Entity
-@Table(name="vehicle")
-@Getter
-@Setter
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class Vehicle {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long VehicleId;
-
-
-    private String VehicleNumber;
-
+    private Long vehicleId;
+    private String vehicleNumber;
     @Column
     @Enumerated(EnumType.STRING)
     private VehicleType vehicleType;
-    private String FuelType;
-
+    private String fuelType;
     @OneToOne
     @JoinColumn(name = "fuel_limit_id")
     private FuelLimit fuelLimitId;
-
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonBackReference
     @JoinColumn(name = "customer_id")
     private Customer customer;
 
-    @OneToMany(mappedBy = "vehicle", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "vehicle", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Transaction> transactions = new ArrayList<>();
 
-    public Vehicle(String vehicleNumber, VehicleType vehicleType, String fuelType, FuelLimit fuelLimitId, Customer customer) {
-        VehicleNumber = vehicleNumber;
-        this.vehicleType = vehicleType;
-        FuelType = fuelType;
-        this.fuelLimitId = fuelLimitId;
-        this.customer = customer;
-    }
-
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "Vehicle_FuelStation",
             joinColumns = @JoinColumn(name = "VehicleId"),
@@ -59,9 +43,13 @@ public class Vehicle {
     )
     private List<FuelStation> fuelStations = new ArrayList<>();
 
-
-
-
+    public Vehicle(String vehicleNumber, VehicleType vehicleType, String fuelType, FuelLimit fuelLimitId, Customer customer) {
+        this.vehicleNumber = vehicleNumber;
+        this.vehicleType = vehicleType;
+        this.fuelType = fuelType;
+        this.fuelLimitId = fuelLimitId;
+        this.customer = customer;
+    }
 }
 
 

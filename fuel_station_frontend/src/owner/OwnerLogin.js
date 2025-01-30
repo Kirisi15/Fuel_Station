@@ -11,14 +11,15 @@ const OwnerLogin = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    
+   
 try {
+  
       const response = await axios.post("http://localhost:8080/api/owners/login",formData);
       console.log("Backend Response: ",response.data);
-      if (response.data.username === formData.username) {
+      if (response.data.status === 200) {
         setIsLogin(true);
-        localStorage.setItem("ownerId",response.data.ownerId);
-        alert("Login successful! Welcome " + response.data.username);
+        localStorage.setItem("ownerId",response.data.data.ownerId);
+        alert("Login successful! Welcome " + response.data.data.username);
     } else {
         alert("Invalid username or password. Please try again.");
     }
@@ -42,6 +43,7 @@ try {
         <div className="custom-form">
           <form onSubmit={handleLogin}>
             <h2>Owner Login</h2>
+            <label htmlFor="username">Username:</label>
             <input
               type="text"
               placeholder="username"
@@ -51,7 +53,7 @@ try {
               }
               required
             />
-            <br />
+            <label htmlFor="password">Password:</label>
             <input
               type="password"
               placeholder="password"
@@ -61,19 +63,9 @@ try {
               }
               required
             />
-            <br />
-            <div className="button-container">
               <button className="btn" type="submit">
-                Login
+                Sign In
               </button>
-              <button
-                className="btn"
-                type="button"
-                onClick={() => alert("Redirecting to registration...")}
-              >
-                SignUp
-              </button>
-            </div>
           </form>
         </div>
       )}

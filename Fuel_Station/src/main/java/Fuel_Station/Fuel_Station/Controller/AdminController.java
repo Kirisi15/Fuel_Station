@@ -2,6 +2,8 @@ package Fuel_Station.Fuel_Station.Controller;
 
 import Fuel_Station.Fuel_Station.Entity.Admin;
 import Fuel_Station.Fuel_Station.Service.AdminService;
+import Fuel_Station.Fuel_Station.dto.request.AdminRequest;
+import Fuel_Station.Fuel_Station.dto.request.LoginRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,48 +24,34 @@ public class AdminController {
         this.adminService = adminService;
     }
 
-    @PostMapping
-    public ResponseEntity<Admin> createAdmin(@RequestBody Admin admin) {
-        Admin savedAdmin = adminService.createAdmin(admin);
-        return new ResponseEntity<>(savedAdmin, HttpStatus.CREATED);
+    @PostMapping("/register")
+    public ResponseEntity<?> createAdmin(@RequestBody AdminRequest adminRequest) {
+        return adminService.createAdmin(adminRequest);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Admin> getAdminById(@PathVariable("id") Long adminId) {
-        Admin admin = adminService.getAdminById(adminId);
-        return new ResponseEntity<>(admin, HttpStatus.OK);
+    public ResponseEntity<?> getAdminById(@PathVariable("id") Long adminId) {
+        return adminService.getAdminById(adminId);
     }
 
     @GetMapping
-    public ResponseEntity<List<Admin>> getAllAdmins() {
-        List<Admin> admins = adminService.getAllAdmins();
-        return new ResponseEntity<>(admins, HttpStatus.OK);
+    public ResponseEntity<?> getAllAdmins() {
+        return adminService.getAllAdmins();
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Admin> updateAdmin(
-            @PathVariable("id") Long adminId,
-            @RequestBody Admin admin) {
-        admin.setAdminId(adminId);
-        Admin updatedAdmin = adminService.updateAdmin(admin);
-        return new ResponseEntity<>(updatedAdmin, HttpStatus.OK);
+    public ResponseEntity<?> updateAdmin(@PathVariable("id") Long adminId, @RequestBody AdminRequest adminRequest) {
+      return adminService.updateAdmin(adminId,adminRequest);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteAdmin(@PathVariable("id") Long adminId) {
-        adminService.deleteAdmin(adminId);
-        return new ResponseEntity<>("Admin successfully deleted", HttpStatus.OK);
+    public ResponseEntity<?> deleteAdmin(@PathVariable("id") Long adminId) {
+        return adminService.deleteAdmin(adminId);
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> loginAdmin(@RequestBody Admin loginDetails) {
-        Optional<Admin> admin = adminService.findByUsername(loginDetails.getAdminUsername());
-
-        if (admin.isPresent() && admin.get().getAdminPassword().equals(loginDetails.getAdminPassword())) {
-            return new ResponseEntity<>(admin.get(), HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>("Invalid username or password", HttpStatus.UNAUTHORIZED);
-        }
+    public ResponseEntity<?> loginAdmin(@RequestBody LoginRequest loginRequest) {
+        return adminService.login(loginRequest);
     }
 
 }

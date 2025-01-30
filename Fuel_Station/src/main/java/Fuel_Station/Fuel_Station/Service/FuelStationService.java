@@ -1,15 +1,17 @@
 package Fuel_Station.Fuel_Station.Service;
 
 import Fuel_Station.Fuel_Station.Entity.FuelStation;
-
-import java.util.List;
+import Fuel_Station.Fuel_Station.Entity.Vehicle;
+import Fuel_Station.Fuel_Station.dto.request.FuelStationRequest;
+import org.springframework.http.ResponseEntity;
 
 public interface FuelStationService {
-    List<FuelStation> getAllStations();
-    FuelStation getStationById(Long stationId);
-    FuelStation addStation(FuelStation fuelStation, Long ownerId);
-    FuelStation updateStation(Long stationId, FuelStation fuelStation);
-    void deleteStation(Long stationId);
-    List <FuelStation> getStationByOwnerId(Long ownerId) ;
-    FuelStation saveFuelStation(FuelStation fuelStation);
+    FuelStation getById(Long id);
+    ResponseEntity<?> getAllStations();
+    ResponseEntity<?> getStationById(Long stationId);
+    ResponseEntity<?> addStation(FuelStationRequest fuelStation);
+    ResponseEntity<?> updateStation(Long stationId, FuelStationRequest fuelStation);
+    ResponseEntity<?> deleteStation(Long stationId);
+    ResponseEntity<?> getStationByOwnerId(Long ownerId);
+//    ResponseEntity<?> saveFuelStation(FuelStation fuelStation);
 }

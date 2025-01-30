@@ -37,11 +37,19 @@ function VehicleRegistration() {
     const fetchFuelLimits = async () => {
       try {
         const response = await axios.get("http://localhost:8080/api/fuel/limits");
-        setFuelLimits(response.data);
+        console.log("Fuel Limits API Response:", response.data);
+    
+        if (Array.isArray(response.data)) {
+          setFuelLimits(response.data); 
+        } else {
+          setFuelLimits([]);
+        }
       } catch (error) {
         console.error("Failed to fetch fuel limits:", error);
+        setFuelLimits([]); 
       }
     };
+    
 
     fetchExistingVehicles();
     fetchFuelLimits();
@@ -93,7 +101,7 @@ function VehicleRegistration() {
 
     try {
       const response = await axios.post(
-        `http://localhost:8080/api/vehicle/${customer}`,
+        `http://localhost:8080/api/vehicle`,
         values,
         {
           headers: { "Content-Type": "application/json" },
@@ -110,18 +118,6 @@ function VehicleRegistration() {
       setError("Failed to register the vehicle. Please try again.");
     }
   };
-     /* const qrData = `Vehicle ID: ${generatedVehicleId}, Vehicle Type: ${values.vehicleType}, Vehicle Number: ${values.vehicleNumber}, Fuel Type: ${values.fuelType}, Fuel Limit: ${values.fuelLimit}`;
-      setQrCodeData(qrData);
-
-      setExistingVehicles([...existingVehicles, { vehicleNumber: values.vehicleNumber }]);
-
-      setVehicles({
-        vehicleType: "",
-        vehicleNumber: "",
-        fuelType: "",
-        fuelLimit: ""
-      });
-*/
       
 
   const downloadQRCode = () => {

@@ -98,7 +98,7 @@ function CustomerRegistration(){
             setUniqueError("");
 
         axios
-        .post('http://localhost:8080/api/customer',values, {
+        .post('http://localhost:8080/api/customer/register',values, {
         headers: {"Content-Type": "application/json"},
     })
     .then(() => {
@@ -124,25 +124,26 @@ function CustomerRegistration(){
       <div className="custom-form">
         <form onSubmit={handleSubmit}>
           <h2>Customer Registration</h2>
+          <label htmlFor="name">Name:</label>
           <input
             type="text"
-            placeholder="Name"
+            placeholder="Enter Customer Name"
             name="customerName"
             value={values.customerName}
             onChange={handleChanges}
             required
           />
-          <br />
+          <label htmlFor="nic">NIC:</label>
           <input
             type="text"
-            placeholder="NIC number"
+            placeholder="Enter NIC number"
             name="customerNIC"
             value={values.customerNIC}
             onChange={handleChanges}
             required
           />
           {nicError && <p>{nicError}</p>}
-          <br />
+          <label htmlFor="email">Email:</label>
           <input
             type="email"
             placeholder="Email"
@@ -152,7 +153,7 @@ function CustomerRegistration(){
             required
           />
           {emailError && <p>{emailError}</p>}
-          <br />
+          <label htmlFor="username">Username:</label>
           <input
             type="text"
             placeholder="Username"
@@ -161,7 +162,7 @@ function CustomerRegistration(){
             onChange={handleChanges}
             required
           />
-          <br />
+          <label htmlFor="password">Password:</label>
           <input
             type="password"
             placeholder="Password"
@@ -172,7 +173,7 @@ function CustomerRegistration(){
           />
           {passwordError && <p>{passwordError}</p>}
           {valPasswordError && <p>{valPasswordError}</p>}
-          <br />
+          <label htmlFor="confirmPassword">Confirm Password:</label>
           <input
             type="password"
             placeholder="Rewrite password"
@@ -181,11 +182,11 @@ function CustomerRegistration(){
             onChange={handleChanges}
             required
           />
-          <br />
           {uniqueError && <p>{uniqueError}</p>}
           <button className="btn" type="submit">
             SignUp
           </button>
+          <button type="submit" className="btn" >Sign In</button>
         </form>
       </div>
     </div>

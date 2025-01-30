@@ -3,10 +3,17 @@ package Fuel_Station.Fuel_Station.Service;
 import Fuel_Station.Fuel_Station.Entity.*;
 import Fuel_Station.Fuel_Station.Repository.*;
 import Fuel_Station.Fuel_Station.dto.VehicleScanResponse;
+import Fuel_Station.Fuel_Station.dto.request.VehicleRequest;
+import Fuel_Station.Fuel_Station.dto.response.FuelStationResponse;
+import Fuel_Station.Fuel_Station.dto.response.MessageResponse;
+import Fuel_Station.Fuel_Station.dto.response.VehicleResponse;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.security.PrivateKey;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -14,63 +21,158 @@ import java.util.Optional;
 @Service
 public class VehicleServiceImpl implements VehicleService {
     @Autowired
-    private final VehicleRepository vehicleRepository;
-    @Autowired
-    private CustomerRepository customerRepository;
-
+    private  VehicleRepository vehicleRepository;
     @Autowired
     private FuelLimitRepository fuelLimitRepository;
-
     @Autowired
     private TimePeriodRepository timePeriodRepository;
-
     @Autowired
     private VehicleFuelQuoteRepository vehicleFuelQuoteRepository;
     @Autowired
-    private VehicledmtRepository vehicledmtRepository;
+    private CustomerService customerService;
+    @Override
+    public Vehicle getById(Long vehicleId) {
+        return vehicleRepository.getByVehicleId(vehicleId).orElse(null);
+    }
+    @Override
+    public ResponseEntity<?> getAllVehicles() {
+        List<Vehicle> vehicleList = vehicleRepository.findAll();
+        List<VehicleResponse> responses = new ArrayList<>();
+        for(Vehicle vehicle:vehicleList){
+            VehicleResponse response = new VehicleResponse(
+                    vehicle.getVehicleId(),
+                    vehicle.getVehicleNumber(),
+                    vehicle.getVehicleType(),
+                    vehicle.getFuelType(),
+                    vehicle.getFuelLimitId()
 
-
-
-
-    public VehicleServiceImpl(VehicleRepository vehicleRepository) {
-        this.vehicleRepository = vehicleRepository;
+            );
+            responses.add(response);
+        }
+        return ResponseEntity.ok().body(
+                new MessageResponse<>(
+                        200,
+                        "All vehicles fetched successfully",
+                        responses
+                )
+        );
     }
 
     @Override
-    public Vehicle createVehicle(Vehicle vehicleEntity, Long customerId){
-        Customer customer= customerRepository.findById(customerId).get();
-        vehicleEntity.setCustomer(customer);
-        return vehicleRepository.save(vehicleEntity);
+    public ResponseEntity<?> createVehicle(VehicleRequest vehicleRequest) {
+        Customer customer = customerService.getById(vehicleRequest.getCustomerId());
+        if(customer == null){
+            return ResponseEntity.badRequest().body(
+                    new MessageResponse<>(
+                            400,
+                            "Customer not find with this id",
+                            null
+                    )
+            );
+        }
+        Vehicle vehicle = new Vehicle(
+                vehicleRequest.getVehicleNumber(),
+                vehicleRequest.getVehicleType(),
+                vehicleRequest.getFuelType(),
+                vehicleRequest.getFuelLimitId(),
+                customer
+        );
+        vehicleRepository.save(vehicle);
+        return ResponseEntity.ok().body(
+                new MessageResponse<>(
+                        200,
+                        "Vehicle saved successfully",
+                        null
+                )
+        );
     }
 
     @Override
-    public Vehicle getVehicleById(Long vehicleId){
-        Optional<Vehicle> optionalVehicleEntity=vehicleRepository.findById(vehicleId);
-        return optionalVehicleEntity.get();
+    public ResponseEntity<?> getVehicleById(Long vehicleId) {
+        Optional<Vehicle> optionalVehicle = vehicleRepository.findById(vehicleId);
+        if( optionalVehicle.isEmpty()){
+            return ResponseEntity.badRequest().body(
+                    new MessageResponse<>(
+                            400,
+                            "Vehicle id not found",
+                            null
+                    )
+            );
+        }
+
+        Vehicle vehicle = optionalVehicle.get();
+        VehicleResponse response = new VehicleResponse(
+                vehicle.getVehicleId(),
+                vehicle.getVehicleNumber(),
+                vehicle.getVehicleType(),
+                vehicle.getFuelType(),
+                vehicle.getFuelLimitId()
+
+        );
+        return ResponseEntity.ok().body(
+                new MessageResponse<>(
+                        200,
+                        "Vehicle fetched successfully",
+                        response
+                )
+        );
+    }
+    @Override
+    @Transactional
+    public ResponseEntity<?> deleteVehicle(Long vehicleId) {
+        Optional<Vehicle> optionalVehicle = vehicleRepository.findById(vehicleId);
+        if( optionalVehicle.isEmpty()){
+            return ResponseEntity.badRequest().body(
+                    new MessageResponse<>(
+                            400,
+                            "Vehicle id not found",
+                            null
+                    )
+            );
+        }
+            vehicleRepository.deleteById(vehicleId);
+            return ResponseEntity.ok().body(
+                    new MessageResponse<>(
+                            200,
+                            "Vehicle deleted successfully",
+                            null
+                    )
+            );
     }
 
     @Override
-    public List<Vehicle> getAllVehicles() {
-        return vehicleRepository.findAll();
+    public ResponseEntity<?> getVehicleByOwnerId(Long id) {
+        Customer customer =customerService.getById(id);
+        if(customer == null){
+            return ResponseEntity.badRequest().body(
+                    new MessageResponse<>(
+                            400,
+                            "Customer not find with this id",
+                            null
+                    )
+            );
+        }
+        List<Vehicle> vehicleList = vehicleRepository.findByCustomer(customer);
+        List<VehicleResponse> responses = new ArrayList<>();
+        for(Vehicle vehicle:vehicleList){
+            VehicleResponse response = new VehicleResponse(
+                    vehicle.getVehicleId(),
+                    vehicle.getVehicleNumber(),
+                    vehicle.getVehicleType(),
+                    vehicle.getFuelType(),
+                    vehicle.getFuelLimitId()
+
+            );
+            responses.add(response);
+        }
+        return ResponseEntity.ok().body(
+                new MessageResponse<>(
+                        200,
+                        "All vehicles fetched successfully",
+                        responses
+                )
+        );
     }
-
-    @Override
-    public Vehicle updateVehicle(Vehicle vehicleEntity) {
-        Vehicle existingVehicle = vehicleRepository.findById(vehicleEntity.getVehicleId()).orElse(null);
-
-            existingVehicle.setVehicleNumber(vehicleEntity.getVehicleNumber());
-            existingVehicle.setVehicleType(vehicleEntity.getVehicleType());
-            existingVehicle.setFuelType(vehicleEntity.getFuelType());
-
-            return vehicleRepository.save(existingVehicle);
-    }
-
-    @Override
-    public void deleteVehicle(Long VehicleId){
-        vehicleRepository.deleteById(VehicleId);
-    }
-
-
     @Override
     public VehicleScanResponse scan(Long vehicleId) throws Exception {
         Optional<Vehicle> vehicle = vehicleRepository.findById(vehicleId);
@@ -104,17 +206,34 @@ public class VehicleServiceImpl implements VehicleService {
         }
         return null;
     }
-//    public boolean validateAndRegisterVehicle(String licenseNumber, String nic) {
-//        var optionalVehicledmt = vehicledmtRepository.findByLicenseNumberAndNic(licenseNumber, nic);
-//        if (optionalVehicledmt.isPresent()) {
-//            Vehicle vehicle = new Vehicle();
-//            vehicle.setLicenseNumber(licenseNumber);
-//            vehicle.setNic(nic);
-//            vehicleRepository.save(vehicle);
-//            return true;
-//        }
-//        return false;
-   // }
+
+    @Override
+    public ResponseEntity<?> getVehicleBycustomerId(Long customerId) {
+        Customer customer = customerService.getById(customerId);
+        if (customer == null) {
+            return ResponseEntity.badRequest().body(
+                    new MessageResponse<>(400, "Customer not found with this ID", null)
+            );
+        }
+        List<Vehicle> vehicleList = vehicleRepository.findByCustomer(customer);
+        List<VehicleResponse> responses = new ArrayList<>();
+        for (Vehicle vehicle : vehicleList) {
+            VehicleResponse response = new VehicleResponse(
+                    vehicle.getVehicleId(),
+                    vehicle.getVehicleNumber(),
+                    vehicle.getVehicleType(),
+                    vehicle.getFuelType(),
+                    vehicle.getFuelLimitId()
+
+
+            );
+            responses.add(response);
+        }
+        return ResponseEntity.ok().body(
+                new MessageResponse<>(200, "Vehicles fetched successfully", responses)
+        );
+    }
+
 
 
 }

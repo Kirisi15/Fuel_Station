@@ -1,26 +1,24 @@
 package Fuel_Station.Fuel_Station.Service;
 
 import Fuel_Station.Fuel_Station.Entity.Customer;
+import Fuel_Station.Fuel_Station.dto.request.CustomerRequest;
+import Fuel_Station.Fuel_Station.dto.request.LoginRequest;
+import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface CustomerService {
-    Customer createCustomer(Customer customerEntity);
+    Customer getById(Long id);
+    ResponseEntity<?> createCustomer(CustomerRequest customerRequest);
 
-    Customer getCustomerById(Long customerId);
+    ResponseEntity<?> getCustomerById(Long customerId);
 
-    List<Customer> getAllCustomers();
+    ResponseEntity<?> getAllCustomers();
 
-    Customer addCustomer(Customer customer);
+    ResponseEntity<?> deleteCustomer(Long customerId);
 
-    Customer updateCustomer(Customer customerEntity);
+    ResponseEntity<?> updateCustomer(Long customerId, CustomerRequest customerRequest);
 
-    void deleteCustomer(Long customerId);
-
-    Customer updateCustomer(Long customerId, Customer customerEntity);
-
-  //  void deleteCustomer(Long customerId);
-
-    Optional<Customer> findByUsername(String customerEmail);
+    ResponseEntity<?> login(LoginRequest loginRequest);
 }

@@ -16,7 +16,7 @@ function StationManagement() {
     const fetchStations = async (ownerId) => {
       try {
         const response = await axios.get(
-          `http://localhost:8080/fuel-stations/owners/${ownerId}`
+          `http://localhost:8080/api/fuelstation/owners/${ownerId}`
         );
         console.log("Fetched stations:", response.data);
 

@@ -12,6 +12,7 @@ import java.util.List;
 
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
 @Entity
@@ -42,8 +43,7 @@ public class Owner {
     @Column(name="password")
     private String password;
 
-    public Owner(List<FuelStation> fuelStations, String name, String nic, String contactNumber, String email, String username, String password) {
-        this.fuelStations = fuelStations;
+    public Owner(String name, String nic, String contactNumber, String email, String username, String password) {
         this.name = name;
         this.nic = nic;
         this.contactNumber = contactNumber;

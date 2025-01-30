@@ -7,14 +7,9 @@ import lombok.Data;
 public class OwnerRequest {
 
     private String name;
-
     private String nic;
-
     private String contactNumber;
-
     private String email;
-
     private String username;
-
     private String password;
 }

@@ -1,7 +1,11 @@
 package Fuel_Station.Fuel_Station.Controller;
 
+import Fuel_Station.Fuel_Station.Entity.Customer;
 import Fuel_Station.Fuel_Station.Entity.Owner;
 import Fuel_Station.Fuel_Station.Service.OwnerService;
+import Fuel_Station.Fuel_Station.dto.request.CustomerRequest;
+import Fuel_Station.Fuel_Station.dto.request.LoginRequest;
+import Fuel_Station.Fuel_Station.dto.request.OwnerRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,64 +26,39 @@ public class OwnerController {
         this.ownerService = ownerService;
     }
 
-    @PostMapping
-    public ResponseEntity<Owner> createOwner(@RequestBody Owner owner) {
-        Owner savedOwner = ownerService.createOwner(owner);
-        return new ResponseEntity<>(savedOwner, HttpStatus.CREATED);
+    @PostMapping("/register")
+    public ResponseEntity<?> createOwner(@RequestBody OwnerRequest ownerRequest) {
+        return ownerService.createOwner(ownerRequest);
     }
 
+
     @GetMapping("/{ownerId}")
-    public ResponseEntity<Owner> getOwnerById(@PathVariable("ownerId") Long ownerId) {
-        Owner owner = ownerService.getOwnerById((long) ownerId);
-        return new ResponseEntity<>(owner, HttpStatus.OK);
+    public ResponseEntity<?> getOwnerById(@PathVariable("ownerId") Long ownerId) {
+        return ownerService.getOwnerById(ownerId);
     }
 
     @GetMapping
-    public ResponseEntity<List<Owner>> getAllOwners() {
-        List<Owner> owners = ownerService.getAllOwners();
-        return new ResponseEntity<>(owners, HttpStatus.OK);
+    public ResponseEntity<?> getAllOwners() {
+        return ownerService.getAllOwners();
     }
 
     @PutMapping("/{ownerId}")
-    public ResponseEntity<Owner> updateOwner(
+    public ResponseEntity<?> updateOwner(
             @PathVariable("ownerId") Long ownerId,
-            @RequestBody Owner owner) {
-        owner.setOwnerId(ownerId);
-        Owner updatedOwner = ownerService.updateOwner(owner);
-        return new ResponseEntity<>(updatedOwner, HttpStatus.OK);
+            @RequestBody OwnerRequest ownerRequest) {
+        return ownerService.updateOwner(ownerId,ownerRequest);
+
     }
 
     @DeleteMapping("/{ownerId}")
-    public ResponseEntity<String> deleteOwner(@PathVariable("ownerId") Long ownerId) {
-        ownerService.deleteOwner((long) ownerId);
-        return new ResponseEntity<>("Owner successfully deleted", HttpStatus.OK);
+    public ResponseEntity<?> deleteOwner(@PathVariable("ownerId") Long ownerId) {
+        return ownerService.deleteOwner(ownerId);
+
     }
-//    @PostMapping("/login")
-//    public ResponseEntity<?> login(@RequestBody Owner loginDetails) {
-//        Optional<Owner> owner = ownerService.findByUsername(loginDetails.getUsername());
-//
-//        if (owner.isPresent() && owner.get().getPassword().equals(loginDetails.getPassword())) {
-//            return new ResponseEntity<>(owner.get(), HttpStatus.OK);
-//        } else {
-//            return new ResponseEntity<>("Invalid username or password", HttpStatus.UNAUTHORIZED);
-//        }
 
-//}
-@PostMapping("/login")
-public ResponseEntity<?> login(@RequestBody Owner loginDetails) {
-    try {
-        Optional<Owner> owner = ownerService.findByUsername(loginDetails.getUsername());
-
-        if (owner.isPresent() && owner.get().getPassword().equals(loginDetails.getPassword())) {
-            return new ResponseEntity<>(owner.get(), HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>("Invalid username or password", HttpStatus.UNAUTHORIZED);
-        }
-    } catch (Exception e) {
-        e.printStackTrace(); // Logs the error to the console
-        return new ResponseEntity<>("Internal Server Error: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+     @PostMapping("/login")
+      public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) {
+        return ownerService.login(loginRequest);
     }
-}
-
 
 }

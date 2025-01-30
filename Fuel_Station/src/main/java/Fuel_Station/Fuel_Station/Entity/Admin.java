@@ -12,20 +12,15 @@ import lombok.*;
 @Table(name = "admin")
 
 public class Admin {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long adminId;
-
     @Column(nullable = false)
     private String adminUsername;
-
     @Column(nullable = false)
     private String adminPassword;
-
-    @Column(nullable = false)
+    @Column(unique = true, nullable = false)
     private String adminEmail;
-
     @Column
     private String contactNumber;
 

@@ -9,15 +9,7 @@ import lombok.Data;
 
 public class AdminResponse {
     private long adminId;
-
-    @Column(nullable = false)
     private String adminUsername;
-
-
-    @Column(nullable = false)
     private String adminEmail;
-
-    @Column
     private String contactNumber;
-
 }

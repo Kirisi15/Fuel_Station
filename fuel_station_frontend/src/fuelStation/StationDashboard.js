@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-
+import '../components/Dashboard.css';
 import { useNavigate } from "react-router-dom";
 
 const StationDashboard = (stationId) => {
@@ -14,12 +14,12 @@ const StationDashboard = (stationId) => {
 
     return (
         <div>
-            <h1>Fuel Station Dashboard</h1>
-            <div className="tab-menu">
-                <button onClick={() => handleNavigation("/EditStation")}>EditStation</button><br/><br/>
-                <button onClick={() => handleNavigation("/EmpMang")}>Mang Employee</button><br/><br/>
-                <button onClick={() => handleNavigation("/TransactionTable")}>Transaction Details</button><br/><br/>
-                <button onClick={() => handleNavigation("/AddFuel")}>AddFuel</button><br/><br/>
+            <h2>Fuel Station Dashboard</h2>
+            <div className="dashboard-btn">
+                <button type="submit" className="btn" onClick={() => handleNavigation("/EditStation")}>EditStation</button><br/><br/>
+                <button type="submit" className="btn" onClick={() => handleNavigation("/EmpMang")}>Mang Employee</button><br/><br/>
+                <button type="submit" className="btn" onClick={() => handleNavigation("/TransactionTable")}>Transaction Details</button><br/><br/>
+                <button type="submit" className="btn" onClick={() => handleNavigation("/AddFuel")}>AddFuel</button><br/><br/>
             </div>
         </div>
     );
