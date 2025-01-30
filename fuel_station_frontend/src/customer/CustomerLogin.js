@@ -24,13 +24,11 @@ const CustomerLogin = () => {
         "http://localhost:8080/api/customer/login",formData);
         
        console.log("Backend Response: ",response.data);
-       localStorage.setItem('customerId', response.data.customerId);
-
-       
-       if(response.data.customerUsername === formData.customerUsername){
-    setIsLogin(true);
-
-    alert("Login successful "+response.data.customerUsername);
+       if (response.data.status === 200) {
+       localStorage.setItem('customerId', response.data.data.customerId);
+setIsLogin(true);
+localStorage.setItem("customerId",response.data.data.customerId);
+    alert("Login successful "+response.data.data.customerUsername);
 }else{
   alert("Invalid username  or password");
 }

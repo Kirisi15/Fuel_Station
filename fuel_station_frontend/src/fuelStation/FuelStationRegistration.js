@@ -70,14 +70,14 @@ const FuelStationRegistration = () => {
     try {
       const response = await axios.post(
         `http://localhost:8080/api/fuelstation`,
-        formData,
+        formData,ownerId,
         {
           headers: { "Content-Type": "application/json" },
         }
       );
 
       // Update localStorage and state
-      localStorage.setItem("stationId", response.data.stationId);
+      localStorage.setItem("stationId", response.data.dat.stationId);
 
       setIsRegistered(true);
 
