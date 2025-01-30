@@ -1,5 +1,5 @@
 .custom-navbar {
-    background-color: #051b28 !important;
+    background-color: #202d3e !important;
     box-shadow: 0 0 10px rgba(0, 255, 255, 0.5); 
 
   }
@@ -25,11 +25,12 @@
   }
   
   .dropdown-item {
-    padding: 0.5rem 1rem; 
+    padding: 0.5rem 1rem;
+    color: #fff;
   }
   
   .dropdown-item:hover {
-    background-color: #333 !important;
+    background-color: #3d3d3e !important;
     color: #f0f0f0 !important; 
   }
   

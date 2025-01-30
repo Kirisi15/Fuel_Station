@@ -8,16 +8,13 @@ const HomePageDesign = () => {
       <div
         className="hero-section text-white text-center"
         style={{
-          backgroundImage: "url('/image4.jpg')",
+          backgroundImage: "url('/image5.jpg')",
           backgroundSize: "cover",
           backgroundPosition: "center",
           height: "100vh",
         }}
       >
-        <div className="text-overlay">
-          <h1 className="display-4">Welcome to Our Website</h1>
-          <p className="lead">Your journey to something amazing starts here.</p>
-        </div>
+        
       </div>
 
       <div className="content-section py-5">
