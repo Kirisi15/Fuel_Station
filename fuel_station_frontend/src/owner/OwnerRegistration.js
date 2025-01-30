@@ -128,33 +128,35 @@ const OwnerRegistration = () => {
     <div>
       <div className="custom-form">
         <form onSubmit={handleSubmit}>
-          <h2>Owner Registration</h2>
-          <input
+        <h2>Sign Up</h2>
+          <div className="inputGroup">
+            <label htmlFor="name">Name:</label>
+            <input
+              type="text"
+              placeholder="Enter name"
+              value={formData.name}
+              onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+              required
+            />
+            <label htmlFor="nic">NIC:</label>
+            <input
             type="text"
-            placeholder="name"
-            value={formData.name}
-            onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-            required
-          />
-          <br />
-          <input
-            type="text"
-            placeholder="NIC number"
+            placeholder="Enter NIC number"
             value={formData.nic}
             onChange={(e) => setFormData({ ...formData, nic: e.target.value })}
             required
           />
           {nicError && <p>{nicError}</p>}
-          <br />
+          <label htmlFor="email">Email:</label>
           <input
             type="text"
-            placeholder="email"
+            placeholder="Enter email"
             value={formData.email}
             onChange={(e) => setFormData({ ...formData, email: e.target.value })}
             required
           />
           {emailError && <p>{emailError}</p>}
-          <br />
+          <label htmlFor="contactNumber">ContactNumber:</label>
           <input
             type="text"
             placeholder="contact number"
@@ -164,7 +166,7 @@ const OwnerRegistration = () => {
             }
             required
           />
-          <br />
+          <label htmlFor="username">Username:</label>
           <input
             type="text"
             placeholder="username"
@@ -174,7 +176,7 @@ const OwnerRegistration = () => {
             }
             required
           />
-          <br />
+          <label htmlFor="password">Password:</label>
           <input
             type="password"
             placeholder="password"
@@ -186,7 +188,7 @@ const OwnerRegistration = () => {
           />
           {passwordError && <p>{passwordError}</p>}
           {valPasswordError && <p>{valPasswordError}</p>}
-          <br />
+          <label htmlFor="confirmPassword">Confirm Password:</label>
           <input
             type="password"
             placeholder="Rewrite password"
@@ -196,14 +198,11 @@ const OwnerRegistration = () => {
             }
             required
           />
-          <br />
-
           {uniqueError && <p>{uniqueError}</p>}
 
-          <button className="btn" type="submit">SignUp</button>
-          <button className="btn" type="button" onClick={() => navigate("/OwnerLogin")}>
-            SignIn
-          </button>
+          <button type="submit" className="btn">Sign Up</button>
+          <button type="submit" className="btn" onClick={() => navigate("/OwnerLogin")}>Sign In</button>
+          </div>
         </form>
       </div>
     </div>

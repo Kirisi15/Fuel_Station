@@ -38,7 +38,8 @@ const AdminLogin = () => {
       ) : (
         <div className="custom-form">
           <form onSubmit={handleLogin}>
-            <h2>Admin Login</h2>
+            <h2>Sign In</h2>
+            <label htmlFor="username">Username:</label>
             <input
               type="text"
               placeholder="Username"
@@ -46,7 +47,7 @@ const AdminLogin = () => {
               onChange={(e) => setFormData({ ...formData, adminUsername: e.target.value })}
               required
             />
-            <br />
+            <label htmlFor="password">Password:</label>
             <input
               type="password"
               placeholder="Password"
@@ -54,12 +55,7 @@ const AdminLogin = () => {
               onChange={(e) => setFormData({ ...formData, adminPassword: e.target.value })}
               required
             />
-            <br />
-            <div className="button-container">
-              <button className="btn" type="submit">
-                Login
-              </button>
-            </div>
+              <button className="btn" type="submit">Sign In</button>
           </form>
         </div>
       )}
