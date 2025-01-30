@@ -128,7 +128,7 @@ const OwnerRegistration = () => {
     <div>
       <div className="custom-form">
         <form onSubmit={handleSubmit}>
-        <h2>Sign Up</h2>
+        <h2>Owner Registration</h2>
           <div className="inputGroup">
             <label htmlFor="name">Name:</label>
             <input

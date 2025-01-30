@@ -3,7 +3,7 @@ import axios from "axios";
 import { ValidatePassword } from '../formValidation/ValidatePassword';
 import { ValidateNIC } from '../formValidation/ValidateNIC';
 import { useNavigate } from "react-router-dom";
-
+import "../components/formStyles.css";
 
 function EmployeeRegistration() {
   
@@ -113,10 +113,7 @@ function EmployeeRegistration() {
                 localStorage.getItem("employeeId");
               console.log(employeeId)
                     const response = await axios.get(`http://localhost:8080/api/employee/${employeeId}`);
-                    setExistingUsers(response.data);
-                
-                    // console.error("Employee ID not found in localStorage");
-            
+                    setExistingUsers(response.data);            
             } catch (error) {
                 console.error("Error fetching existing users:", error);
             }
@@ -125,87 +122,80 @@ function EmployeeRegistration() {
     }, []);
 
     return (
-        <div className="container">
-            <h1>Registration Form</h1>
-            <form onSubmit={handleSubmit} >
-
-                <label htmlFor="employeeName">Employee Name : </label>
-                <input
-                    type="text"
-                    placeholder="Enter the employee name"
-                    name="employeeName"
-                    onChange={(e) => handleChanges(e)}
-                    required
-                    value={values.employeeName}
-                />
-                <br /><br />
-
-                <label htmlFor="employeeNic">NIC : </label>
-                <input
-                    type="text"
-                    placeholder="Enter the NIC No"
-                    name="employeeNic"
-                    onChange={(e) => handleChanges(e)}
-                    value={values.employeeNic}
-                    required
-                />
-                {nicError && <p style={{ color: "red", fontSize: "12px" }}>{nicError}</p>}
-                <br /><br />
-
-                <label htmlFor="employeeContactnumber">Contact Number : </label>
-                <input
-                    type="text"
-                    placeholder="Enter the contact number"
-                    name="employeeContactnumber"
-                    onChange={(e) => handleChanges(e)}
-                    required
-                    value={values.employeeContactnumber}
-                />
-                <br /><br />
-
-                <label htmlFor="employeeUsername">User Name : </label>
-                <input
-                    type="text"
-                    placeholder="Enter the username"
-                    name="employeeUsername"
-                    onChange={(e) => handleChanges(e)}
-                    required
-                    value={values.employeeUsername}
-                />
-                <br /><br />
-
-                <label htmlFor="employeePassword">Password : </label>
-                <input
-                    type="password"
-                    placeholder="Enter the Password"
-                    name="employeePassword"
-                    onChange={(e) => handleChanges(e)}
-                    required
-                    value={values.employeePassword}
-                />
-                {passwordError && <p style={{ color: "red", fontSize: "12px" }}>{passwordError}</p>}
-                {valPasswordError && <p style={{ color: "red", fontSize: "12px" }}>{valPasswordError}</p>}
-                <br /><br />
-
-                <label htmlFor="confirmPassword">Confirm Password : </label>
-                <input
-                    type="password"
-                    placeholder="Rewrite password"
-                    name="confirmPassword"
-                    onChange={(e) => handleChanges(e)}
-                    required
-                    value={values.confirmPassword}
-                />
-                <br /><br />
-
-                {uniqueError && (
-                    <p style={{ color: "red", fontSize: "12px" }}>{uniqueError}</p>
-                )}
-
-                <button type="submit">Submit</button>
-            </form>
-        </div>
+         <div className="custom-form">
+         <form onSubmit={handleSubmit}>
+          <h2>Employee Registration</h2>
+          <label htmlFor="employeeName">Employee Name:</label>
+          <input
+            type="text"
+            placeholder="Enter employee name"
+            name="employeeName"
+            onChange={handleChanges}
+            required
+            value={values.employeeName}
+          />
+          
+          <label htmlFor="employeeNic">NIC:</label>
+          <input
+            type="text"
+            placeholder="Enter NIC No"
+            name="employeeNic"
+            onChange={handleChanges}
+            required
+            value={values.employeeNic}
+          />
+          {nicError && <p>{nicError}</p>}
+  
+          <label htmlFor="employeeContactnumber">Contact Number:</label>
+          <input
+            type="text"
+            placeholder="Enter contact number"
+            name="employeeContactnumber"
+            onChange={handleChanges}
+            required
+            value={values.employeeContactnumber}
+          />
+  
+          <label htmlFor="employeeUsername">Username:</label>
+          <input
+            type="text"
+            placeholder="Enter username"
+            name="employeeUsername"
+            onChange={handleChanges}
+            required
+            value={values.employeeUsername}
+          />
+  
+          <label htmlFor="employeePassword">Password:</label>
+          <input
+            type="password"
+            placeholder="Enter password"
+            name="employeePassword"
+            onChange={handleChanges}
+            required
+            value={values.employeePassword}
+          />
+          {passwordError && <p>{passwordError}</p>}
+          {valPasswordError && <p>{valPasswordError}</p>}
+  
+          <label htmlFor="confirmPassword">Confirm Password:</label>
+          <input
+            type="password"
+            placeholder="Rewrite password"
+            name="confirmPassword"
+            onChange={handleChanges}
+            required
+            value={values.confirmPassword}
+          />
+          {uniqueError && <p>{uniqueError}</p>}
+  
+          <div className="button-container">
+            <button type="submit" className="btn">Sign Up</button>
+            <button type="button" className="btn" onClick={() => navigate("/EmpLogin")}>Sign In</button>
+          </div>
+        </form>
+      </div>
     );
-}
+  }
 
 export default EmployeeRegistration;

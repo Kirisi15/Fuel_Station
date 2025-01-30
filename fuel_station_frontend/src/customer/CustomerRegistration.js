@@ -123,7 +123,7 @@ function CustomerRegistration(){
       <div>
       <div className="custom-form">
         <form onSubmit={handleSubmit}>
-          <h2>Sign Up</h2>
+          <h2>Customer Registration</h2>
           <label htmlFor="name">Name:</label>
           <input
             type="text"

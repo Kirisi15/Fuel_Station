@@ -53,8 +53,8 @@ return(
         </div>
       ) : (
         <div className="custom-form">
-          <form onSubmit={handleLogin}>
-            <h2>Sign In</h2>
+            <form onSubmit={handleLogin} style={{ width: "300px", height: "" }}>
+            <h2>User Login</h2>
             <label htmlFor="username">Username:</label>
             <input
               type="text"

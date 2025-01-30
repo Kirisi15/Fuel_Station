@@ -2,9 +2,9 @@
     padding: 30px;
     border-radius: 10px;
     width: 400px; 
-    height: 650px;
     margin: 30px auto;
-    box-shadow: 0 0 10px black;    
+    box-shadow: 0 0 10px black;
+    background: linear-gradient(to bottom right, #ffffff, #d0e4f7);   
 }
 
 .custom-form label {
@@ -48,6 +48,7 @@
     font-weight: 600;
     background-color: #202d3e;
     box-shadow: 0 0 10px black;
+    
   }
   
   .custom-form .btn:hover {

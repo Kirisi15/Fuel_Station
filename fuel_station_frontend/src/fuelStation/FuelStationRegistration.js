@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import StationDashboard from './StationDashboard';
+import '../components/formStyles.css';  
+
 
 const FuelStationRegistration = () => {
   const [formData, setFormData] = useState({
@@ -56,7 +58,7 @@ const FuelStationRegistration = () => {
       return false;
     }
 
-    setError(""); // Clear any previous error
+    setError(""); 
     return true;
   };
 
@@ -76,12 +78,10 @@ const FuelStationRegistration = () => {
         }
       );
 
-      // Update localStorage and state
       localStorage.setItem("stationId", response.data.stationId);
 
       setIsRegistered(true);
 
-      // Add the new station to the existing stations list
       setExistingStations([
         ...existingStations,
         {
@@ -92,14 +92,13 @@ const FuelStationRegistration = () => {
         },
       ]);
 
-      // Clear the form
       setFormData({
         stationName: "",
         address: "",
         licenseNumber: "",
         contactNumber: "",
       });
-      setError(""); // Clear errors
+      setError(""); 
       alert("Fuel Station registered successfully!");
     } catch (error) {
       console.error("Error:", error);
@@ -112,66 +111,61 @@ const FuelStationRegistration = () => {
       {isRegistered ? (
         <StationDashboard />
       ) : (
-        <form onSubmit={handleSubmit}>
-          {error && <p style={{ color: "red" }}>{error}</p>}
-          <h1>Fuel Station Registration</h1>
+        <div className="custom-form">
+          <form onSubmit={handleSubmit}>
+            <h2>Station Registration</h2>
 
-          <label htmlFor="stationName">Fuel Station Name: </label>
-          <input
-            type="text"
-            placeholder="Enter Fuel Station Name"
-            value={formData.stationName}
-            onChange={(e) =>
-              setFormData({ ...formData, stationName: e.target.value })
-            }
-            required
-          />
-          <br />
-          <br />
+            {error && <p style={{ color: "red" }}>{error}</p>}
 
-          <label htmlFor="address">Station Address: </label>
-          <input
-            type="text"
-            placeholder="Enter Fuel Station Address"
-            value={formData.address}
-            onChange={(e) =>
-              setFormData({ ...formData, address: e.target.value })
-            }
-            required
-          />
-          <br />
-          <br />
+            <div className="inputGroup">
+              <label htmlFor="stationName">Station Name: </label>
+              <input
+                type="text"
+                placeholder="Enter Station Name"
+                value={formData.stationName}
+                onChange={(e) =>
+                  setFormData({ ...formData, stationName: e.target.value })
+                }
+                required
+              />
+              <label htmlFor="address">Station Address: </label>
+              <input
+                type="text"
+                placeholder="Enter Station Address"
+                value={formData.address}
+                onChange={(e) =>
+                  setFormData({ ...formData, address: e.target.value })
+                }
+                required
+              />
+              <label htmlFor="licenseNumber">Station License Number: </label>
+              <input
+                type="text"
+                placeholder="Enter License Number"
+                value={formData.licenseNumber}
+                onChange={(e) =>
+                  setFormData({ ...formData, licenseNumber: e.target.value })
+                }
+                required
+              />
 
-          <label htmlFor="licenseNumber">Station License Number: </label>
-          <input
-            type="text"
-            placeholder="Enter License Number"
-            value={formData.licenseNumber}
-            onChange={(e) =>
-              setFormData({ ...formData, licenseNumber: e.target.value })
-            }
-            required
-          />
-          <br />
-          <br />
+              <label htmlFor="contactNumber">Station Contact Number: </label>
+              <input
+                type="text"
+                placeholder="Enter Contact Number"
+                value={formData.contactNumber}
+                onChange={(e) =>
+                  setFormData({ ...formData, contactNumber: e.target.value })
+                }
+                required
+              />
 
-          <label htmlFor="contactNumber">Station Contact Number: </label>
-          <input
-            type="text"
-            placeholder="Enter Contact Number"
-            value={formData.contactNumber}
-            onChange={(e) =>
-              setFormData({ ...formData, contactNumber: e.target.value })
-            }
-            required
-          />
-          <br />
-          <br />
-
-          <button name="register" type="submit">
-            Register
-          </button>
-        </form>
+              <button type="submit" className="btn">
+                Sign Up
+              </button>
+            </div>
+          </form>
+        </div>
       )}
     </div>
   );
