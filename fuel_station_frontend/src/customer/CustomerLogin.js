@@ -74,7 +74,6 @@ const CustomerLogin = () => {
 
             <br />
             <div className="button-container">
-            <button  className="btn" type="submit">Login</button>
             <button
               className="btn"
               type="button"
