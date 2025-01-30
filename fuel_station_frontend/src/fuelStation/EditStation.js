@@ -6,48 +6,50 @@ const EditStation = () => {
   const [address, setAddress] = useState("");
   const [licenseNumber, setLicenseNumber] = useState("");
   const [contactNumber, setContactNumber] = useState("");
-  const [isLoading, setIsLoading] = useState(true); // Track loading state
+  const [isLoading, setIsLoading] = useState(); // Track loading state
 
-  const stationId = localStorage.getItem("stationId");
-console.log(stationId);
+  
+
   useEffect(() => {
     const fetchStationDetails = async () => {
+     
+const stationId = localStorage.getItem("stationId");
+console.log(stationId);
       try {
-        if (!stationId) {
-          console.error("stationId is not provided");
-          return;
-        }
+         if (!stationId) {
+           console.error("stationId is not provided");
+           return;
+         }
 
         const response = await axios.get(`http://localhost:8080/api/fuelstation/${stationId}`);
-console.log(response.data.stationName);
-console.log(response.data.address);
-console.log(response.data.licenseNumber);console.log(response.data.contactNumber);
-        // if (!response.ok) {
-        //   throw new Error(`Failed to fetch station details: ${response.status} - ${response.statusText}`);
-        // }
 
-        //  const data = await response.json();
-        setStationName(response.data.stationName);
-          setAddress(response.data.address);
-          setLicenseNumber(response.data.licenseNumber);
-     setContactNumber(response.data.contactNumber);
-        setIsLoading(false); // Set loading to false after data is fetched
+        
+        
+        
+
+        
+        setStationName(response.data.data.stationName);
+          setAddress(response.data.data.address);
+          setLicenseNumber(response.data.data.licenseNumber);
+     setContactNumber(response.data.data.contactNumber);
+        setIsLoading(false); 
 
       } catch (error) {
         console.error("Error fetching station details:");
-        setIsLoading(false); // Set loading to false on error
+        setIsLoading(false); 
       }
     };
 
-    if (stationId) {
-      fetchStationDetails();
-    }
-  }, [stationId]);
+    
+       fetchStationDetails();
+    
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
+      const stationId = localStorage.getItem("stationId");
       const response = await fetch(`http://localhost:8080/api/fuelstation/${stationId}`, {
         method: "PUT",
         headers: {
@@ -66,7 +68,7 @@ console.log(response.data.licenseNumber);console.log(response.data.contactNumber
       }
 
       alert("Station updated successfully!");
-      // Optionally, redirect to a success page or display a success message
+      
 
     } catch (error) {
       console.error("Error updating station:", error);
