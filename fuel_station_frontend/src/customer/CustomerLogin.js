@@ -47,7 +47,10 @@ const CustomerLogin = () => {
       ) : (
         <div className="custom-form">
           <form onSubmit={handleLogin}>
-            <h2>Customer Login</h2>
+
+            <h2>Sign In</h2>
+            <label htmlFor="username">Username:</label>
+
             <input
               type="text"
               placeholder="Username"
@@ -57,7 +60,7 @@ const CustomerLogin = () => {
               }
               required
             />
-            <br />
+          <label htmlFor="password">Password:</label>           
             <input
               type="password"
               placeholder="Password"
@@ -67,6 +70,7 @@ const CustomerLogin = () => {
               }
               required
             />
+
             <br />
             <div className="button-container">
             <button  className="btn" type="submit">Login</button>
@@ -78,6 +82,7 @@ const CustomerLogin = () => {
               SignUp
             </button>
             </div>
+
           </form>
         </div>
       )}
