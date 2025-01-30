@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import '../components/Dashboard.css';
 
 function CustomerDashboard() {
   const [vehicles, setVehicles] = useState([]);
@@ -48,11 +49,11 @@ function CustomerDashboard() {
 };
 
   return (
-    <div>
-    <button onClick={() => handleNavigation("/vehReg")}>Add Vehicle</button><br/><br/>
+    <div className="dashboard-btn">
 
     <div style={styles.container}>
       <h1 style={styles.header}>Customer Dashboard</h1>
+      <button type="submit" className="btn" onClick={() => handleNavigation("/vehReg")}>Add Vehicle</button><br/><br/>
       {error && <p style={styles.error}>{error}</p>}
       {vehicles.length === 0 ? (
         <p style={styles.message}>No vehicles found for this customer.</p>
@@ -73,7 +74,7 @@ function CustomerDashboard() {
     </div>
   );
 }
-//ghdgddkl
+
 const styles = {
   container: {
     padding: "20px",
