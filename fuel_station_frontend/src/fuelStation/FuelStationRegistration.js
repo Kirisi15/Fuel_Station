@@ -10,7 +10,7 @@ const FuelStationRegistration = () => {
     contactNumber: "",
   });
   const [isRegistered, setIsRegistered] = useState(false);
-  const [existingStations, setExistingStations] = useState([]); // Ensure it's initialized as an empty array
+  const [existingStations, setExistingStations] = useState([]); 
   const [error, setError] = useState("");
 
   useEffect(() => {
@@ -18,7 +18,7 @@ const FuelStationRegistration = () => {
       try {
         const response = await axios.get("http://localhost:8080/api/fuelstation");
 
-        // Ensure response.data is an array
+        
         const stations = Array.isArray(response.data) ? response.data : [];
         setExistingStations(stations);
       } catch (error) {
@@ -41,7 +41,6 @@ const FuelStationRegistration = () => {
       return false;
     }
 
-    // Safely check for duplicates
     const isDuplicate =
       Array.isArray(existingStations) &&
       existingStations.some(
@@ -56,7 +55,7 @@ const FuelStationRegistration = () => {
       return false;
     }
 
-    setError(""); // Clear any previous error
+    setError(""); 
     return true;
   };
 
@@ -68,20 +67,20 @@ const FuelStationRegistration = () => {
     const ownerId = localStorage.getItem("ownerId");
 
     try {
+
+      const requestData = {...formData,ownerId};    
       const response = await axios.post(
         `http://localhost:8080/api/fuelstation`,
-        formData,
+        requestData,
         {
           headers: { "Content-Type": "application/json" },
         }
       );
 
-      // Update localStorage and state
       localStorage.setItem("stationId", response.data.stationId);
 
       setIsRegistered(true);
 
-      // Add the new station to the existing stations list
       setExistingStations([
         ...existingStations,
         {
