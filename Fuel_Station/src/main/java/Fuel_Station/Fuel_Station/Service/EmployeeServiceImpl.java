@@ -128,8 +128,8 @@ public class EmployeeServiceImpl implements EmployeeService{
                 )
         );
    }
-   
-   
+
+
    @Transactional
    public ResponseEntity<?> updateEmployee(Long employeeId, EmployeeRequest employeeRequest) {
         Employee employee = getById(employeeId);
@@ -209,10 +209,11 @@ public class EmployeeServiceImpl implements EmployeeService{
     );
   }
 
+    @Transactional
     @Override
     public ResponseEntity<?> login(LoginRequest loginRequest) {
         Optional<Employee> optionalEmployee = employeeRepository.findByEmployeeUsername(loginRequest.getUsername());
-        if(optionalEmployee.isEmpty()){
+        if (optionalEmployee.isEmpty()) {
             return ResponseEntity.badRequest().body(
                     new MessageResponse<>(
                             400,
@@ -222,26 +223,31 @@ public class EmployeeServiceImpl implements EmployeeService{
             );
         }
         Employee employee = optionalEmployee.get();
-        if(employee.getEmployeePassword() != loginRequest.getPassword()){
+
+        // FIX: Use .equals() for string comparison to check if the passwords match
+        if (!employee.getEmployeePassword().equals(loginRequest.getPassword())) {
             return ResponseEntity.badRequest().body(
                     new MessageResponse<>(
                             400,
-                            "Password is wrong",
+                            "Password is incorrect",
                             null
                     )
             );
         }
-       EmployeeResponse response = new EmployeeResponse(
-               employee.getEmployeeId(),
-               employee.getEmployeeNic(),
-               employee.getEmployeeName(),
-               employee.getEmployeeContactnumber(),
-               employee.getEmployeeUsername()
-       );
+
+        EmployeeResponse response = new EmployeeResponse(
+                employee.getEmployeeId(),
+                employee.getEmployeeNic(),
+                employee.getEmployeeName(),
+                employee.getEmployeeContactnumber(),
+                employee.getEmployeeUsername()
+        );
+
+        // Return successful response with employee details if login is successful
         return ResponseEntity.ok().body(
                 new MessageResponse<>(
                         200,
-                        "Login successfully",
+                        "Login successful",
                         response
                 )
         );
