@@ -145,7 +145,7 @@ public   class FuelStationServiceImpl implements FuelStationService {
    @Override
 public ResponseEntity<?> getStationByOwnerId(Long ownerId) {
         Owner owner = ownerService.getById(ownerId);
-        if(owner != null){
+        if(owner == null){
             return ResponseEntity.ok().body(
                     new MessageResponse<>(
                             400,
