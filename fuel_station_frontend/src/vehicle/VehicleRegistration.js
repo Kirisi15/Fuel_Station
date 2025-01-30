@@ -148,9 +148,9 @@ function VehicleRegistration() {
   };
 
   return (
-    <div className="container">
-      <h1>Vehicle Registration</h1>
+    <div className="custom-form">
       <form onSubmit={handleSubmit}>
+    
         {error && <p style={{ color: "red" }}>{error}</p>}
 
         <label htmlFor="vehicleType">Vehicle Type:</label>
@@ -198,6 +198,7 @@ function VehicleRegistration() {
 
         <button type="submit">Submit</button>
       </form>
+
     </div>
   );
 }
