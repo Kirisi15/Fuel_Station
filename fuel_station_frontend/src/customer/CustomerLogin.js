@@ -1,17 +1,19 @@
 import React, { useState } from "react";
 import axios from "axios";
-import CustomerDashboard from "./CustomerDashboard"; // Assuming you have a CustomerDashboard component
+import CustomerDashboard from "./CustomerDashboard";
+import { useNavigate } from "react-router-dom";
 
-const CustomerLogin = () => {
+const CustomerLogin = ({ isHomepage }) => {
   const [formData, setFormData] = useState({
     username: "",
     password: "",
   });
-  const [isLogin, setIsLogin] = useState(false); // Define isLogin state
+  const [isLogin, setIsLogin] = useState(false);
+  const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    console.log("Payload being sent:", formData); // Debug payload
+    console.log("Payload being sent:", formData);
 
     try {
       const response = await axios.post(
@@ -22,15 +24,19 @@ const CustomerLogin = () => {
 
       console.log("Backend Response:", response.data);
       if (response.data.status === 200) {
-        setIsLogin(true); // Update state after successful login
+        setIsLogin(true); 
         alert("Login successful: " + response.data.data.customerUsername);
+
+        if (isHomepage) {
+          navigate("/dashboard/:customerId");
+        }
       } else {
         alert("Invalid username or password.");
       }
     } catch (error) {
       console.error("Error:", error);
       if (error.response) {
-        console.log("Server Response:", error.response.data); // Log the response from the server
+        console.log("Server Response:", error.response.data); 
         alert(`Login failed: ${error.response.data.message || "Bad Request"}`);
       } else {
         alert("Login failed. Please try again later.");
@@ -41,17 +47,17 @@ const CustomerLogin = () => {
   return (
     <div>
       {isLogin ? (
-        <div>
-          <CustomerDashboard />
-        </div>
+        isHomepage ? (
+          <CustomerDashboard /> 
+        ) : (
+          <div>Redirecting to Customer Dashboard...</div> 
+        )
       ) : (
         <div className="custom-form">
-
-            <form onSubmit={handleLogin} style={{ width: "300px", height: "" }}>
+          <form onSubmit={handleLogin} style={{ width: "300px", height: "" }}>
             <h2>User Login</h2>
 
             <label htmlFor="username">Username:</label>
-
             <input
               type="text"
               placeholder="Username"
@@ -61,7 +67,8 @@ const CustomerLogin = () => {
               }
               required
             />
-          <label htmlFor="password">Password:</label>           
+
+            <label htmlFor="password">Password:</label>
             <input
               type="password"
               placeholder="Password"
@@ -71,18 +78,12 @@ const CustomerLogin = () => {
               }
               required
             />
-
             <br />
             <div className="button-container">
-            <button
-              className="btn"
-              type="button"
-              onClick={() => alert("Redirecting to registration...")}
-            >
-              SignUp
-            </button>
+              <button className="btn" type="submit">
+                Sign In
+              </button>
             </div>
-
           </form>
         </div>
       )}
