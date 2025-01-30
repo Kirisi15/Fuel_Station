@@ -17,7 +17,7 @@ const HomePageDesign = () => {
       }}
     >
     <div className="cus-in-homepage">
-      <CustomerLogin />
+        <CustomerLogin isHomepage={true} />
     </div>
     </div>
   );
