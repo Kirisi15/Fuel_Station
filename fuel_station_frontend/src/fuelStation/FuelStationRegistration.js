@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import StationDashboard from './StationDashboard';
-import '../components/formStyles.css';  
-
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import StationDashboard from "./StationDashboard";
+import "../components/formStyles.css";
 
 const FuelStationRegistration = () => {
   const [formData, setFormData] = useState({
@@ -12,15 +11,13 @@ const FuelStationRegistration = () => {
     contactNumber: "",
   });
   const [isRegistered, setIsRegistered] = useState(false);
-  const [existingStations, setExistingStations] = useState([]); 
+  const [existingStations, setExistingStations] = useState([]);
   const [error, setError] = useState("");
 
   useEffect(() => {
     const fetchExistingStations = async () => {
       try {
         const response = await axios.get("http://localhost:8080/api/fuelstation");
-
-        
         const stations = Array.isArray(response.data) ? response.data : [];
         setExistingStations(stations);
       } catch (error) {
@@ -57,7 +54,7 @@ const FuelStationRegistration = () => {
       return false;
     }
 
-    setError(""); 
+    setError("");
     return true;
   };
 
@@ -69,36 +66,26 @@ const FuelStationRegistration = () => {
     const ownerId = localStorage.getItem("ownerId");
 
     try {
+      const requestData = { ...formData, ownerId };
 
-      const requestData = {...formData,ownerId};    
       const response = await axios.post(
-        `http://localhost:8080/api/fuelstation`,
-
-        formData,ownerId,
-
+        "http://localhost:8080/api/fuelstation",
+        requestData, // Fixed request body
         {
           headers: { "Content-Type": "application/json" },
         }
       );
 
+      console.log("API Response:", response.data); // Debugging API response
 
+      if (response.data && response.data.data && response.data.data.stationId) {
+        localStorage.setItem("stationId", response.data.data.stationId);
+        setIsRegistered(true);
+      } else {
+        setError("Station registered, but no stationId returned.");
+      }
 
-      // Update localStorage and state
-      localStorage.setItem("stationId", response.data.data.stationId);
-
-
-
-      setIsRegistered(true);
-
-      setExistingStations([
-        ...existingStations,
-        {
-          stationName: formData.stationName,
-          licenseNumber: formData.licenseNumber,
-          contactNumber: formData.contactNumber,
-          address: formData.address,
-        },
-      ]);
+      setExistingStations([...existingStations, formData]);
 
       setFormData({
         stationName: "",
@@ -106,7 +93,8 @@ const FuelStationRegistration = () => {
         licenseNumber: "",
         contactNumber: "",
       });
-      setError(""); 
+
+      setError("");
       alert("Fuel Station registered successfully!");
     } catch (error) {
       console.error("Error:", error);
