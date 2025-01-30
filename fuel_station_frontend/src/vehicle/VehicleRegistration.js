@@ -9,26 +9,23 @@ function VehicleRegistration() {
     vehicleType: "",
     vehicleNumber: "",
     fuelType: "",
-    fuelLimit: ""
+    fuelLimit: "",
   });
 
   const navigate = useNavigate();
-
   const [vehicleId, setVehicleId] = useState(null);
-  const [qrCodeData, setQrCodeData] = useState(null);
+  const [qrCodeData, setQrCodeData] = useState("");
   const [error, setError] = useState("");
-  const [customer, setCustomer] = useState([]);
+  const [customer, setCustomer] = useState(localStorage.getItem("customerId") || "");
   const qrCodeRef = useRef(null);
   const [existingVehicles, setExistingVehicles] = useState([]);
-  const [fuelLimits, setFuelLimits] = useState([]); // To store the fetched fuel limits
+  const [fuelLimits, setFuelLimits] = useState([]);
 
   useEffect(() => {
-    setCustomer(localStorage.getItem("customerId"));
-
     const fetchExistingVehicles = async () => {
       try {
         const response = await axios.get("http://localhost:8080/api/vehicle");
-        setExistingVehicles(response.data);
+        setExistingVehicles(Array.isArray(response.data) ? response.data : []);
       } catch (error) {
         console.error("Failed to fetch existing vehicles:", error);
       }
@@ -36,20 +33,12 @@ function VehicleRegistration() {
 
     const fetchFuelLimits = async () => {
       try {
-        const response = await axios.get("http://localhost:8080/api/fuel/limits");
-        console.log("Fuel Limits API Response:", response.data);
-    
-        if (Array.isArray(response.data)) {
-          setFuelLimits(response.data); 
-        } else {
-          setFuelLimits([]);
-        }
+        const response = await axios.get("http://localhost:8080/api/fuelLimit/limits");
+        setFuelLimits(Array.isArray(response.data) ? response.data : []);
       } catch (error) {
         console.error("Failed to fetch fuel limits:", error);
-        setFuelLimits([]); 
       }
     };
-    
 
     fetchExistingVehicles();
     fetchFuelLimits();
@@ -59,12 +48,11 @@ function VehicleRegistration() {
     const { name, value } = e.target;
 
     if (name === "vehicleType") {
-      // Automatically set the fuel limit based on the selected vehicle type
       const selectedFuelLimit = fuelLimits.find((limit) => limit.vehicleType === value);
       setVehicles({
         ...values,
         [name]: value,
-        fuelLimit: selectedFuelLimit ? selectedFuelLimit.fuelLimit : ""
+        fuelLimit: selectedFuelLimit ? selectedFuelLimit.fuelLimit : "",
       });
     } else {
       setVehicles({ ...values, [name]: value });
@@ -76,21 +64,26 @@ function VehicleRegistration() {
       setError("All fields are required.");
       return false;
     }
+
     const isDuplicate = existingVehicles.some(
       (vehicle) => vehicle.vehicleNumber === values.vehicleNumber
     );
+
     if (isDuplicate) {
       setError("A vehicle with this number already exists.");
       return false;
     }
+
     if (!/^[A-Za-z0-9-]+$/.test(values.vehicleNumber)) {
       setError("Vehicle number should be alphanumeric (e.g., ABC-1234).");
       return false;
     }
+
     if (!/^\d+(\.\d{1,2})?$/.test(values.fuelLimit)) {
       setError("Fuel limit should be a valid number.");
       return false;
     }
+
     setError("");
     return true;
   };
@@ -101,24 +94,32 @@ function VehicleRegistration() {
 
     try {
       const response = await axios.post(
-        `http://localhost:8080/api/vehicle`,
-        values,
+        "http://localhost:8080/api/vehicle",
+        {
+          vehicleType: values.vehicleType,
+          vehicleNumber: values.vehicleNumber,
+          fuelType: values.fuelType,
+          fuelLimit: Number(values.fuelLimit),
+          customerId: customer,
+        },
         {
           headers: { "Content-Type": "application/json" },
         }
       );
 
       const generatedVehicleId = response.data.vehicleId;
-
-      setVehicleId(generatedVehicleId);
-      navigate(`/vehicle-qr/${generatedVehicleId}`, { state: { qrCodeData: generatedVehicleId } });
+      console.log(generatedVehicleId)
+      if (generatedVehicleId) {
+        setVehicleId(generatedVehicleId);
+        setQrCodeData(generatedVehicleId); // Set the QR code data
+      }
 
       alert("Vehicle successfully added");
     } catch (error) {
-      setError("Failed to register the vehicle. Please try again.");
+      console.error("Error registering vehicle:", error.response?.data || error.message);
+      setError("Failed to register the vehicle. Please check your input and try again.");
     }
   };
-      
 
   const downloadQRCode = () => {
     const canvas = qrCodeRef.current.querySelector("canvas");
@@ -137,13 +138,9 @@ function VehicleRegistration() {
       <h1>Vehicle Registration</h1>
       <form onSubmit={handleSubmit}>
         {error && <p style={{ color: "red" }}>{error}</p>}
+
         <label htmlFor="vehicleType">Vehicle Type:</label>
-        <select
-          name="vehicleType"
-          onChange={handleChanges}
-          value={values.vehicleType}
-          required
-        >
+        <select name="vehicleType" onChange={handleChanges} value={values.vehicleType} required>
           <option value="">Select Vehicle Type</option>
           {fuelLimits.map((limit) => (
             <option key={limit.id} value={limit.vehicleType}>
@@ -167,12 +164,7 @@ function VehicleRegistration() {
         <br />
 
         <label htmlFor="fuelType">Fuel Type:</label>
-        <select
-          name="fuelType"
-          onChange={handleChanges}
-          value={values.fuelType}
-          required
-        >
+        <select name="fuelType" onChange={handleChanges} value={values.fuelType} required>
           <option value="">Select Fuel Type</option>
           <option value="Petrol">Petrol</option>
           <option value="Diesel">Diesel</option>
@@ -197,7 +189,7 @@ function VehicleRegistration() {
         <button type="submit">Submit</button>
       </form>
 
-      {/* {vehicleId && (
+      {qrCodeData && (
         <div>
           <h2>Vehicle Registered Successfully!</h2>
           <p>Vehicle ID: {vehicleId}</p>
@@ -207,7 +199,7 @@ function VehicleRegistration() {
           </div>
           <button onClick={downloadQRCode}>Download QR Code</button>
         </div>
-      )} */}
+      )}
     </div>
   );
 }
