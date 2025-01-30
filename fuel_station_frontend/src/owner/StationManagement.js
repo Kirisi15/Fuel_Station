@@ -3,29 +3,32 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 function StationManagement() {
-  const [stations, setStations] = useState([""]);
+  const [stations, setStations] = useState([]); 
   const [error, setError] = useState("");
   const navigate = useNavigate();
-  
-
 
   useEffect(() => {
-    const ownerId = localStorage.getItem("ownerId"); // Assuming ownerId is stored in localStorage
+    const ownerId = localStorage.getItem("ownerId"); 
+    if (!ownerId) {
+      setError("No owner ID found. Please log in again.");
+      return;
+    }
+
     console.log("Fetching stations for owner ID:", ownerId);
-    
-    const fetchStations = async (ownerId) => {
+
+    const fetchStations = async () => {
       try {
         const response = await axios.get(
           `http://localhost:8080/api/fuelstation/owners/${ownerId}`
         );
         console.log("Fetched stations:", response.data);
 
-        // Check if response.data is an array or an object containing the stations array
         if (Array.isArray(response.data)) {
           setStations(response.data);
-        } else if (response.data && Array.isArray(response.data.stations)) {
-          setStations(response.data.stations);
+        } else if (response.data && Array.isArray(response.data.data)) {
+          setStations(response.data.data);
         } else {
+          setStations([]); 
           setError("No stations found for this owner.");
         }
       } catch (err) {
@@ -34,10 +37,8 @@ function StationManagement() {
       }
     };
 
-    if (ownerId) {
-      fetchStations(ownerId);
-    }
-  }, []);
+    fetchStations();
+  }, []); 
 
   const handleNavigation = (path) => {
     navigate(path);
@@ -59,13 +60,13 @@ function StationManagement() {
           <div style={styles.grid}>
             {stations.map((station, index) => (
               <div
-                key={index}
+                key={station.stationId || index} 
                 style={styles.card}
-                onClick={() => handleNavigation(`/StationDashboard/${station.stationId}`)}
+                onClick={() => handleNavigation(`/StationDashboard`)}
               >
                 <h3 style={styles.cardHeader}>{station.stationName}</h3>
                 <p>
-                  <strong>LicenseNumber:</strong> {station.licenseNumber}
+                  <strong>License Number:</strong> {station.licenseNumber}
                 </p>
                 <p>
                   <strong>Contact:</strong> {station.contactNumber}
