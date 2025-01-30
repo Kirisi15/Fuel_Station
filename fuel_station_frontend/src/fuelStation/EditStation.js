@@ -18,7 +18,7 @@ console.log(stationId);
           return;
         }
 
-        const response = await axios.get(`http://localhost:8080/fuel-stations/${stationId}`);
+        const response = await axios.get(`http://localhost:8080/api/fuelstation/${stationId}`);
 console.log(response.data.stationName);
 console.log(response.data.address);
 console.log(response.data.licenseNumber);console.log(response.data.contactNumber);
@@ -48,7 +48,7 @@ console.log(response.data.licenseNumber);console.log(response.data.contactNumber
     e.preventDefault();
 
     try {
-      const response = await fetch(`http://localhost:8080/fuel-stations/${stationId}`, {
+      const response = await fetch(`http://localhost:8080/api/fuelstation/${stationId}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

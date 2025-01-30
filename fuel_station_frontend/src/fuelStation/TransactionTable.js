@@ -7,7 +7,7 @@ const TransactionTable = () => {
   useEffect(() => {
     const fetchTransactions = async () => {
       try {
-        const response = await fetch("http://localhost:5000/api/transactions"); // Adjust the endpoint as needed
+        const response = await fetch("http://localhost:8080/api/transactions"); // Adjust the endpoint as needed
         const data = await response.json();
         setTransactions(data);
       } catch (error) {

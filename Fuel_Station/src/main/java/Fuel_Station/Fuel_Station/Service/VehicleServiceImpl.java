@@ -44,6 +44,7 @@ public class VehicleServiceImpl implements VehicleService {
                     vehicle.getVehicleNumber(),
                     vehicle.getVehicleType(),
                     vehicle.getFuelType(),
+                    vehicle.getFuelLimitId()
 
             );
             responses.add(response);
@@ -105,6 +106,7 @@ public class VehicleServiceImpl implements VehicleService {
                 vehicle.getVehicleNumber(),
                 vehicle.getVehicleType(),
                 vehicle.getFuelType(),
+                vehicle.getFuelLimitId()
 
         );
         return ResponseEntity.ok().body(
@@ -158,6 +160,7 @@ public class VehicleServiceImpl implements VehicleService {
                     vehicle.getVehicleNumber(),
                     vehicle.getVehicleType(),
                     vehicle.getFuelType(),
+                    vehicle.getFuelLimitId()
 
             );
             responses.add(response);
@@ -220,6 +223,8 @@ public class VehicleServiceImpl implements VehicleService {
                     vehicle.getVehicleNumber(),
                     vehicle.getVehicleType(),
                     vehicle.getFuelType(),
+                    vehicle.getFuelLimitId()
+
 
             );
             responses.add(response);

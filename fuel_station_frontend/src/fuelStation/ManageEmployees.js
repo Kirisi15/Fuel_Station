@@ -15,7 +15,7 @@ const ManageEmployees = ({ stationId }) => {
         console.log(employeeId);
         const response = await axios.get(
           
-          `http://localhost:8080/employee`
+          `http://localhost:8080/api/employee/${stationId}`
         );
 console.log(response.data);
         setEmployees(response.data);
@@ -32,7 +32,7 @@ console.log(response.data);
     if (!confirmDelete) return;
 
     try {
-      await axios.delete(`http://localhost:8080/employee/${employeeId}`);
+      await axios.delete(`http://localhost:8080/api/employee/${employeeId}`);
 
       // Remove the deleted employee from the state
       setEmployees((prevEmployees) => prevEmployees.filter(emp => emp.employeeId !== employeeId));

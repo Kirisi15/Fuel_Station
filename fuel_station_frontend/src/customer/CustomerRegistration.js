@@ -98,7 +98,7 @@ function CustomerRegistration(){
             setUniqueError("");
 
         axios
-        .post('http://localhost:8080/api/customer',values, {
+        .post('http://localhost:8080/api/customer/register',values, {
         headers: {"Content-Type": "application/json"},
     })
     .then(() => {
