@@ -43,6 +43,7 @@ try {
         <div className="custom-form">
           <form onSubmit={handleLogin}>
             <h2>Owner Login</h2>
+            <label htmlFor="username">Username:</label>
             <input
               type="text"
               placeholder="username"
@@ -52,7 +53,7 @@ try {
               }
               required
             />
-            <br />
+            <label htmlFor="password">Password:</label>
             <input
               type="password"
               placeholder="password"
@@ -62,19 +63,9 @@ try {
               }
               required
             />
-            <br />
-            <div className="button-container">
               <button className="btn" type="submit">
-                Login
+                Sign In
               </button>
-              <button
-                className="btn"
-                type="button"
-                onClick={() => alert("Redirecting to registration...")}
-              >
-                SignUp
-              </button>
-            </div>
           </form>
         </div>
       )}

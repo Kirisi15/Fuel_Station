@@ -1,92 +1,87 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
 import CustomerDashboard from "./CustomerDashboard";
+import { useNavigate } from "react-router-dom";
 
-const CustomerLogin = () => {
+const CustomerLogin = ({ isHomepage }) => {
   const [formData, setFormData] = useState({
-    customerUsername: "",
-    customerPassword: "",
+    username: "",
+    password: "",
   });
-
-  const [isLogin,setIsLogin] = useState(false);
- const navigate = useNavigate();
-
-  
-
-  
+  const [isLogin, setIsLogin] = useState(false);
+  const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
+    console.log("Payload being sent:", formData);
 
     try {
       const response = await axios.post(
-        "http://localhost:8080/api/customer/login",formData);
-        
-       console.log("Backend Response: ",response.data);
-       localStorage.setItem('customerId', response.data.customerId);
+        "http://localhost:8080/api/customer/login",
+        JSON.stringify(formData),
+        { headers: { "Content-Type": "application/json" } }
+      );
 
-       
-       if(response.data.customerUsername === formData.customerUsername){
-    setIsLogin(true);
+      console.log("Backend Response:", response.data);
+      if (response.data.status === 200) {
+        setIsLogin(true); 
+        alert("Login successful: " + response.data.data.customerUsername);
 
-    alert("Login successful "+response.data.customerUsername);
-}else{
-  alert("Invalid username  or password");
-}
-    }catch(error){
-      console.error("Error:",error);
-      if(error.response && error.response.status === 401){
+        if (isHomepage) {
+          navigate("/dashboard/:customerId");
+        }
+      } else {
         alert("Invalid username or password.");
-      } else{
-        alert("Login failed." +error.message);
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      if (error.response) {
+        console.log("Server Response:", error.response.data); 
+        alert(`Login failed: ${error.response.data.message || "Bad Request"}`);
+      } else {
+        alert("Login failed. Please try again later.");
       }
     }
-  
-};
+  };
 
-return(
-  <div>
-  {isLogin ? (
-        <div>
-          <CustomerDashboard />
-        </div>
+  return (
+    <div>
+      {isLogin ? (
+        isHomepage ? (
+          <CustomerDashboard /> 
+        ) : (
+          <div>Redirecting to Customer Dashboard...</div> 
+        )
       ) : (
         <div className="custom-form">
-          <form onSubmit={handleLogin}>
-            <h2>Customer Login</h2>
+          <form onSubmit={handleLogin} style={{ width: "300px", height: "" }}>
+            <h2>User Login</h2>
 
+            <label htmlFor="username">Username:</label>
             <input
               type="text"
               placeholder="Username"
-              value={formData.customerUsername}
+              value={formData.username}
               onChange={(e) =>
-                setFormData({ ...formData, customerUsername: e.target.value })
+                setFormData({ ...formData, username: e.target.value })
               }
               required
             />
-            <br />
+
+            <label htmlFor="password">Password:</label>
             <input
               type="password"
               placeholder="Password"
-              value={formData.customerPassword}
+              value={formData.password}
               onChange={(e) =>
-                setFormData({ ...formData, customerPassword: e.target.value })
+                setFormData({ ...formData, password: e.target.value })
               }
               required
             />
             <br />
-
             <div className="button-container">
               <button className="btn" type="submit">
-                Login
-              </button>
-              <button
-                className="btn"
-                type="button"
-                onClick={() => navigate("/OwnerRegistration")}
-              >
-                Register
+                Sign In
               </button>
             </div>
           </form>
@@ -95,6 +90,5 @@ return(
     </div>
   );
 };
-
 
 export default CustomerLogin;

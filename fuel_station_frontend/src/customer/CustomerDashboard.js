@@ -22,13 +22,15 @@ function CustomerDashboard() {
           `http://localhost:8080/api/vehicle/customer/${customerId}`
         );
         console.log("data :",response.data);
-        if (response.data) {
+        if (Array.isArray(response.data)) {
           setVehicles(response.data); 
           setError("");
         } else {
+          setVehicles([]);
           setError("No vehicles found for this customer.");
         }
       } catch (err) {
+        setVehicles([]);
         setError("Failed to fetch vehicle details. Please try again.");
       }
     };

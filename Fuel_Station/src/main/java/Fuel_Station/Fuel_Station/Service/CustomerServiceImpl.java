@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -215,7 +216,7 @@ public class CustomerServiceImpl implements CustomerService{
             );
         }
         Customer customer = optionalCustomer.get();
-        if(customer.getCustomerPassword() != loginRequest.getPassword()){
+        if(!customer.getCustomerPassword().equals( loginRequest.getPassword())){
             return ResponseEntity.badRequest().body(
                     new MessageResponse<>(
                             400,
