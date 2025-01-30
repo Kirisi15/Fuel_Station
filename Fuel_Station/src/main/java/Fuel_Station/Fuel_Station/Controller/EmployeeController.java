@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins = "http://Localhost:3000/")
+@CrossOrigin(origins = {"http://localhost:8081", "http://localhost:3000"}, allowCredentials = "true")
 @RequestMapping("api/employee")
 public class EmployeeController {
     @Autowired
@@ -44,6 +44,7 @@ public class EmployeeController {
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest){
+
         return employeeService.login(loginRequest);
     }
 

@@ -40,6 +40,7 @@ public class Vehicle {
             name = "Vehicle_FuelStation",
             joinColumns = @JoinColumn(name = "VehicleId"),
             inverseJoinColumns = @JoinColumn(name = "StationId")
+
     )
     private List<FuelStation> fuelStations = new ArrayList<>();
 
