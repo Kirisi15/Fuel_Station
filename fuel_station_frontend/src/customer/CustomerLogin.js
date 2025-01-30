@@ -48,13 +48,13 @@ const CustomerLogin = ({ isHomepage }) => {
     <div>
       {isLogin ? (
         isHomepage ? (
-          <CustomerDashboard /> 
+          <CustomerDashboard />
         ) : (
-          <div>Redirecting to Customer Dashboard...</div> 
+          <div><CustomerDashboard /></div>
         )
       ) : (
         <div className="custom-form">
-          <form onSubmit={handleLogin} style={{ width: "300px", height: "" }}>
+          <form onSubmit={handleLogin} style={{ width: "300px" }}>
             <h2>User Login</h2>
 
             <label htmlFor="username">Username:</label>

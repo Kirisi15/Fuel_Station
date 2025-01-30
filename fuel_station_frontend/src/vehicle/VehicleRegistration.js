@@ -133,81 +133,78 @@ function VehicleRegistration() {
   };
 
   return (
-    <div className="container">
-      <h1>Vehicle Registration</h1>
+    <div className="custom-form">
       <form onSubmit={handleSubmit}>
-        {error && <p style={{ color: "red" }}>{error}</p>}
-        <label htmlFor="vehicleType">Vehicle Type:</label>
-        <select
-          name="vehicleType"
-          onChange={handleChanges}
-          value={values.vehicleType}
-          required
-        >
-          <option value="">Select Vehicle Type</option>
-          {fuelLimits.map((limit) => (
-            <option key={limit.id} value={limit.vehicleType}>
-              {limit.vehicleType}
-            </option>
-          ))}
-        </select>
-        <br />
-        <br />
+        <h2>Vehicle Registration</h2>
+        <div className="inputGroup">
+        {error && <p>{error}</p>}
 
-        <label htmlFor="vehicleNumber">Vehicle Number:</label>
-        <input
-          type="text"
-          placeholder="Enter the vehicle number"
-          name="vehicleNumber"
-          onChange={handleChanges}
-          value={values.vehicleNumber}
-          required
-        />
-        <br />
-        <br />
+          <label htmlFor="vehicleType">Vehicle Type:</label>
+          <select
+            name="vehicleType"
+            onChange={handleChanges}
+            value={values.vehicleType}
+            required
+          >
+            <option value="">Select Vehicle Type</option>
+            {fuelLimits.map((limit) => (
+              <option key={limit.id} value={limit.vehicleType}>
+                {limit.vehicleType}
+              </option>
+            ))}
+          </select>
 
-        <label htmlFor="fuelType">Fuel Type:</label>
-        <select
-          name="fuelType"
-          onChange={handleChanges}
-          value={values.fuelType}
-          required
-        >
-          <option value="">Select Fuel Type</option>
-          <option value="Petrol">Petrol</option>
-          <option value="Diesel">Diesel</option>
-          <option value="CNG">CNG</option>
-          <option value="Electric">Electric</option>
-        </select>
-        <br />
-        <br />
+          <label htmlFor="vehicleNumber">Vehicle Number:</label>
+          <input
+            type="text"
+            placeholder="Enter the vehicle number"
+            name="vehicleNumber"
+            onChange={handleChanges}
+            value={values.vehicleNumber}
+            required
+          />
 
-        <label htmlFor="fuelLimit">Fuel Limit:</label>
-        <input
-          type="number"
-          step="1"
-          placeholder="Fuel limit will be auto-filled"
-          name="fuelLimit"
-          value={values.fuelLimit}
-          readOnly
-        />
-        <br />
-        <br />
+          <label htmlFor="fuelType">Fuel Type:</label>
+          <select
+            name="fuelType"
+            onChange={handleChanges}
+            value={values.fuelType}
+            required
+          >
+            <option value="">Select Fuel Type</option>
+            <option value="Petrol">Petrol</option>
+            <option value="Diesel">Diesel</option>
+            <option value="CNG">CNG</option>
+            <option value="Electric">Electric</option>
+          </select>
 
-        <button type="submit">Submit</button>
+          <label htmlFor="fuelLimit">Fuel Limit:</label>
+          <input
+            type="number"
+            step="1"
+            placeholder="Fuel limit will be auto-filled"
+            name="fuelLimit"
+            value={values.fuelLimit}
+            readOnly
+          />
+
+        <div className="button-container">
+          <button type="submit" className="btn">Submit</button>
+        </div>
+        </div>
       </form>
 
-      {/* {vehicleId && (
+      {vehicleId && (
         <div>
           <h2>Vehicle Registered Successfully!</h2>
           <p>Vehicle ID: {vehicleId}</p>
           <h3>QR Code:</h3>
           <div ref={qrCodeRef}>
-            <QRCodeCanvas value={qrCodeData} />
+            <QRCodeCanvas value={vehicleId} />
           </div>
           <button onClick={downloadQRCode}>Download QR Code</button>
         </div>
-      )} */}
+      )}
     </div>
   );
 }
