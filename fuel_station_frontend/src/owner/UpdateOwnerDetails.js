@@ -11,7 +11,8 @@ function UpdateOwnerDetails() {
   });
 
   useEffect(() => {
-    const ownerId = localStorage.getItem("ownerId"); // Correctly fetch ownerId from localStorage
+    const ownerId = localStorage.getItem("ownerId");
+    console.log(ownerId) ;
     if (!ownerId) {
       console.error("No ownerId found in localStorage");
       return;
@@ -20,8 +21,8 @@ function UpdateOwnerDetails() {
     const fetchOwnerDetails = async () => {
       try {
         const response = await axios.get(`http://localhost:8080/api/owners/${ownerId}`);
-        console.log(response.data)
-        setOwnerDetails(response.data);
+        console.log(response.data);
+        setOwnerDetails(response.data.data);
       } catch (error) {
         console.error("Error fetching owner details:", error);
       }
@@ -49,7 +50,7 @@ function UpdateOwnerDetails() {
     try {
       const response = await axios.put(
         `http://localhost:8080/api/owners/${ownerId}`,
-        ownerDetails
+        ownerDetails,   { headers: { "Content-Type": "application/json" } }
       );
       console.log("Owner details updated:", response.data);
       alert("Owner details updated successfully!");
@@ -118,4 +119,3 @@ function UpdateOwnerDetails() {
 }
 
 export default UpdateOwnerDetails;
-//kk
