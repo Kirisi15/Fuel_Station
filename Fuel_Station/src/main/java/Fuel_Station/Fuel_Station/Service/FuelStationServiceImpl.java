@@ -58,7 +58,7 @@ public   class FuelStationServiceImpl implements FuelStationService {
             return ResponseEntity.ok().body(
                     new MessageResponse<>(
                             400,
-                            "Station id not found",
+                            "Station is not found",
                             null
                     )
             );
