@@ -60,6 +60,7 @@ const FuelStationRegistration = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+  
 
     if (!validationForm()) return;
 
@@ -78,7 +79,7 @@ const FuelStationRegistration = () => {
 
       console.log("API Response:", response.data); // Debugging API response
 
-      if (response.data && response.data.data && response.data.data.stationId) {
+      if (response.data.status===200) {
         localStorage.setItem("stationId", response.data.data.stationId);
         setIsRegistered(true);
       } else {
@@ -96,10 +97,14 @@ const FuelStationRegistration = () => {
 
       setError("");
       alert("Fuel Station registered successfully!");
+     const stationId= localStorage.setItem("stationId",response.data.data.stationId);
+      console.log(stationId)
+      
     } catch (error) {
       console.error("Error:", error);
       setError("Network error occurred. Please try again later.");
     }
+    
   };
 
   return (

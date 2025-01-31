@@ -1,9 +1,11 @@
 import React, { useRef } from "react";
 import { useParams, useLocation } from "react-router-dom";
 import { QRCodeCanvas } from "qrcode.react";
-
+const vehicleId=localStorage.getItem("vehicleId");
+console.log(vehicleId);
 function VehicleQRCodePage() {
-  const { vehicleId } = useParams();
+  
+ 
   const location = useLocation();
   const qrCodeRef = useRef(null);
 
@@ -24,7 +26,7 @@ function VehicleQRCodePage() {
   return (
     <div className="container">
       <h1>Vehicle Registered Successfully!</h1>
-      <p>Vehicle ID: {vehicleId}</p>
+      <p>Vehicle ID:{vehicleId}</p>
       <h3>QR Code:</h3>
       <div ref={qrCodeRef}>
         <QRCodeCanvas value={qrCodeData} />
