@@ -13,7 +13,7 @@ function CustomerDashboard() {
   
   useEffect(() => {
     const customerId = localStorage.getItem("customerId");
-    console.log("data1 :",customerId);
+  
 
     
     const fetchVehicles = async (customerId) => {
@@ -23,8 +23,8 @@ function CustomerDashboard() {
           `http://localhost:8080/api/vehicle/customer/${customerId}`
         );
         console.log("data :",response.data);
-        if (Array.isArray(response.data)) {
-          setVehicles(response.data); 
+        if (Array.isArray(response.data.data)) {
+          setVehicles(response.data.data); 
           setError("");
         } else {
           setVehicles([]);
