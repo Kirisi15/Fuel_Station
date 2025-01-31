@@ -8,8 +8,10 @@ import Fuel_Station.Fuel_Station.dto.response.AdminResponse;
 import Fuel_Station.Fuel_Station.dto.response.MessageResponse;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -147,42 +149,77 @@ public class AdminServiceImpl implements AdminService{
     }
 
     @Override
-    public ResponseEntity<?> login(LoginRequest loginRequest) {
-        Optional<Admin> optionalAdmin = adminRepository.findByAdminUsername(loginRequest.getUsername());
-        if(optionalAdmin.isEmpty()){
-            return ResponseEntity.badRequest().body(
-                    new MessageResponse<>(
-                            400,
-                            "Account not registered",
-                            null
-                    )
-            );
-        }
-        Admin admin = optionalAdmin.get();
-        if(admin.getAdminPassword() != loginRequest.getPassword()){
-            return ResponseEntity.badRequest().body(
-                    new MessageResponse<>(
-                            400,
-                            "Password is wrong",
-                            null
-                    )
-            );
-        }
-        AdminResponse adminResponse = new AdminResponse(
-                admin.getAdminId(),
-                admin.getAdminUsername(),
-                admin.getAdminEmail(),
-                admin.getContactNumber()
-        );
-        return ResponseEntity.ok().body(
-                new MessageResponse<>(
-                        200,
-                        "Login successfully",
-                        adminResponse
-                )
-        );
-    }
+    @Transactional
 
+    public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) {
+
+        Optional<Admin> optionalAdmin = adminRepository.findByAdminUsername(loginRequest.getUsername());
+
+        if(optionalAdmin.isEmpty()){
+
+            return ResponseEntity.badRequest().body(
+
+                    new MessageResponse<>(
+
+                            400,
+
+                            "Account not registered",
+
+                            null
+
+                    )
+
+            );
+
+        }
+
+        Admin admin = optionalAdmin.get();
+
+        if(!(admin.getAdminPassword()) .equals (loginRequest.getPassword())){
+
+            return ResponseEntity.badRequest().body(
+
+                    new MessageResponse<>(
+
+                            400,
+
+                            "Password is wrong",
+
+                            null
+
+                    )
+
+            );
+
+        }
+
+        AdminResponse adminResponse = new AdminResponse(
+
+                admin.getAdminId(),
+
+                admin.getAdminUsername(),
+
+                admin.getAdminEmail(),
+
+                admin.getContactNumber()
+
+        );
+
+        return ResponseEntity.ok().body(
+
+                new MessageResponse<>(
+
+                        200,
+
+                        "Login successfully",
+
+                        adminResponse
+
+                )
+
+        );
+
+    }
 @Override
 @Transactional
     public ResponseEntity<?> createAdmin(AdminRequest adminRequest) {
