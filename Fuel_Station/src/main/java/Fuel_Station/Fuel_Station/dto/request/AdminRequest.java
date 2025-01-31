@@ -9,5 +9,7 @@ public class AdminRequest {
     private String adminPassword;
     private String adminEmail;
     private String contactNumber;
+
+
 }
 

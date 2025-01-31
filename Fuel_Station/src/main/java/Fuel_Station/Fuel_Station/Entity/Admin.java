@@ -15,11 +15,11 @@ public class Admin {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long adminId;
-    @Column(nullable = false)
+    @Column
     private String adminUsername;
-    @Column(nullable = false)
+    @Column
     private String adminPassword;
-    @Column(unique = true, nullable = false)
+    @Column(unique = true)
     private String adminEmail;
     @Column
     private String contactNumber;

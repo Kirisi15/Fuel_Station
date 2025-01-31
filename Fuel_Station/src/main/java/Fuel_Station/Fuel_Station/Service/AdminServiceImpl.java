@@ -183,7 +183,8 @@ public class AdminServiceImpl implements AdminService{
         );
     }
 
-
+@Override
+@Transactional
     public ResponseEntity<?> createAdmin(AdminRequest adminRequest) {
         if (adminRepository.existsByAdminEmail(adminRequest.getAdminEmail())) {
             return ResponseEntity.badRequest().body(
