@@ -83,6 +83,7 @@ function EmployeeRegistration() {
             const response = await axios.post(`http://localhost:8080/api/employee/register`, values, {
                 headers: { "Content-Type": "application/json" },
             });
+            if(response.data.status===200){
       const employeeId=  localStorage.setItem("EmployeeId",response.data.employeeId);
              console.log(employeeId);
             console.log("Response:", response.data);
@@ -98,7 +99,7 @@ function EmployeeRegistration() {
 
             alert("Employee successfully added");
            
-         navigate('/EmpMang');
+         navigate('/EmpMang');}
 
         } catch (error) {
             console.error("Registration error:", error);

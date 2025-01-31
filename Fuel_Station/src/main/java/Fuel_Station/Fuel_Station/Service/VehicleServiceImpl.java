@@ -82,7 +82,7 @@ public class VehicleServiceImpl implements VehicleService {
                 new MessageResponse<>(
                         200,
                         "Vehicle saved successfully",
-                        null
+                        vehicle.getVehicleId()
                 )
         );
     }
