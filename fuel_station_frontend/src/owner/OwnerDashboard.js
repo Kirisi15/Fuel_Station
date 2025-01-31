@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
-
+import '../components/Dashboard.css';
 
 const OwnerDashboard = () => {
   const navigate = useNavigate(); 
@@ -9,17 +9,13 @@ const OwnerDashboard = () => {
   const [stations, setStations] = useState([]);
   const [error, setError] = useState("");
   
-  
-
   const ownerId = localStorage.getItem("ownerId"); 
-
   
   useEffect(() => {
     fetchOwnerDetails();
   
   }, []);
 
-  
   const fetchOwnerDetails = async () => {
     try {
      
@@ -31,8 +27,6 @@ const OwnerDashboard = () => {
   };
 
 
-
-  // Fetch stations
   useEffect(() => {
   const fetchStations = async () => {
     try {
@@ -54,15 +48,13 @@ const handleAddFuelStation = () => {
   navigate("/stationReg");
 }
 
-
-
-  return (
-    <div>
+ return (
+    <div className = "dashboard-btn">
       <h1>Owner Dashboard</h1>
       <button onClick={handleAddFuelStation}>Add FuelStation</button><br/><br/>
       
-      <button onClick={()=> navigate("/UpdateOwnerDetails") }>Update Details</button><br/><br/>
-      <button onClick={()=>navigate("/StationManagement")}>Stations Management</button><br/><br/>
+      <button className="btn" onClick={()=> navigate("/UpdateOwnerDetails") }>Update Details</button><br/><br/>
+      <button className= "btn" onClick={()=>navigate("/StationManagement")}>Stations Management</button><br/><br/>
 <div className="owner-container">
   {owner && owner.length > 0 ? (
     owner.map((owner) => (
