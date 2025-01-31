@@ -13,7 +13,7 @@ function CustomerDashboard() {
   
   useEffect(() => {
     const customerId = localStorage.getItem("customerId");
-    console.log("data1 :",customerId);
+  
 
     
     const fetchVehicles = async (customerId) => {
