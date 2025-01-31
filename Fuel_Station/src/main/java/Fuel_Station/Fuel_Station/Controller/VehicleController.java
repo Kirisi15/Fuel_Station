@@ -49,5 +49,14 @@ public class VehicleController {
     public VehicleScanResponse vehicleScanner(@PathVariable Long vehicleId) throws Exception {
        return vehicleService.scan(vehicleId);
     }
+    @PostMapping("/register")
+    public ResponseEntity<String> registerVehicle(@RequestParam String licenseNumber, @RequestParam Long customerId) {
+        boolean isRegistered = vehicleService.validateAndRegisterVehicle(licenseNumber, customerId);
+        if (isRegistered) {
+            return ResponseEntity.ok("Vehicle registered successfully.");
+        } else {
+            return ResponseEntity.badRequest().body("Invalid license number or NIC.");
+        }
+    }
 
 }
