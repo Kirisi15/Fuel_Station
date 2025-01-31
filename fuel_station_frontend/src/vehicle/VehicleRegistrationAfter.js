@@ -1,13 +1,18 @@
-import React, { useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useParams, useLocation } from "react-router-dom";
 import { QRCodeCanvas } from "qrcode.react";
 const vehicleId=localStorage.getItem("vehicleId");
 console.log(vehicleId);
 function VehicleQRCodePage() {
   
- 
+  const [vehicleId, setVehicleId] = useState(null);
   const location = useLocation();
   const qrCodeRef = useRef(null);
+  
+  useEffect(() => {
+    const storedVehicleId = localStorage.getItem("vehicleId");
+    setVehicleId(storedVehicleId);
+  }, []);
 
   const qrCodeData = location.state?.qrCodeData || `Vehicle ID: ${vehicleId}`;
 
