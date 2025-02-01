@@ -8,7 +8,7 @@ import lombok.Data;
 @AllArgsConstructor
 
 public class AdminResponse {
-    private long adminId;
+    private Long adminId;
     private String adminUsername;
     private String adminEmail;
     private String contactNumber;

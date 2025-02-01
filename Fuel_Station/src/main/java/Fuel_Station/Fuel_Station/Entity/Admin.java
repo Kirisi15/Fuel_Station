@@ -3,18 +3,20 @@ package Fuel_Station.Fuel_Station.Entity;
 import jakarta.persistence.*;
 import lombok.*;
 
-@Entity
+
 @Data
+@Entity
 @Getter
 @Setter
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
+
 @Table(name = "admin")
 
 public class Admin {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long adminId;
+    private Long adminId;
     @Column
     private String adminUsername;
     @Column

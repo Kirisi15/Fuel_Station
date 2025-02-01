@@ -205,6 +205,7 @@ public class CustomerServiceImpl implements CustomerService{
 
     @Override
     public ResponseEntity<?> login(LoginRequest loginRequest) {
+
         Optional<Customer> optionalCustomer = customerRepository.findByCustomerUsername(loginRequest.getUsername());
         if(optionalCustomer.isEmpty()){
             return ResponseEntity.badRequest().body(
