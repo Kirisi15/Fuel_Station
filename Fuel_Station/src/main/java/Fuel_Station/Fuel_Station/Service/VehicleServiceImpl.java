@@ -30,6 +30,8 @@ public class VehicleServiceImpl implements VehicleService {
     private VehicleFuelQuoteRepository vehicleFuelQuoteRepository;
     @Autowired
     private CustomerService customerService;
+    @Autowired VehicledmtRepository vehicledmtRepository;
+    @Autowired CustomerRepository customerRepository;
     @Override
     public Vehicle getById(Long vehicleId) {
         return vehicleRepository.getByVehicleId(vehicleId).orElse(null);
@@ -59,17 +61,36 @@ public class VehicleServiceImpl implements VehicleService {
     }
 
     @Override
+
     public ResponseEntity<?> createVehicle(VehicleRequest vehicleRequest) {
+
         Customer customer = customerService.getById(vehicleRequest.getCustomerId());
-        if(customer == null){
+        if (customer == null) {
             return ResponseEntity.badRequest().body(
                     new MessageResponse<>(
                             400,
-                            "Customer not find with this id",
+                            "Customer not found with this ID",
                             null
                     )
             );
         }
+
+
+        String nic = customer.getCustomerNIC();
+        String licenseNumber = vehicleRequest.getVehicleNumber();
+
+        var optionalVehicledmt = vehicledmtRepository.findByLicenseNumberAndNic(licenseNumber, nic);
+        if (optionalVehicledmt.isEmpty()) {
+            return ResponseEntity.badRequest().body(
+                    new MessageResponse<>(
+                            400,
+                            "Vehicle is not registered in Motor Traffic Department",
+                            null
+                    )
+            );
+        }
+
+
         Vehicle vehicle = new Vehicle(
                 vehicleRequest.getVehicleNumber(),
                 vehicleRequest.getVehicleType(),
@@ -77,15 +98,18 @@ public class VehicleServiceImpl implements VehicleService {
                 vehicleRequest.getFuelLimitId(),
                 customer
         );
-        vehicleRepository.save(vehicle);
+        vehicle = vehicleRepository.save(vehicle);
+
+
         return ResponseEntity.ok().body(
                 new MessageResponse<>(
                         200,
                         "Vehicle saved successfully",
-                        null
+                        vehicle.getVehicleId()
                 )
         );
     }
+
 
     @Override
     public ResponseEntity<?> getVehicleById(Long vehicleId) {
@@ -232,6 +256,23 @@ public class VehicleServiceImpl implements VehicleService {
         return ResponseEntity.ok().body(
                 new MessageResponse<>(200, "Vehicles fetched successfully", responses)
         );
+    }
+    public boolean validateAndRegisterVehicle(String licenseNumber, Long customerId) {
+        Optional<Customer> optionalCustomer = customerRepository.findByCustomerId(customerId);
+        if (optionalCustomer.isEmpty()) {
+            return false;
+        }
+
+        String nic = optionalCustomer.get().getCustomerNIC();
+        var optionalVehicledmt = vehicledmtRepository.findByLicenseNumberAndNic(licenseNumber, nic);
+        if (optionalVehicledmt.isPresent()) {
+            Vehicle vehicle = new Vehicle();
+            vehicle.setVehicleNumber(licenseNumber);
+
+            vehicleRepository.save(vehicle);
+            return true;
+        }
+        return false;
     }
 
 

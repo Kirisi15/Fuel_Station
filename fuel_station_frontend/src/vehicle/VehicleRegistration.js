@@ -1,6 +1,5 @@
 import { useState, useEffect, useRef } from "react";
 import React from "react";
-import { QRCodeCanvas } from "qrcode.react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
@@ -13,8 +12,6 @@ function VehicleRegistration() {
   });
 
   const navigate = useNavigate();
-  const [vehicleId, setVehicleId] = useState(null);
-  const [qrCodeData, setQrCodeData] = useState(null);
   const [error, setError] = useState("");
   const [customer, setCustomer] = useState(localStorage.getItem("customerId") || ""); 
   const qrCodeRef = useRef(null);
@@ -22,7 +19,6 @@ function VehicleRegistration() {
   const [fuelLimits, setFuelLimits] = useState([]); 
 
   useEffect(() => {
-    // Fetch existing vehicles
     const fetchExistingVehicles = async () => {
       try {
         const response = await axios.get("http://localhost:8080/api/vehicle");
@@ -32,7 +28,6 @@ function VehicleRegistration() {
       }
     };
 
-    // Fetch fuel limits to populate the dropdown
     const fetchFuelLimits = async () => {
       try {
         const response = await axios.get("http://localhost:8080/api/fuelLimit/limits");
@@ -47,7 +42,6 @@ function VehicleRegistration() {
     fetchFuelLimits();
   }, []);
 
-  // Handle input changes
   const handleChanges = (e) => {
     const { name, value } = e.target;
 
@@ -63,7 +57,6 @@ function VehicleRegistration() {
     }
   };
 
-  // Validate the form before submission
   const validateForm = () => {
     if (!values.vehicleType || !values.vehicleNumber || !values.fuelType || !values.fuelLimit) {
       setError("All fields are required.");
@@ -98,15 +91,14 @@ function VehicleRegistration() {
     return true;
   };
 
-  // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!validateForm()) return;
 
-    // Log data before making the request
     console.log("Submitting vehicle data:", values);
 
     try {
+      
       const response = await axios.post(
         "http://localhost:8080/api/vehicle",
         {
@@ -121,30 +113,21 @@ function VehicleRegistration() {
         }
       );
 
-      console.log("Vehicle successfully registered:", response.data);
-      const generatedVehicleId = response.data.vehicleId;
-
-      setVehicleId(generatedVehicleId);
-      navigate(`/vehicle-qr/${generatedVehicleId}`, { state: { qrCodeData: generatedVehicleId } });
-
-      alert("Vehicle successfully added");
+     console.log("Full API Response:", response.data);
+      if (response.data.status === 200) {
+        const vehicleId = response.data.data; 
+       localStorage.setItem("vehicleId", vehicleId); 
+        console.log("Vehicle successfully registered:", vehicleId);
+        
+       navigate(`/vehicle-qr/${vehicleId}`, { state: { qrCodeData: vehicleId } });
+        alert("Vehicle successfully added");
+      } else {
+        setError("Unexpected API response. Please try again.");
+       }
     } catch (error) {
       console.error("Error registering vehicle:", error.response?.data || error.message);
       setError("Failed to register the vehicle. Please check your input and try again.");
     }
-  };
-
-  // QR Code Download Function
-  const downloadQRCode = () => {
-    const canvas = qrCodeRef.current.querySelector("canvas");
-    const pngUrl = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");
-
-    const downloadLink = document.createElement("a");
-    downloadLink.href = pngUrl;
-    downloadLink.download = `vehicle_qr_${vehicleId}.png`;
-    document.body.appendChild(downloadLink);
-    downloadLink.click();
-    document.body.removeChild(downloadLink);
   };
 
   return (
@@ -198,7 +181,6 @@ function VehicleRegistration() {
 
         <button type="submit">Submit</button>
       </form>
-
     </div>
   );
 }

@@ -25,4 +25,5 @@ public interface VehicleService {
     VehicleScanResponse scan(Long vehicleId) throws Exception;
 
     ResponseEntity<?> getVehicleBycustomerId(Long customerId);
+    public boolean validateAndRegisterVehicle(String licenseNumber, Long customerId);
 }
