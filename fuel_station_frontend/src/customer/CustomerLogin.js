@@ -25,14 +25,16 @@ const CustomerLogin = ({ isHomepage }) => {
       console.log("Backend Response:", response.data);
       if (response.data.status === 200) {
         setIsLogin(true); 
+        
+        localStorage.setItem("customerId",response.data.data.customerId);
         alert("Login successful: " + response.data.data.customerUsername);
 
-        if (isHomepage) {
-          navigate("/dashboard/:customerId");
-        }
-      } else {
-        alert("Invalid username or password.");
-      }
+      //   if (isHomepage) {
+      //     navigate("/dashboard/:customerId");
+      //   }
+      // } else {
+      //   alert("Invalid username or password.");
+       }
     } catch (error) {
       console.error("Error:", error);
       if (error.response) {
