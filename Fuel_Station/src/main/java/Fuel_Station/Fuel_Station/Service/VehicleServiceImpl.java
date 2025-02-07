@@ -63,7 +63,7 @@ public class VehicleServiceImpl implements VehicleService {
     @Override
 
     public ResponseEntity<?> createVehicle(VehicleRequest vehicleRequest) {
-        // Retrieve customer by ID
+
         Customer customer = customerService.getById(vehicleRequest.getCustomerId());
         if (customer == null) {
             return ResponseEntity.badRequest().body(
@@ -75,23 +75,22 @@ public class VehicleServiceImpl implements VehicleService {
             );
         }
 
-        // Retrieve customer NIC
+
         String nic = customer.getCustomerNIC();
         String licenseNumber = vehicleRequest.getVehicleNumber();
 
-        // Check if the vehicle exists in vehicledmt table
         var optionalVehicledmt = vehicledmtRepository.findByLicenseNumberAndNic(licenseNumber, nic);
         if (optionalVehicledmt.isEmpty()) {
             return ResponseEntity.badRequest().body(
                     new MessageResponse<>(
                             400,
-                            "Vehicle validation failed. License number and NIC do not match",
+                            "Vehicle is not registered in Motor Traffic Department",
                             null
                     )
             );
         }
 
-        // Create and save the vehicle
+
         Vehicle vehicle = new Vehicle(
                 vehicleRequest.getVehicleNumber(),
                 vehicleRequest.getVehicleType(),
@@ -99,14 +98,14 @@ public class VehicleServiceImpl implements VehicleService {
                 vehicleRequest.getFuelLimitId(),
                 customer
         );
-        vehicle = vehicleRepository.save(vehicle); // Ensure saved entity is assigned back
+        vehicle = vehicleRepository.save(vehicle);
 
-        // Return response with the registered vehicle ID
+
         return ResponseEntity.ok().body(
                 new MessageResponse<>(
                         200,
                         "Vehicle saved successfully",
-                        vehicle.getVehicleId() // Ensure vehicle ID is included
+                        vehicle.getVehicleId()
                 )
         );
     }
@@ -261,7 +260,7 @@ public class VehicleServiceImpl implements VehicleService {
     public boolean validateAndRegisterVehicle(String licenseNumber, Long customerId) {
         Optional<Customer> optionalCustomer = customerRepository.findByCustomerId(customerId);
         if (optionalCustomer.isEmpty()) {
-            return false; // Customer does not exist
+            return false;
         }
 
         String nic = optionalCustomer.get().getCustomerNIC();
