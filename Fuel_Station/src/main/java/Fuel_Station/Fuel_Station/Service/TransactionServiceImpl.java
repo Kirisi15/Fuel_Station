@@ -161,14 +161,14 @@ public class TransactionServiceImpl implements TransactionService{
         transaction.setQuantity(transaction.getQuantity());
         transaction.setDateTime(transaction.getDateTime());
          transactionRepository.save(transaction);
-         return ResponseEntity.ok().body( 
+         return ResponseEntity.ok().body(
              new MessageResponse<>(
             200,
             "Transaction updated successfully",
             null
     ));
 }
-    
+
 
     @Override
     @Transactional
@@ -221,6 +221,6 @@ public class TransactionServiceImpl implements TransactionService{
             )
     );
         }
-        
+
     }
 

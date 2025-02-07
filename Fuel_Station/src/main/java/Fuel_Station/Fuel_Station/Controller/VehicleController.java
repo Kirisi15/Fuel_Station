@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:3000/")
+@CrossOrigin(origins = {"http://localhost:8081", "http://localhost:3000"}, allowCredentials = "true")
 @RequestMapping("api/vehicle")
 public class VehicleController {
     @Autowired
@@ -45,8 +45,9 @@ public class VehicleController {
         return vehicleService.getVehicleBycustomerId(customerId);
     }
 
-    @PutMapping("scan/{vehicleId}")
+    @PutMapping("/{vehicleId}")
     public VehicleScanResponse vehicleScanner(@PathVariable Long vehicleId) throws Exception {
+        System.out.println(vehicleId);
        return vehicleService.scan(vehicleId);
     }
     @PostMapping("/register")
