@@ -126,7 +126,7 @@ function VehicleRegistration() {
        }
     } catch (error) {
       console.error("Error registering vehicle:", error.response?.data || error.message);
-      setError("Failed to register the vehicle. Please check your input and try again.");
+      setError("Not Registerd in DMT.");
     }
   };
 
