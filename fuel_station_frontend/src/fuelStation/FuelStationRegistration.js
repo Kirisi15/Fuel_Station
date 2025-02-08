@@ -60,7 +60,6 @@ const FuelStationRegistration = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
 
     if (!validationForm()) return;
 
@@ -71,19 +70,19 @@ const FuelStationRegistration = () => {
 
       const response = await axios.post(
         "http://localhost:8080/api/fuelstation",
-        requestData, // Fixed request body
+        requestData,
         {
           headers: { "Content-Type": "application/json" },
         }
       );
 
-      console.log("API Response:", response.data); // Debugging API response
+      console.log("API Response:", response.data);
 
-      if (response.data.status===200) {
+      if (response.status === 200 && response.data.data?.stationId) {
+        alert("Fuel Station registered successfully!");
         localStorage.setItem("stationId", response.data.data.stationId);
-        setIsRegistered(true);
       } else {
-        setError("Station registered, but no stationId returned.");
+        setError("Station registered, but no station ID returned.");
       }
 
       setExistingStations([...existingStations, formData]);
@@ -96,15 +95,11 @@ const FuelStationRegistration = () => {
       });
 
       setError("");
-      alert("Fuel Station registered successfully!");
-     const stationId= localStorage.setItem("stationId",response.data.data.stationId);
-      console.log(stationId)
-      
+
     } catch (error) {
       console.error("Error:", error);
       setError("Network error occurred. Please try again later.");
     }
-    
   };
 
   return (

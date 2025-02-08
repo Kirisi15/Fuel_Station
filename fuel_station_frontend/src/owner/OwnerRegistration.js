@@ -116,7 +116,7 @@ const OwnerRegistration = () => {
           confirmPassword: "",
         });
         alert("Owner registered successfully!");
-        //navigate("/homePageDesign");
+        navigate("/HomePageDesign");
       })
       .catch((error) => {
         console.error("Registration error:", error);

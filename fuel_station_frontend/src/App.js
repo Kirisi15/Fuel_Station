@@ -26,6 +26,7 @@ import VehicleRegistrationAfter from "./vehicle/VehicleRegistrationAfter";
 
 import StationManagement from './owner/StationManagement';
 import UpdateOwnerDetails from './owner/UpdateOwnerDetails';
+import HomePageDesign from './HomePageDesign';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 function App() {
@@ -57,6 +58,8 @@ function App() {
           <Route path="/vehicle-qr/:vehicleId" element={<VehicleRegistrationAfter/>}/>
           <Route path="UpdateOwnerDetails" element={<UpdateOwnerDetails/>}/>
           <Route path='StationManagement' element={<StationManagement/>}/>
+          <Route path='/HomePageDesign' element={<HomePageDesign/>}/>
+          
           </Routes>
       
       </Router>
