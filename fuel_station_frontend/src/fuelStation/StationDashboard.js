@@ -20,7 +20,6 @@ const StationDashboard = () => {
                 <button type="submit" className="btn" onClick={() => handleNavigation("/EditStation")}>EditStation</button><br/><br/>
                 <button type="submit" className="btn" onClick={() => handleNavigation("/EmpMang")}>Mang Employee</button><br/><br/>
                 <button type="submit" className="btn" onClick={() => handleNavigation("/TransactionTable")}>Transaction Details</button><br/><br/>
-                <button type="submit" className="btn" onClick={() => handleNavigation("/AddFuel")}>AddFuel</button><br/><br/>
             </div>
         </div>
     );
