@@ -3,34 +3,46 @@ We are created a website for Fuel Station management system. In our system Fuel 
 
 Functionalities 
 
-	Owner registration
+  	Owner registration
 
-	Customer registration
+  	Customer registration
 
-	Fuel Station registration
+  	Fuel Station registration
 
-	Vehicle registration
+  	Vehicle registration
 
-	Admin Login
+  	Admin Login
 
-	Owner Login
+  	Owner Login
 
-	Customer Login
+  	Customer Login
 
-	Mobile app 
+  	Mobile app 
 
 
 Technologies We use 
-Spring boot for Backend 
-SQL for Database
-React for Frontend
-Bootstrap for Styling  
+
+  Spring boot for Backend
+
+  SQL for Database
+
+  React for Frontend
+
+  Bootstrap for Styling 
+
 
 Team members
-SE/2021/022-Thivya
-SE/2021/019-Thushajini
-SE/2021/023-Aswini
-SE/2021/046-Sweeskaran
-SE/2021/055-Jashvanth
-SE/2021/007-Kirisigan
+
+  SE/2021/022-Thivya
+
+  SE/2021/019-Thushajini
+
+  SE/2021/023-Aswini
+
+  SE/2021/046-Sweeskaran
+
+  SE/2021/055-Jashvanth
+
+  SE/2021/007-Kirisigan
+
 
