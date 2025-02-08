@@ -15,7 +15,7 @@ function CustomerDashboard() {
     const fetchVehicles = async () => {
       try {
         console.log("Fetching vehicles for customer ID:", customerId);
-        const response = await axios.get(http://localhost:8080/api/vehicle/customer/${customerId});
+        const response = await axios.get(`http://localhost:8080/api/vehicle/customer/${customerId}`);
         console.log("data :", response.data);
         
         if (Array.isArray(response.data.data)) {
@@ -43,7 +43,7 @@ function CustomerDashboard() {
       await Promise.all(
         vehicles.map(async (vehicle) => {
           try {
-            const response = await axios.get(http://localhost:8080/api/fuelLimit/limit/${vehicle.vehicleType});
+            const response = await axios.get(`http://localhost:8080/api/fuelLimit/limit/${vehicle.vehicleType}`);
             limits[vehicle.vehicleType] = response.data.fuelLimit; 
           } catch (err) {
             limits[vehicle.vehicleType] = "N/A"; 
