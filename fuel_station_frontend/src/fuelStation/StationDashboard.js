@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import '../components/Dashboard.css';
 import { useNavigate } from "react-router-dom";
-const stationId = localStorage.getItem("stationId");
-console.log(stationId)
+
 const StationDashboard = () => {
+    const stationId = localStorage.getItem("stationId");
+console.log(stationId)
     const [activeTab, setActiveTab] = useState("");
     const navigate = useNavigate();
 

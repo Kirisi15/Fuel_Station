@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import StationDashboard from "./StationDashboard";
+import { useNavigate } from "react-router-dom";
 import "../components/formStyles.css";
 
 const FuelStationRegistration = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     stationName: "",
     address: "",
@@ -60,7 +62,6 @@ const FuelStationRegistration = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
 
     if (!validationForm()) return;
 
@@ -71,7 +72,7 @@ const FuelStationRegistration = () => {
 
       const response = await axios.post(
         "http://localhost:8080/api/fuelstation",
-        requestData, // Fixed request body
+        requestData,
         {
           headers: { "Content-Type": "application/json" },
         }
@@ -79,9 +80,11 @@ const FuelStationRegistration = () => {
 
       console.log("API Response:", response.data); // Debugging API response
 
-      if (response.data.status===200) {
-        localStorage.setItem("stationId", response.data.data.stationId);
+       if (response.data.status === 200) {
+        console.log(response.data.data)
+       localStorage.setItem("stationId", response.data.data);
         setIsRegistered(true);
+        
       } else {
         setError("Station registered, but no stationId returned.");
       }
@@ -97,14 +100,10 @@ const FuelStationRegistration = () => {
 
       setError("");
       alert("Fuel Station registered successfully!");
-     const stationId= localStorage.setItem("stationId",response.data.data.stationId);
-      console.log(stationId)
-      
     } catch (error) {
       console.error("Error:", error);
       setError("Network error occurred. Please try again later.");
     }
-    
   };
 
   return (
@@ -119,7 +118,7 @@ const FuelStationRegistration = () => {
             {error && <p style={{ color: "red" }}>{error}</p>}
 
             <div className="inputGroup">
-              <label htmlFor="stationName">Station Name: </label>
+              <label htmlFor="stationName">Station Name:</label>
               <input
                 type="text"
                 placeholder="Enter Station Name"
@@ -129,7 +128,8 @@ const FuelStationRegistration = () => {
                 }
                 required
               />
-              <label htmlFor="address">Station Address: </label>
+
+              <label htmlFor="address">Station Address:</label>
               <input
                 type="text"
                 placeholder="Enter Station Address"
@@ -139,7 +139,8 @@ const FuelStationRegistration = () => {
                 }
                 required
               />
-              <label htmlFor="licenseNumber">Station License Number: </label>
+
+              <label htmlFor="licenseNumber">Station License Number:</label>
               <input
                 type="text"
                 placeholder="Enter License Number"
@@ -150,7 +151,7 @@ const FuelStationRegistration = () => {
                 required
               />
 
-              <label htmlFor="contactNumber">Station Contact Number: </label>
+              <label htmlFor="contactNumber">Station Contact Number:</label>
               <input
                 type="text"
                 placeholder="Enter Contact Number"
@@ -161,7 +162,7 @@ const FuelStationRegistration = () => {
                 required
               />
 
-              <button type="submit" className="btn">
+              <button type="submit" className="btn" onClick={() => navigate("/StationDashboard")}>
                 Sign Up
               </button>
             </div>

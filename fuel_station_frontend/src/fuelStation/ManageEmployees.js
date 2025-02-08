@@ -9,7 +9,7 @@ const ManageEmployees = ({ stationId }) => {
   useEffect(() => {
     const fetchEmployees = async () => {
       try {
-        const stationId = localStorage.getItem("stationId");
+        localStorage.getItem("stationId");
         console.log(stationId);
         const employeeId=localStorage.getItem("employeeId");
         console.log(employeeId);
