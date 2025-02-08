@@ -16,6 +16,9 @@ User Authentication: Secure login for admins, owners, and customers.
 
 Mobile App Integration: The system includes a mobile app for enhanced accessibility.
 
+
+
+
 Technologies Used
 
 Backend: Spring Boot
