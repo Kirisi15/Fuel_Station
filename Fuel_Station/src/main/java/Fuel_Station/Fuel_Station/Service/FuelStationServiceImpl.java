@@ -97,7 +97,7 @@ public   class FuelStationServiceImpl implements FuelStationService {
                 new MessageResponse<>(
                         200,
                         "Fuel station added successfully",
-                        null
+                        fuelStation.getStationId()
                 )
         );
     }

@@ -29,11 +29,11 @@ const CustomerLogin = ({ isHomepage }) => {
         localStorage.setItem("customerId",response.data.data.customerId);
         alert("Login successful: " + response.data.data.customerUsername);
 
-      //   if (isHomepage) {
-      //     navigate("/dashboard/:customerId");
-      //   }
-      // } else {
-      //   alert("Invalid username or password.");
+        if (isHomepage) {
+           navigate("/dashboard/:customerId");
+         }
+       } else {
+         alert("Invalid username or password.");
        }
     } catch (error) {
       console.error("Error:", error);
