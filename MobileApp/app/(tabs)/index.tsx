@@ -15,7 +15,7 @@ export default function DashboardScreen() {
         <View style={styles.overlay}>
           <Text style={styles.title}>Welcome to Fuel Station</Text>
 
-          <Pressable style={styles.button} onPress={() => router.push("/signin")}>
+          <Pressable style={styles.button} onPress={() => router.push("./signin")}>
             <Text style={styles.buttonText}>Sign In</Text>
           </Pressable>
         </View>

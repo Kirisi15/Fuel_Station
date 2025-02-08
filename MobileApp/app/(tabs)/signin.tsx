@@ -37,7 +37,7 @@ export default function DashboardScreen() {
         }
 
         // Navigate to the scan screen after successful login
-        router.push("/scanqr"); // Ensure scan.tsx exists in the /app directory
+        router.push("./scanqr"); // Ensure scan.tsx exists in the /app directory
       } else {
         setErrorMessage(data.message || "Incorrect username or password");
       }

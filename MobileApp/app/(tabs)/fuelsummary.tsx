@@ -44,7 +44,7 @@ export default function FuelSummary() {
     }, [vehicleRegistrationNumber]);
 
     const handleFinish = () => {
-        router.push("/dashboard");
+        router.push("./dashboard");
     };
 
     if (loading) return <ActivityIndicator size="large" color="#ff9800" />;
