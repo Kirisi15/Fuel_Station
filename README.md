@@ -1,60 +1,41 @@
-# Fuel_Station
-We are created a website for Fuel Station management system. In our system Fuel station owners can register to our system and they can Register Fuel Stations through their dashboard. We created a button "Manage station" to edit station details, add fuel types to fuel station, add employees to fuel station. Next Customers can register to our page after registration they can login to our system using their username and password. When they login using their username and password they will direct to Customer dashboard. In their dashboard there is a button for add vehicle using that vehicle they can register Vehicle to our system 
+Fuel Station Management System
 
+We have developed a website for managing fuel stations. Our system allows fuel station owners to register and manage their fuel stations through a dedicated dashboard.
 
+Features
 
+Owner Registration: Fuel station owners can register on our system.
 
+Fuel Station Management: Owners can register their fuel stations, edit details, add fuel types, and assign employees.
 
-Functionalities 
+Customer Registration: Customers can sign up and access the system using their username and password.
 
-  	Owner registration
+Vehicle Registration: Customers can add their vehicles to the system via the customer dashboard.
 
-  	Customer registration
+User Authentication: Secure login for admins, owners, and customers.
 
-  	Fuel Station registration
+Mobile App Integration: The system includes a mobile app for enhanced accessibility.
 
-  	Vehicle registration
+Technologies Used
 
-  	Admin Login
+Backend: Spring Boot
 
-  	Owner Login
+Database: SQL
 
-  	Customer Login
+Frontend: React
 
-  	Mobile app 
+Styling: Bootstrap
 
+Team Members
 
-  
+SE/2021/022 - Thivya
 
+SE/2021/019 - Thushajini
 
+SE/2021/023 - Aswini
 
-Technologies We use 
+SE/2021/046 - Sweeskaran
 
-  Spring boot for Backend
+SE/2021/055 - Jashvanth
 
-  SQL for Database
-
-  React for Frontend
-
-  Bootstrap for Styling 
-
-
-
-
-
-
-Team members
-
-  SE/2021/022-Thivya
-
-  SE/2021/019-Thushajini
-
-  SE/2021/023-Aswini
-
-  SE/2021/046-Sweeskaran
-
-  SE/2021/055-Jashvanth
-
-  SE/2021/007-Kirisigan
-
-
+SE/2021/007 - Kirisigan
