@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { View, Text, TextInput, Pressable, Alert, StyleSheet, ImageBackground } from "react-native";
 import { useRouter } from "expo-router";
 import AsyncStorage from "@react-native-async-storage/async-storage"; 
+import { BASE_URL } from "../constants/util";
 
 export default function DashboardScreen() {
   const router = useRouter();
@@ -16,7 +17,7 @@ export default function DashboardScreen() {
     }
 
     try {
-      const response = await fetch( "http://172.19.89.229:8080/api/employee/login", {
+      const response = await fetch(BASE_URL + "employee/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ username, password }),
@@ -26,18 +27,18 @@ export default function DashboardScreen() {
       console.log(data);
 
       if (response.ok) {
-        // Login successful, check if credentials need to be updated
+       
         const storedUsername = await AsyncStorage.getItem("username");
         const storedPassword = await AsyncStorage.getItem("password");
 
         if (storedUsername !== username || storedPassword !== password) {
-          // Store updated credentials
+         
           await AsyncStorage.setItem("username", username);
           await AsyncStorage.setItem("password", password);
         }
 
-        // Navigate to the scan screen after successful login
-        router.push("./scanqr"); // Ensure scan.tsx exists in the /app directory
+       
+        router.push("./scanqr"); 
       } else {
         setErrorMessage(data.message || "Incorrect username or password");
       }
@@ -93,11 +94,11 @@ const styles = StyleSheet.create({
   },
   overlay: {
     width: "85%",
-    backgroundColor: "rgba(0, 0, 0, 0.6)", // Dark overlay for better contrast
+    backgroundColor: "rgba(0, 0, 0, 0.6)", 
     padding: 30,
     borderRadius: 15,
     alignItems: "center",
-    elevation: 5, // Adds a shadow effect
+    elevation: 5, 
   },
   title: {
     fontSize: 26,
@@ -114,7 +115,7 @@ const styles = StyleSheet.create({
     marginBottom: 15,
     backgroundColor: "#fff",
     fontSize: 16,
-    elevation: 3, // Adds a slight shadow
+    elevation: 3, 
   },
   button: {
     backgroundColor: "#ff9800",

@@ -3,7 +3,7 @@ import { View, Text, TextInput, Pressable, Alert, StyleSheet, ActivityIndicator 
 import { useLocalSearchParams, useRouter } from "expo-router";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
-
+import { BASE_URL } from "../constants/util";
 
 export default function FuelFilling() {
     const params = useLocalSearchParams();
@@ -18,12 +18,12 @@ export default function FuelFilling() {
     useEffect(() => {
         const fetchFuelData = async () => {
             try {
-                const response = await axios.get(`http://172.19.89.229:8080/api/fuelLimit/limit/${vehicleType}`);
+                const response = await axios.get(`${BASE_URL}/fuelLimit/limit/${vehicleType}`);
                 if (response.status === 200) {
                     setFuelLimit(response.data.fuelLimit);
                 }
 
-                const pumpedResponse = await axios.get(`http://172.19.89.229:8080/api/vehicleFuelQuota/pumpedFuel/${qrString}`);
+                const pumpedResponse = await axios.get(`${BASE_URL}/vehicleFuelQuota/pumpedFuel/${qrString}`);
                 if (pumpedResponse.status === 200) {
                     setPumpedFuel(pumpedResponse.data.pumpedFuel);
                 }
@@ -55,14 +55,14 @@ export default function FuelFilling() {
             const payload = { qrString, vehicleType, fuelAmount };
 
             const response = await axios.post(
-                `http://172.19.89.229:8080/api/fuel/update-transaction`,
+                `${BASE_URL}/fuel/update-transaction`,
                 payload,
                 { headers: { Authorization: `Bearer ${token}` } }
             );
 
             if (response.status === 200) {
                 Alert.alert("Success", "Fuel transaction recorded successfully.");
-                router.push("./fuelsummary.tsx");
+                router.push("./fuelsummary");
             } else {
                 Alert.alert("Error", "Transaction failed.");
             }

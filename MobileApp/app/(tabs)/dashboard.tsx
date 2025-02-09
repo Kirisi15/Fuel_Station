@@ -8,9 +8,9 @@ export default function DashboardScreen() {
   return (
     <View style={styles.container}>
       <ImageBackground 
-        source={require("../../assets/images/background-image.jpg")} // Ensure the image exists
+        source={require("../../assets/images/background-image.jpg")} 
         style={styles.background} 
-        resizeMode="cover"  // Ensures the image covers the entire screen
+        resizeMode="cover"  
       >
         <View style={styles.overlay}>
           <Text style={styles.title}>Welcome to Fuel Station</Text>
@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   overlay: {
-    backgroundColor: "rgba(0, 0, 0, 0.6)", // Dark overlay for better text visibility
+    backgroundColor: "rgba(0, 0, 0, 0.6)", 
     padding: 20,
     borderRadius: 10,
     alignItems: "center",

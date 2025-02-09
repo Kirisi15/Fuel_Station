@@ -3,9 +3,8 @@ import { useRouter } from "expo-router";
 import React, { useState, useEffect, useRef } from "react";
 import { SafeAreaView, StatusBar, StyleSheet, Alert, Platform, Text, View, Pressable } from "react-native";
 import axios from "axios";
+import { BASE_URL } from "../constants/util";
 
-
-                                   
 export default function ScanScreen() {
     const [hasPermission, setHasPermission] = useState<boolean | null>(null);
     const [scanning, setScanning] = useState(false);
@@ -23,36 +22,33 @@ export default function ScanScreen() {
 
     const handleBarCodeScanned = async ({ data }: { data: string }) => {
         console.log("dshkdhk")
-        console.log(data);
-        if (data && !qrLock.current) {
-            qrLock.current = true
-            setScanning(true);
- 
+        console.log(data);  
             try {
-                const response = await axios.put("http://172.19.89.229:8080/api/vehicle/"+data);
-                console.log(response.data)
+                const response = await axios.put(BASE_URL + "vehicle/" + data);
+                console.log(response.data);
+            
                 if (response.status === 200) {
-                    const { exsistingFuel, vehicleRegistrationNumber } = response.data;
+                    const vehicleDetails = response.data; 
+            
                     const payload = {
-                        qrString: data,
-                        exsistingFuel,
-                        vehicleRegistrationNumber,
+                        qrString: data, 
+                        ...vehicleDetails,
                     };
-
+            
                     console.log("Scanned Data:", payload);
-
-                    // Navigate to FuelFilling Screen with the scanned data
-                    router.push("./fillfuel");
+            
+                   
+                    router.push({
+                        pathname: "./fillfuel",
+                        params: payload,
+                    });
                 } else {
                     Alert.alert("Error", "Invalid QR code. Please try again.");
                 }
             } catch (error) {
-                console.log(error)
+                console.log(error);
                 Alert.alert("Error", "Failed to validate QR code. Please try again.");
-            } finally {
-                setScanning(false);
-                qrLock.current = false;
-            }
+            
         }
     };
 
@@ -77,7 +73,6 @@ export default function ScanScreen() {
                 />
             </View>
 
-            {/* Logout Button */}
             <Pressable style={styles.button} onPress={() => router.push("./dashboard")}>
                 <Text style={styles.buttonText}>Go to Dashboard</Text>
             </Pressable>
@@ -125,5 +120,5 @@ const styles = StyleSheet.create({
         fontSize: 18,
         color: "#fff",
         fontWeight: "bold",
-    },
+    },
 });

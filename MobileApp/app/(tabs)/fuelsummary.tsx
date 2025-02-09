@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, ActivityIndicator, Pressable, Alert } from "rea
 import { useLocalSearchParams, useRouter } from "expo-router";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
+import { BASE_URL } from "../constants/util";
 
 export default function FuelSummary() {
     const router = useRouter();
@@ -24,7 +25,7 @@ export default function FuelSummary() {
             try {
                 const token = await AsyncStorage.getItem("authToken");
                 const response = await axios.get(
-                    `http://172.19.89.229:8080/apifuel/get-summary/${vehicleRegistrationNumber}`,
+                    BASE_URL+`fuel/get-summary/${vehicleRegistrationNumber}`,
                     { headers: { Authorization: `Bearer ${token}` } }
                 );
 
